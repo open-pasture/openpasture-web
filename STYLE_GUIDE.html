@@ -1,0 +1,1780 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OpenPasture Visual Style Guide</title>
+    <meta
+      name="description"
+      content="A standalone visual reference for the OpenPasture Olive Cobalt design system."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Libre+Baskerville:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <style>
+      :root {
+        /* Olive Cobalt Design System */
+        --olive: #4a6a2e;
+        --olive-bright: #5a7a38;
+        --olive-muted: #c0d0a8;
+        --olive-light: #f2f6ee;
+        --terracotta: #a83a32;
+        --terracotta-muted: #c06a62;
+        --cobalt: #0047ab;
+        --cobalt-muted: #4a7abf;
+        --dark: #1a1e18;
+        --charcoal: #2a3028;
+        --cream: #f6f8f4;
+        --panel: #ffffff;
+        --text-muted-olive: #647060;
+
+        /* Theme tokens mapped from Olive Cobalt */
+        --background: var(--cream);
+        --foreground: var(--dark);
+        --card: #ffffff;
+        --card-foreground: var(--dark);
+        --popover: #ffffff;
+        --popover-foreground: var(--dark);
+        --primary: var(--olive);
+        --primary-foreground: #ffffff;
+        --secondary: var(--olive-light);
+        --secondary-foreground: var(--dark);
+        --muted: var(--olive-light);
+        --muted-foreground: var(--text-muted-olive);
+        --accent: var(--terracotta);
+        --accent-foreground: #ffffff;
+        --destructive: var(--terracotta);
+        --destructive-foreground: #ffffff;
+        --border: #c4d0c0;
+        --input: #c4d0c0;
+        --ring: var(--olive);
+        --radius: 0px;
+
+        /* Sidebar - dark charcoal */
+        --sidebar: var(--charcoal);
+        --sidebar-foreground: var(--cream);
+        --sidebar-border: rgba(74, 106, 46, 0.2);
+        --sidebar-primary: var(--olive);
+        --sidebar-primary-foreground: #ffffff;
+        --sidebar-accent: rgba(74, 106, 46, 0.25);
+        --sidebar-accent-foreground: var(--cream);
+        --sidebar-ring: var(--olive);
+
+        /* Chart colors */
+        --chart-1: var(--olive);
+        --chart-2: var(--terracotta);
+        --chart-3: var(--cobalt);
+        --chart-4: var(--olive-muted);
+        --chart-5: var(--cobalt-muted);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        font-size: 13px;
+        scroll-behavior: smooth;
+      }
+
+      @media (min-width: 1024px) {
+        html {
+          font-size: 14px;
+        }
+      }
+
+      @media (min-width: 1280px) {
+        html {
+          font-size: 15px;
+        }
+      }
+
+      body {
+        margin: 0;
+        background: var(--background);
+        color: var(--foreground);
+        font-family:
+          "JetBrains Mono", ui-monospace, SFMono-Regular, "SF Mono", Menlo,
+          Consolas, "Liberation Mono", monospace;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      code,
+      kbd {
+        font-family: inherit;
+      }
+
+      .font-serif {
+        font-family: "Libre Baskerville", Georgia, serif;
+      }
+
+      .shadow-hard {
+        box-shadow: 4px 4px 0 var(--olive);
+      }
+
+      .shadow-hard-sm {
+        box-shadow: 2px 2px 0 var(--dark);
+      }
+
+      .shadow-hard-lg {
+        box-shadow: 6px 6px 0 var(--olive);
+      }
+
+      .shadow-hard-dark {
+        box-shadow: 4px 4px 0 var(--dark);
+      }
+
+      .shadow-hard-cta {
+        box-shadow: 3px 3px 0 var(--dark);
+      }
+
+      .rsc-grid-bg {
+        position: absolute;
+        inset: 0;
+        background-image:
+          linear-gradient(var(--dark) 1px, transparent 1px),
+          linear-gradient(90deg, var(--dark) 1px, transparent 1px);
+        background-size: 32px 32px;
+        opacity: 0.02;
+        pointer-events: none;
+      }
+
+      .rsc-card {
+        background: var(--panel);
+        border: 2px solid var(--border);
+        padding: 32px;
+        transition:
+          transform 0.2s ease,
+          box-shadow 0.2s ease,
+          border-color 0.2s ease;
+      }
+
+      .rsc-card:hover {
+        border-color: var(--olive);
+        box-shadow: 4px 4px 0 var(--olive-muted);
+        transform: translate(-2px, -2px);
+      }
+
+      .rsc-badge {
+        display: inline-block;
+        padding: 4px 12px;
+        border: 2px solid var(--olive);
+        color: var(--olive);
+        font-size: 0.65rem;
+        font-weight: 600;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+      }
+
+      .rsc-badge-solid {
+        display: inline-block;
+        padding: 4px 12px;
+        background: var(--olive);
+        color: white;
+        font-size: 0.65rem;
+        font-weight: 700;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+      }
+
+      .rsc-divider {
+        height: 4px;
+        background: var(--olive);
+      }
+
+      .rsc-window {
+        background: var(--olive-light);
+        border: 3px solid var(--dark);
+        transition:
+          transform 0.25s ease,
+          box-shadow 0.25s ease;
+      }
+
+      .rsc-window:hover {
+        transform: translate(-3px, -3px);
+        box-shadow: 6px 6px 0 var(--olive);
+      }
+
+      .rsc-window-bar {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 8px 14px;
+        border-bottom: 2px solid var(--dark);
+        background: var(--dark);
+      }
+
+      .rsc-window-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+      }
+
+      .rsc-window-body {
+        aspect-ratio: 16 / 10;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 24px;
+      }
+
+      .rsc-cta,
+      .rsc-cta-outline {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        text-decoration: none;
+        white-space: nowrap;
+      }
+
+      .rsc-cta {
+        padding: 14px 36px;
+        background: var(--olive);
+        color: white;
+        font-weight: 700;
+        font-size: 0.85rem;
+        border: 2px solid var(--olive);
+        cursor: pointer;
+        transition:
+          transform 0.2s ease,
+          box-shadow 0.2s ease;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        box-shadow: 3px 3px 0 var(--dark);
+      }
+
+      .rsc-cta:hover {
+        transform: translate(-2px, -2px);
+        box-shadow: 5px 5px 0 var(--dark);
+      }
+
+      .rsc-cta:focus-visible {
+        outline: 2px solid var(--olive);
+        outline-offset: 2px;
+      }
+
+      .rsc-cta-outline {
+        padding: 14px 36px;
+        background: var(--panel);
+        color: var(--dark);
+        font-weight: 700;
+        font-size: 0.85rem;
+        border: 2px solid var(--border);
+        cursor: pointer;
+        transition:
+          transform 0.2s ease,
+          box-shadow 0.2s ease,
+          border-color 0.2s ease;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        box-shadow: 3px 3px 0 var(--border);
+      }
+
+      .rsc-cta-outline:hover {
+        border-color: var(--olive);
+        transform: translate(-2px, -2px);
+        box-shadow: 5px 5px 0 var(--olive-muted);
+      }
+
+      .rsc-cta-outline:focus-visible {
+        outline: 2px solid var(--olive);
+        outline-offset: 2px;
+      }
+
+      .rsc-prompt::before {
+        content: "$ ";
+        color: var(--olive);
+        font-weight: 700;
+      }
+
+      .rsc-cursor::after {
+        content: "_";
+        animation: rscBlink 1s step-end infinite;
+        color: var(--olive);
+      }
+
+      .rsc-bar {
+        width: 5px;
+        background: var(--olive);
+        transition:
+          transform 0.3s ease,
+          opacity 0.3s ease;
+        border-top: 1px solid var(--olive-bright);
+      }
+
+      .rsc-bar:hover {
+        transform: scaleY(1.1);
+        opacity: 0.8;
+      }
+
+      .rsc-bar-muted {
+        width: 3px;
+        background: var(--olive-muted);
+      }
+
+      .rsc-fade {
+        animation: rscFadeUp 0.5s ease forwards;
+      }
+
+      .rsc-d1 {
+        animation-delay: 0.1s;
+        opacity: 0;
+      }
+
+      .rsc-d2 {
+        animation-delay: 0.2s;
+        opacity: 0;
+      }
+
+      .rsc-d3 {
+        animation-delay: 0.3s;
+        opacity: 0;
+      }
+
+      @keyframes rscBlink {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0;
+        }
+      }
+
+      @keyframes rscFadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(16px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+
+        .rsc-fade {
+          animation: none;
+          opacity: 1;
+        }
+
+        .rsc-cursor::after {
+          animation: none;
+          opacity: 1;
+        }
+
+        *,
+        *::before,
+        *::after {
+          transition-duration: 0.01ms !important;
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+        }
+      }
+
+      .sg-shell {
+        min-height: 100vh;
+        display: grid;
+        grid-template-columns: 18rem minmax(0, 1fr);
+      }
+
+      .sg-sidebar {
+        position: sticky;
+        top: 0;
+        height: 100vh;
+        overflow-y: auto;
+        background: var(--charcoal);
+        color: var(--cream);
+        border-right: 2px solid var(--sidebar-border);
+        padding: 1rem;
+      }
+
+      .sg-logo {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding-bottom: 1rem;
+        margin-bottom: 1rem;
+        border-bottom: 1px solid rgba(246, 248, 244, 0.15);
+        text-decoration: none;
+      }
+
+      .sg-logo-mark {
+        width: 2rem;
+        height: 2rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--olive);
+        color: white;
+        border: 2px solid var(--cream);
+      }
+
+      .sg-logo-title {
+        display: block;
+        font-size: 0.85rem;
+        font-weight: 800;
+      }
+
+      .sg-logo-version {
+        display: block;
+        color: var(--terracotta-muted);
+        font-size: 0.7rem;
+      }
+
+      .sg-nav {
+        display: grid;
+        gap: 0.25rem;
+      }
+
+      .sg-nav a {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: rgba(246, 248, 244, 0.74);
+        text-decoration: none;
+        font-size: 0.75rem;
+        padding: 0.55rem 0.65rem;
+        border: 1px solid transparent;
+        transition:
+          color 0.2s ease,
+          border-color 0.2s ease,
+          background 0.2s ease;
+      }
+
+      .sg-nav a:hover {
+        color: var(--cream);
+        background: var(--sidebar-accent);
+        border-color: rgba(74, 106, 46, 0.45);
+      }
+
+      .sg-main {
+        min-width: 0;
+      }
+
+      .sg-header {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        background: rgba(255, 255, 255, 0.94);
+        border-bottom: 2px solid var(--border);
+        backdrop-filter: blur(10px);
+      }
+
+      .sg-header-inner {
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: 0.85rem 1.5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .sg-header-title {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        font-weight: 800;
+      }
+
+      .sg-header-links {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        font-size: 0.75rem;
+        color: var(--muted-foreground);
+      }
+
+      .sg-section {
+        position: relative;
+        padding: 4.5rem 1.5rem;
+      }
+
+      .sg-section.white {
+        background: white;
+      }
+
+      .sg-section.dark {
+        background: var(--dark);
+        color: white;
+      }
+
+      .sg-section-inner {
+        position: relative;
+        z-index: 1;
+        max-width: 1120px;
+        margin: 0 auto;
+      }
+
+      .sg-section-kicker {
+        display: inline-flex;
+        margin-bottom: 1rem;
+      }
+
+      .sg-section-title {
+        margin: 0 0 1rem;
+        font-size: clamp(2rem, 4vw, 4rem);
+        line-height: 0.98;
+        letter-spacing: -0.04em;
+      }
+
+      .sg-section-copy {
+        max-width: 52rem;
+        margin: 0 0 2rem;
+        color: var(--muted-foreground);
+        font-size: 1rem;
+        line-height: 1.75;
+      }
+
+      .dark .sg-section-copy,
+      .dark .sg-muted {
+        color: var(--terracotta-muted);
+      }
+
+      .sg-grid {
+        display: grid;
+        gap: 1rem;
+      }
+
+      .sg-grid.two {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .sg-grid.three {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .sg-grid.four {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+
+      .sg-grid.auto {
+        grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+      }
+
+      .sg-panel {
+        background: var(--panel);
+        color: var(--foreground);
+        border: 2px solid var(--border);
+        padding: 1.25rem;
+      }
+
+      .sg-panel.dark-panel {
+        background: var(--charcoal);
+        color: var(--cream);
+        border-color: rgba(246, 248, 244, 0.2);
+      }
+
+      .sg-panel-title {
+        margin: 0 0 0.75rem;
+        font-size: 0.95rem;
+        font-weight: 800;
+      }
+
+      .sg-muted {
+        color: var(--muted-foreground);
+      }
+
+      .sg-small {
+        font-size: 0.75rem;
+        line-height: 1.6;
+      }
+
+      .sg-code {
+        display: inline-flex;
+        padding: 0.15rem 0.35rem;
+        background: var(--olive-light);
+        border: 1px solid var(--border);
+        color: var(--olive);
+        font-size: 0.78rem;
+      }
+
+      .sg-swatch {
+        min-height: 10rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        border: 2px solid var(--border);
+        overflow: hidden;
+        background: white;
+      }
+
+      .sg-swatch-chip {
+        height: 5.25rem;
+        border-bottom: 2px solid var(--border);
+      }
+
+      .sg-swatch-body {
+        padding: 0.8rem;
+        background: white;
+      }
+
+      .sg-swatch-name {
+        margin: 0 0 0.2rem;
+        font-size: 0.8rem;
+        font-weight: 800;
+      }
+
+      .sg-swatch-value {
+        color: var(--muted-foreground);
+        font-size: 0.68rem;
+      }
+
+      .sg-type-sample {
+        margin: 0;
+        line-height: 1.4;
+      }
+
+      .sg-type-hero {
+        font-size: clamp(3rem, 7vw, 7rem);
+        line-height: 0.92;
+        letter-spacing: -0.05em;
+      }
+
+      .sg-shadow-demo {
+        min-height: 8rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: white;
+        border: 2px solid var(--border);
+        font-weight: 800;
+      }
+
+      .sg-button {
+        appearance: none;
+        border: 0;
+        font-family: inherit;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        white-space: nowrap;
+        text-decoration: none;
+        height: 2.4rem;
+        padding: 0 1rem;
+        font-size: 0.88rem;
+        font-weight: 600;
+        transition:
+          transform 0.2s ease,
+          box-shadow 0.2s ease,
+          background 0.2s ease,
+          color 0.2s ease,
+          border-color 0.2s ease;
+      }
+
+      .sg-button:focus-visible,
+      .sg-input:focus-visible,
+      .sg-textarea:focus-visible,
+      .sg-select:focus-visible {
+        outline: 2px solid var(--ring);
+        outline-offset: 2px;
+      }
+
+      .sg-button.default {
+        background: var(--primary);
+        color: var(--primary-foreground);
+        box-shadow: 3px 3px 0 var(--dark);
+      }
+
+      .sg-button.default:hover,
+      .sg-button.brutalist:hover {
+        transform: translate(-2px, -2px);
+        box-shadow: 5px 5px 0 var(--dark);
+      }
+
+      .sg-button.outline {
+        background: var(--background);
+        color: var(--foreground);
+        border: 2px solid var(--border);
+        box-shadow: 2px 2px 0 var(--dark);
+      }
+
+      .sg-button.outline:hover {
+        border-color: var(--olive);
+        transform: translate(-2px, -2px);
+        box-shadow: 4px 4px 0 var(--olive-muted);
+      }
+
+      .sg-button.brutalist {
+        background: var(--olive);
+        color: white;
+        border: 2px solid var(--olive);
+        box-shadow: 3px 3px 0 var(--dark);
+        text-transform: uppercase;
+        letter-spacing: 0.09em;
+        font-weight: 800;
+      }
+
+      .sg-button.destructive {
+        background: var(--destructive);
+        color: white;
+      }
+
+      .sg-button.secondary {
+        background: var(--secondary);
+        color: var(--secondary-foreground);
+        border: 2px solid transparent;
+      }
+
+      .sg-button.ghost {
+        background: transparent;
+        color: var(--foreground);
+      }
+
+      .sg-button.ghost:hover {
+        background: var(--accent);
+        color: white;
+      }
+
+      .sg-button.link {
+        background: transparent;
+        color: var(--primary);
+        padding: 0;
+        height: auto;
+        text-decoration: underline;
+        text-underline-offset: 4px;
+      }
+
+      .sg-button.sm {
+        height: 2.1rem;
+        padding: 0 0.8rem;
+        font-size: 0.78rem;
+      }
+
+      .sg-button.lg {
+        height: 2.9rem;
+        padding: 0 1.5rem;
+      }
+
+      .sg-button.icon {
+        width: 2.4rem;
+        padding: 0;
+      }
+
+      .sg-button-row,
+      .sg-badge-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        align-items: center;
+      }
+
+      .sg-card {
+        background: var(--card);
+        color: var(--card-foreground);
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        border: 2px solid var(--border);
+        padding: 0.85rem 0;
+        box-shadow: 2px 2px 0 var(--dark);
+        transition:
+          transform 0.2s ease,
+          box-shadow 0.2s ease,
+          border-color 0.2s ease;
+      }
+
+      .sg-card:hover {
+        border-color: var(--olive);
+        box-shadow: 4px 4px 0 var(--olive);
+        transform: translate(-2px, -2px);
+      }
+
+      .sg-card-header,
+      .sg-card-content,
+      .sg-card-footer {
+        padding: 0 1rem;
+      }
+
+      .sg-card-title {
+        margin: 0 0 0.3rem;
+        font-weight: 800;
+        line-height: 1;
+      }
+
+      .sg-card-description {
+        margin: 0;
+        color: var(--muted-foreground);
+        font-size: 0.8rem;
+        line-height: 1.55;
+      }
+
+      .sg-card-footer {
+        border-top: 1px solid var(--border);
+        padding-top: 0.85rem;
+      }
+
+      .sg-badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.25rem;
+        width: fit-content;
+        border: 2px solid transparent;
+        padding: 0.12rem 0.5rem;
+        font-size: 0.65rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        white-space: nowrap;
+      }
+
+      .sg-badge.default {
+        background: var(--primary);
+        color: var(--primary-foreground);
+      }
+
+      .sg-badge.secondary {
+        background: var(--secondary);
+        color: var(--secondary-foreground);
+      }
+
+      .sg-badge.destructive {
+        background: var(--destructive);
+        color: white;
+      }
+
+      .sg-badge.outline {
+        border-color: var(--border);
+        background: transparent;
+        color: var(--foreground);
+      }
+
+      .sg-badge.cli {
+        border-color: var(--olive);
+        color: var(--olive);
+        background: transparent;
+      }
+
+      .sg-badge.cli-solid {
+        background: var(--olive);
+        color: white;
+      }
+
+      .sg-form-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1rem;
+        align-items: start;
+      }
+
+      .sg-field {
+        display: grid;
+        gap: 0.4rem;
+      }
+
+      .sg-label {
+        font-size: 0.75rem;
+        font-weight: 700;
+      }
+
+      .sg-input,
+      .sg-textarea,
+      .sg-select {
+        width: 100%;
+        font-family: inherit;
+        background: white;
+        color: var(--foreground);
+        border: 2px solid var(--input);
+        padding: 0.65rem 0.75rem;
+        font-size: 0.85rem;
+        outline: none;
+      }
+
+      .sg-textarea {
+        min-height: 6rem;
+        resize: vertical;
+      }
+
+      .sg-switch {
+        width: 2.75rem;
+        height: 1.5rem;
+        display: inline-flex;
+        align-items: center;
+        padding: 0.16rem;
+        background: var(--primary);
+        border: 2px solid var(--dark);
+        box-shadow: 2px 2px 0 var(--dark);
+      }
+
+      .sg-switch span {
+        width: 1rem;
+        height: 1rem;
+        display: block;
+        background: white;
+        transform: translateX(1.14rem);
+      }
+
+      .sg-slider {
+        height: 0.7rem;
+        background: var(--muted);
+        border: 2px solid var(--border);
+        position: relative;
+      }
+
+      .sg-slider::before {
+        content: "";
+        position: absolute;
+        inset: 0 auto 0 0;
+        width: 62%;
+        background: var(--primary);
+      }
+
+      .sg-slider::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 62%;
+        width: 1.1rem;
+        height: 1.1rem;
+        background: white;
+        border: 2px solid var(--primary);
+        transform: translate(-50%, -50%);
+      }
+
+      .sg-progress {
+        height: 0.75rem;
+        overflow: hidden;
+        background: rgba(74, 106, 46, 0.2);
+        border: 2px solid var(--border);
+      }
+
+      .sg-progress span {
+        display: block;
+        height: 100%;
+        width: 74%;
+        background: var(--primary);
+      }
+
+      .sg-static-overlay {
+        min-height: 22rem;
+        position: relative;
+        background:
+          linear-gradient(rgba(26, 30, 24, 0.52), rgba(26, 30, 24, 0.52)),
+          var(--olive-light);
+        border: 2px solid var(--border);
+        overflow: hidden;
+      }
+
+      .sg-dialog {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: min(26rem, calc(100% - 2rem));
+        transform: translate(-50%, -50%);
+        background: var(--panel);
+        border: 2px solid var(--dark);
+        box-shadow: 6px 6px 0 var(--olive);
+        padding: 1.25rem;
+      }
+
+      .sg-drawer {
+        position: absolute;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        width: min(20rem, 70%);
+        background: var(--panel);
+        border-left: 2px solid var(--dark);
+        padding: 1rem;
+      }
+
+      .sg-chart-bars {
+        height: 13rem;
+        display: flex;
+        align-items: end;
+        gap: 0.6rem;
+        padding: 1rem;
+        background: white;
+        border: 2px solid var(--border);
+      }
+
+      .sg-chart-bars span {
+        flex: 1;
+        min-width: 1.25rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.35);
+      }
+
+      .sg-copy-list {
+        display: grid;
+        gap: 0.75rem;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .sg-copy-list li {
+        display: flex;
+        gap: 0.75rem;
+        align-items: flex-start;
+        font-size: 0.85rem;
+        line-height: 1.6;
+      }
+
+      .sg-copy-list strong {
+        color: var(--olive);
+      }
+
+      .sg-layout-marketing {
+        display: grid;
+        gap: 0.55rem;
+      }
+
+      .sg-layout-block {
+        border: 2px solid var(--border);
+        background: white;
+        padding: 0.85rem;
+        font-size: 0.75rem;
+        font-weight: 800;
+        color: var(--muted-foreground);
+      }
+
+      .sg-layout-block.hero {
+        min-height: 6rem;
+        background: var(--olive-light);
+        color: var(--olive);
+      }
+
+      .sg-layout-block.dark {
+        background: var(--dark);
+        color: white;
+      }
+
+      .sg-layout-app {
+        display: grid;
+        grid-template-columns: 2.5rem 1fr;
+        grid-template-rows: 2.7rem 12rem;
+        border: 2px solid var(--dark);
+        background: white;
+      }
+
+      .sg-layout-app .top {
+        grid-column: 1 / -1;
+        border-bottom: 2px solid var(--border);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.75rem;
+        font-weight: 800;
+      }
+
+      .sg-layout-app .side {
+        background: var(--charcoal);
+        border-right: 2px solid var(--sidebar-border);
+      }
+
+      .sg-layout-app .content {
+        padding: 0.75rem;
+        display: grid;
+        gap: 0.55rem;
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .sg-footer {
+        background: var(--dark);
+        color: var(--terracotta-muted);
+        border-top: 2px solid rgba(74, 106, 46, 0.3);
+        padding: 2rem 1.5rem;
+      }
+
+      .sg-footer-inner {
+        max-width: 1120px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+        font-size: 0.75rem;
+      }
+
+      @media (max-width: 980px) {
+        .sg-shell {
+          display: block;
+        }
+
+        .sg-sidebar {
+          position: relative;
+          height: auto;
+        }
+
+        .sg-nav {
+          grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+        }
+
+        .sg-header {
+          position: relative;
+        }
+
+        .sg-grid.two,
+        .sg-grid.three,
+        .sg-grid.four,
+        .sg-form-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .sg-header-inner,
+        .sg-footer-inner {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="sg-shell">
+      <aside class="sg-sidebar">
+        <a class="sg-logo" href="#top" aria-label="OpenPasture style guide home">
+          <span class="sg-logo-mark"><i data-lucide="terminal"></i></span>
+          <span>
+            <span class="sg-logo-title">openpasture</span>
+            <span class="sg-logo-version">visual-style-guide v0.9.2</span>
+          </span>
+        </a>
+        <nav class="sg-nav" aria-label="Style guide sections">
+          <a href="#colors"><i data-lucide="palette"></i> colors</a>
+          <a href="#typography"><i data-lucide="type"></i> typography</a>
+          <a href="#shadows"><i data-lucide="layers"></i> shadows</a>
+          <a href="#buttons"><i data-lucide="mouse-pointer-click"></i> buttons</a>
+          <a href="#cards"><i data-lucide="panel-top"></i> cards</a>
+          <a href="#badges"><i data-lucide="badge-check"></i> badges</a>
+          <a href="#window"><i data-lucide="monitor"></i> window chrome</a>
+          <a href="#sections"><i data-lucide="layout-template"></i> page sections</a>
+          <a href="#forms"><i data-lucide="list-checks"></i> form controls</a>
+          <a href="#overlays"><i data-lucide="scan"></i> overlays</a>
+          <a href="#data"><i data-lucide="bar-chart-3"></i> data viz</a>
+          <a href="#motion"><i data-lucide="activity"></i> motion</a>
+          <a href="#copy"><i data-lucide="braces"></i> copy style</a>
+          <a href="#layouts"><i data-lucide="panel-left"></i> layouts</a>
+        </nav>
+      </aside>
+
+      <main class="sg-main" id="top">
+        <header class="sg-header">
+          <div class="sg-header-inner">
+            <div class="sg-header-title">
+              <span class="sg-logo-mark" aria-hidden="true">
+                <i data-lucide="terminal"></i>
+              </span>
+              <span>OpenPasture Design System</span>
+              <span class="rsc-badge">olive-cobalt</span>
+            </div>
+            <div class="sg-header-links" aria-label="Example navigation">
+              <span>how-it-works</span>
+              <span>research</span>
+              <span>source</span>
+              <span class="rsc-badge-solid">beta</span>
+            </div>
+          </div>
+        </header>
+
+        <section class="sg-section" aria-labelledby="hero-title">
+          <div class="rsc-grid-bg"></div>
+          <div class="sg-section-inner">
+            <div class="sg-section-kicker rsc-fade rsc-d1">
+              <span class="rsc-badge">satellite-imagery</span>
+              <span style="margin: 0 0.75rem; color: var(--olive); font-weight: 800">&rarr;</span>
+              <span class="rsc-badge">farmer-judgment</span>
+            </div>
+            <h1 id="hero-title" class="font-serif sg-type-hero rsc-fade rsc-d2">
+              recreate the system.<br />
+              <span style="color: var(--olive); font-style: italic">reliably. visually.</span>
+            </h1>
+            <p class="sg-section-copy rsc-fade rsc-d3">
+              This standalone page captures the full OpenPasture Olive Cobalt language:
+              tokens, components, copy rules, hard shadows, zero radius, and terminal-first
+              marketing patterns.
+            </p>
+            <div class="sg-button-row rsc-fade rsc-d3">
+              <a href="#colors" class="rsc-cta">./inspect --tokens</a>
+              <a href="#layouts" class="rsc-cta-outline">cat layouts.md</a>
+            </div>
+          </div>
+        </section>
+
+        <div class="rsc-divider"></div>
+
+        <section class="sg-section white" id="colors" aria-labelledby="colors-title">
+          <div class="sg-section-inner">
+            <span class="rsc-badge sg-section-kicker">01 tokens</span>
+            <h2 class="sg-section-title" id="colors-title">Color Palette</h2>
+            <p class="sg-section-copy">
+              The palette is earthy and technical: olive is the main action color,
+              terracotta carries emphasis and risk, cobalt marks analytics and system
+              capacity, and cream keeps the UI warm.
+            </p>
+            <div class="sg-grid auto">
+              <article class="sg-swatch">
+                <div class="sg-swatch-chip" style="background: var(--olive)"></div>
+                <div class="sg-swatch-body"><p class="sg-swatch-name">olive</p><span class="sg-swatch-value">--olive / #4a6a2e</span></div>
+              </article>
+              <article class="sg-swatch">
+                <div class="sg-swatch-chip" style="background: var(--olive-bright)"></div>
+                <div class="sg-swatch-body"><p class="sg-swatch-name">olive-bright</p><span class="sg-swatch-value">--olive-bright / #5a7a38</span></div>
+              </article>
+              <article class="sg-swatch">
+                <div class="sg-swatch-chip" style="background: var(--olive-muted)"></div>
+                <div class="sg-swatch-body"><p class="sg-swatch-name">olive-muted</p><span class="sg-swatch-value">--olive-muted / #c0d0a8</span></div>
+              </article>
+              <article class="sg-swatch">
+                <div class="sg-swatch-chip" style="background: var(--olive-light)"></div>
+                <div class="sg-swatch-body"><p class="sg-swatch-name">olive-light</p><span class="sg-swatch-value">--olive-light / #f2f6ee</span></div>
+              </article>
+              <article class="sg-swatch">
+                <div class="sg-swatch-chip" style="background: var(--terracotta)"></div>
+                <div class="sg-swatch-body"><p class="sg-swatch-name">terracotta</p><span class="sg-swatch-value">--terracotta / #a83a32</span></div>
+              </article>
+              <article class="sg-swatch">
+                <div class="sg-swatch-chip" style="background: var(--terracotta-muted)"></div>
+                <div class="sg-swatch-body"><p class="sg-swatch-name">terracotta-muted</p><span class="sg-swatch-value">--terracotta-muted / #c06a62</span></div>
+              </article>
+              <article class="sg-swatch">
+                <div class="sg-swatch-chip" style="background: var(--cobalt)"></div>
+                <div class="sg-swatch-body"><p class="sg-swatch-name">cobalt</p><span class="sg-swatch-value">--cobalt / #0047AB</span></div>
+              </article>
+              <article class="sg-swatch">
+                <div class="sg-swatch-chip" style="background: var(--cobalt-muted)"></div>
+                <div class="sg-swatch-body"><p class="sg-swatch-name">cobalt-muted</p><span class="sg-swatch-value">--cobalt-muted / #4a7abf</span></div>
+              </article>
+              <article class="sg-swatch">
+                <div class="sg-swatch-chip" style="background: var(--dark)"></div>
+                <div class="sg-swatch-body"><p class="sg-swatch-name">dark</p><span class="sg-swatch-value">--dark / #1a1e18</span></div>
+              </article>
+              <article class="sg-swatch">
+                <div class="sg-swatch-chip" style="background: var(--charcoal)"></div>
+                <div class="sg-swatch-body"><p class="sg-swatch-name">charcoal</p><span class="sg-swatch-value">--charcoal / #2a3028</span></div>
+              </article>
+              <article class="sg-swatch">
+                <div class="sg-swatch-chip" style="background: var(--cream)"></div>
+                <div class="sg-swatch-body"><p class="sg-swatch-name">cream</p><span class="sg-swatch-value">--cream / #f6f8f4</span></div>
+              </article>
+              <article class="sg-swatch">
+                <div class="sg-swatch-chip" style="background: var(--border)"></div>
+                <div class="sg-swatch-body"><p class="sg-swatch-name">border</p><span class="sg-swatch-value">--border / #c4d0c0</span></div>
+              </article>
+            </div>
+
+            <div class="sg-grid three" style="margin-top: 1rem">
+              <div class="sg-panel shadow-hard-sm">
+                <h3 class="sg-panel-title">Semantic mapping</h3>
+                <p class="sg-small sg-muted">
+                  primary = olive, accent/destructive = terracotta, background =
+                  cream, foreground = dark, muted = olive-light.
+                </p>
+              </div>
+              <div class="sg-panel shadow-hard-sm">
+                <h3 class="sg-panel-title">Chart mapping</h3>
+                <p class="sg-small sg-muted">
+                  chart-1 olive, chart-2 terracotta, chart-3 cobalt, chart-4
+                  olive-muted, chart-5 cobalt-muted.
+                </p>
+              </div>
+              <div class="sg-panel shadow-hard-sm">
+                <h3 class="sg-panel-title">Sidebar mapping</h3>
+                <p class="sg-small sg-muted">
+                  sidebar charcoal, foreground cream, active state olive overlay,
+                  border olive at low opacity.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <div class="rsc-divider"></div>
+
+        <section class="sg-section" id="typography" aria-labelledby="typography-title">
+          <div class="sg-section-inner">
+            <span class="rsc-badge sg-section-kicker">02 type</span>
+            <h2 class="sg-section-title" id="typography-title">Typography</h2>
+            <p class="sg-section-copy">
+              JetBrains Mono makes the product feel operational and tool-like. Libre
+              Baskerville appears in hero and thesis moments to add editorial gravity.
+            </p>
+            <div class="sg-grid two">
+              <div class="sg-panel shadow-hard-sm">
+                <h3 class="sg-panel-title">JetBrains Mono weights</h3>
+                <p class="sg-type-sample" style="font-weight: 400">400 regular: daily movement plan</p>
+                <p class="sg-type-sample" style="font-weight: 500">500 medium: pasture recovery status</p>
+                <p class="sg-type-sample" style="font-weight: 600">600 semibold: observation request</p>
+                <p class="sg-type-sample" style="font-weight: 700">700 bold: approve movement</p>
+                <p class="sg-type-sample" style="font-weight: 800">800 extra-bold: openpasture</p>
+              </div>
+              <div class="sg-panel shadow-hard-sm">
+                <h3 class="sg-panel-title">Libre Baskerville display</h3>
+                <p class="font-serif" style="font-size: 2.5rem; line-height: 1; margin: 0 0 1rem">
+                  what a trained farmer would do.
+                </p>
+                <p class="font-serif" style="font-size: 1.55rem; line-height: 1.25; margin: 0; color: var(--olive); font-style: italic">
+                  every morning. every paddock.
+                </p>
+              </div>
+            </div>
+            <div class="sg-grid three" style="margin-top: 1rem">
+              <div class="sg-panel">
+                <h3 class="sg-panel-title">Root scale</h3>
+                <p class="sg-small sg-muted">13px base, 14px at lg, 15px at xl and above.</p>
+              </div>
+              <div class="sg-panel">
+                <h3 class="sg-panel-title">Copy rhythm</h3>
+                <p class="sg-small sg-muted">Small dense UI type: <span class="sg-code">text-xs</span>, <span class="sg-code">text-sm</span>, and <span class="sg-code">text-[10px]</span>.</p>
+              </div>
+              <div class="sg-panel">
+                <h3 class="sg-panel-title">Voice markers</h3>
+                <p class="sg-small sg-muted">Lowercase nav, CLI commands, function headings, and bracketed checks.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <div class="rsc-divider"></div>
+
+        <section class="sg-section white" id="shadows" aria-labelledby="shadows-title">
+          <div class="sg-section-inner">
+            <span class="rsc-badge sg-section-kicker">03 depth</span>
+            <h2 class="sg-section-title" id="shadows-title">Hard Shadows</h2>
+            <p class="sg-section-copy">
+              No blur. No softness. Depth comes from hard, offset blocks of olive
+              or dark ink.
+            </p>
+            <div class="sg-grid auto">
+              <div class="sg-shadow-demo shadow-hard-sm">shadow-hard-sm<br />2px dark</div>
+              <div class="sg-shadow-demo shadow-hard">shadow-hard<br />4px olive</div>
+              <div class="sg-shadow-demo shadow-hard-lg">shadow-hard-lg<br />6px olive</div>
+              <div class="sg-shadow-demo shadow-hard-dark">shadow-hard-dark<br />4px dark</div>
+              <div class="sg-shadow-demo shadow-hard-cta">shadow-hard-cta<br />3px dark</div>
+            </div>
+          </div>
+        </section>
+
+        <div class="rsc-divider"></div>
+
+        <section class="sg-section" id="buttons" aria-labelledby="buttons-title">
+          <div class="sg-section-inner">
+            <span class="rsc-badge sg-section-kicker">04 actions</span>
+            <h2 class="sg-section-title" id="buttons-title">Buttons</h2>
+            <p class="sg-section-copy">
+              Primary actions should feel like terminal commands. The brutalist variant is
+              the signature marketing CTA.
+            </p>
+            <div class="sg-panel shadow-hard-sm">
+              <h3 class="sg-panel-title">Variants</h3>
+              <div class="sg-button-row">
+                <button class="sg-button default">default</button>
+                <button class="sg-button outline">outline</button>
+                <button class="sg-button brutalist">./brutalist</button>
+                <button class="sg-button destructive">destructive</button>
+                <button class="sg-button secondary">secondary</button>
+                <button class="sg-button ghost">ghost</button>
+                <button class="sg-button link">link</button>
+              </div>
+            </div>
+            <div class="sg-panel shadow-hard-sm" style="margin-top: 1rem">
+              <h3 class="sg-panel-title">Sizes</h3>
+              <div class="sg-button-row">
+                <button class="sg-button brutalist sm">sm</button>
+                <button class="sg-button brutalist">default</button>
+                <button class="sg-button brutalist lg">large</button>
+                <button class="sg-button brutalist icon" aria-label="icon"><i data-lucide="arrow-right"></i></button>
+                <a class="rsc-cta" href="#buttons">./demo --interactive</a>
+                <a class="rsc-cta-outline" href="#buttons">cat README.md</a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <div class="rsc-divider"></div>
+
+        <section class="sg-section white" id="cards" aria-labelledby="cards-title">
+          <div class="sg-section-inner">
+            <span class="rsc-badge sg-section-kicker">05 surfaces</span>
+            <h2 class="sg-section-title" id="cards-title">Cards</h2>
+            <p class="sg-section-copy">
+              Cards use 2px borders, panel white, compact spacing, and hover lift.
+            </p>
+            <div class="sg-grid three">
+              <article class="rsc-card">
+                <span class="rsc-badge">rsc-card</span>
+                <h3>observe</h3>
+                <p class="sg-small sg-muted">Satellite imagery captures vegetation health across every paddock.</p>
+              </article>
+              <article class="sg-card">
+                <div class="sg-card-header">
+                  <h3 class="sg-card-title">shadcn card pattern</h3>
+                  <p class="sg-card-description">border-2, shadow-hard-sm, hover:border-olive.</p>
+                </div>
+                <div class="sg-card-content">
+                  <p class="sg-small sg-muted">Use for dense product surfaces, settings, brief modules, and analytics panels.</p>
+                </div>
+                <div class="sg-card-footer">
+                  <span class="sg-badge cli">confidence 82%</span>
+                </div>
+              </article>
+              <article class="rsc-card">
+                <span class="rsc-badge-solid">state</span>
+                <h3>decide</h3>
+                <p class="sg-small sg-muted">Approve, adjust, or override. Farmer correction improves the next plan.</p>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <div class="rsc-divider"></div>
+
+        <section class="sg-section" id="badges" aria-labelledby="badges-title">
+          <div class="sg-section-inner">
+            <span class="rsc-badge sg-section-kicker">06 labels</span>
+            <h2 class="sg-section-title" id="badges-title">Badges</h2>
+            <p class="sg-section-copy">
+              Badges are tiny, uppercase, tracked, and operational. Use them for status,
+              feature availability, filters, and metadata.
+            </p>
+            <div class="sg-panel shadow-hard-sm">
+              <div class="sg-badge-row">
+                <span class="rsc-badge">satellite-imagery</span>
+                <span class="rsc-badge-solid">early-access-beta</span>
+                <span class="sg-badge default">default</span>
+                <span class="sg-badge secondary">secondary</span>
+                <span class="sg-badge destructive">destructive</span>
+                <span class="sg-badge outline">outline</span>
+                <span class="sg-badge cli">cli</span>
+                <span class="sg-badge cli-solid">cli-solid</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <div class="rsc-divider"></div>
+
+        <section class="sg-section white" id="window" aria-labelledby="window-title">
+          <div class="sg-section-inner">
+            <span class="rsc-badge sg-section-kicker">07 chrome</span>
+            <h2 class="sg-section-title" id="window-title">Window Chrome</h2>
+            <p class="sg-section-copy">
+              Screenshots, terminal examples, diagrams, and product previews should sit
+              inside the dark-bar window frame.
+            </p>
+            <div class="rsc-window">
+              <div class="rsc-window-bar">
+                <div class="rsc-window-dot" style="background: #d45a5a"></div>
+                <div class="rsc-window-dot" style="background: #d4a84a"></div>
+                <div class="rsc-window-dot" style="background: #5aaa5a"></div>
+                <span style="font-size: 0.75rem; color: rgba(255, 255, 255, 0.6); margin-left: 0.5rem">
+                  openpasture --morning-brief
+                </span>
+              </div>
+              <div class="rsc-window-body">
+                <span class="rsc-badge-solid">recommendation</span>
+                <h3 style="font-size: 2rem; margin: 0">move herd to paddock 07</h3>
+                <p class="sg-small sg-muted" style="max-width: 38rem; text-align: center">
+                  reason: paddock 07 recovered above target NDVI and paddock 03 is
+                  approaching residual threshold.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <div class="rsc-divider"></div>
+
+        <section class="sg-section" id="sections" aria-labelledby="sections-title">
+          <div class="sg-section-inner">
+            <span class="rsc-badge sg-section-kicker">08 page rhythm</span>
+            <h2 class="sg-section-title" id="sections-title">Page Sections</h2>
+            <p class="sg-section-copy">
+              Marketing pages alternate cream and white sections, split by an olive divider.
+              Dark sections carry CTA moments.
+            </p>
+            <div class="sg-grid three">
+              <div class="sg-panel">
+                <span class="rsc-badge">cream</span>
+                <h3>PageSection bg=cream</h3>
+                <p class="sg-small sg-muted">Default background: warm, low-glare, product-friendly.</p>
+              </div>
+              <div class="sg-panel" style="background: white">
+                <span class="rsc-badge">white</span>
+                <h3>PageSection bg=white</h3>
+                <p class="sg-small sg-muted">Used to reset rhythm and frame screenshots.</p>
+              </div>
+              <div class="sg-panel dark-panel">
+                <span class="rsc-badge-solid">dark</span>
+                <h3>PageSection bg=dark</h3>
+                <p class="sg-small sg-muted">Best for final CTA and footer contexts.</p>
+              </div>
+            </div>
+            <div class="sg-panel shadow-hard-sm" style="margin-top: 1rem; position: relative; overflow: hidden">
+              <div class="rsc-grid-bg"></div>
+              <h3 class="sg-panel-title" style="position: relative">rsc-grid-bg overlay</h3>
+              <p class="sg-small sg-muted" style="position: relative">
+                32px grid, 1px dark lines, 0.02 opacity. Use in hero sections only.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <div class="rsc-divider"></div>
+
+        <section class="sg-section white" id="forms" aria-labelledby="forms-title">
+          <div class="sg-section-inner">
+            <span class="rsc-badge sg-section-kicker">09 inputs</span>
+            <h2 class="sg-section-title" id="forms-title">Form Controls</h2>
+            <p class="sg-section-copy">
+              Controls keep the same sharp edges, 2px borders, olive focus rings, and
+              compact mono labels.
+            </p>
+            <div class="sg-panel shadow-hard-sm">
+              <div class="sg-form-grid">
+                <label class="sg-field">
+                  <span class="sg-label">farm_name</span>
+                  <input class="sg-input" value="cedar creek pasture" />
+                </label>
+                <label class="sg-field">
+                  <span class="sg-label">data_source</span>
+                  <select class="sg-select">
+                    <option>sentinel-2 ndvi</option>
+                    <option>field observation</option>
+                    <option>weather forecast</option>
+                  </select>
+                </label>
+                <label class="sg-field">
+                  <span class="sg-label">observation_note</span>
+                  <textarea class="sg-textarea">grass looks recovered on the south ridge; water pressure is low near trough 2.</textarea>
+                </label>
+                <div class="sg-field">
+                  <span class="sg-label">controls</span>
+                  <div style="display: grid; gap: 1rem">
+                    <div class="sg-switch" aria-label="Enabled switch"><span></span></div>
+                    <div class="sg-slider" aria-label="Example slider"></div>
+                    <div class="sg-progress"><span></span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <div class="rsc-divider"></div>
+
+        <section class="sg-section" id="overlays" aria-labelledby="overlays-title">
+          <div class="sg-section-inner">
+            <span class="rsc-badge sg-section-kicker">10 layers</span>
+            <h2 class="sg-section-title" id="overlays-title">Dialogs and Overlays</h2>
+            <p class="sg-section-copy">
+              Dialogs and drawers keep the same physical language: bordered panels, hard
+              offset shadows, dark overlays, and compact controls.
+            </p>
+            <div class="sg-static-overlay">
+              <aside class="sg-drawer">
+                <span class="sg-badge cli">drawer</span>
+                <h3>paddock_edit</h3>
+                <p class="sg-small sg-muted">Right-side panels support map editing, livestock details, and settings.</p>
+              </aside>
+              <div class="sg-dialog">
+                <span class="sg-badge cli-solid">dialog</span>
+                <h3>approve_plan?</h3>
+                <p class="sg-small sg-muted">Use modal overlays when a user is confirming a plan or changing data with downstream effects.</p>
+                <div class="sg-button-row">
+                  <button class="sg-button outline sm">cancel</button>
+                  <button class="sg-button brutalist sm">approve</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <div class="rsc-divider"></div>
+
+        <section class="sg-section white" id="data" aria-labelledby="data-title">
+          <div class="sg-section-inner">
+            <span class="rsc-badge sg-section-kicker">11 analytics</span>
+            <h2 class="sg-section-title" id="data-title">Data Visualization</h2>
+            <p class="sg-section-copy">
+              Charts should use the semantic chart tokens so product analytics remain
+              tied to the core brand palette.
+            </p>
+            <div class="sg-grid two">
+              <div class="sg-chart-bars" aria-label="Example chart">
+                <span style="height: 60%; background: var(--chart-1)"></span>
+                <span style="height: 86%; background: var(--chart-2)"></span>
+                <span style="height: 48%; background: var(--chart-3)"></span>
+                <span style="height: 70%; background: var(--chart-4)"></span>
+                <span style="height: 54%; background: var(--chart-5)"></span>
+              </div>
+              <div class="sg-panel shadow-hard-sm">
+                <h3 class="sg-panel-title">Chart colors</h3>
+                <ul class="sg-copy-list">
+                  <li><strong>[1]</strong><span>chart-1 / olive / primary pasture health</span></li>
+                  <li><strong>[2]</strong><span>chart-2 / terracotta / warnings, change, risk</span></li>
+                  <li><strong>[3]</strong><span>chart-3 / cobalt / capacity, model, analytics</span></li>
+                  <li><strong>[4]</strong><span>chart-4 / olive-muted / historical comparison</span></li>
+                  <li><strong>[5]</strong><span>chart-5 / cobalt-muted / secondary series</span></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <div class="rsc-divider"></div>
+
+        <section class="sg-section" id="motion" aria-labelledby="motion-title">
+          <div class="sg-section-inner">
+            <span class="rsc-badge sg-section-kicker">12 behavior</span>
+            <h2 class="sg-section-title" id="motion-title">Animation and Interaction</h2>
+            <p class="sg-section-copy">
+              Motion is short and mechanical. Hover states feel like physical panels
+              being nudged on a desk.
+            </p>
+            <div class="sg-grid three">
+              <div class="rsc-card">
+                <h3>hover lift</h3>
+                <p class="sg-small sg-muted">Cards translate -2px/-2px and gain olive shadow.</p>
+              </div>
+              <div class="sg-panel shadow-hard-sm">
+                <h3 class="sg-panel-title rsc-prompt">terminal prompt</h3>
+                <p class="sg-small sg-muted">`.rsc-prompt` injects a green dollar prefix.</p>
+              </div>
+              <div class="sg-panel shadow-hard-sm">
+                <h3 class="sg-panel-title">cursor blink <span class="rsc-cursor"></span></h3>
+                <p class="sg-small sg-muted">`.rsc-cursor` uses a step-end 1s blink.</p>
+              </div>
+              <div class="sg-panel shadow-hard-sm rsc-fade rsc-d1">
+                <h3 class="sg-panel-title">fade delay 1</h3>
+                <p class="sg-small sg-muted">0.1s stagger.</p>
+              </div>
+              <div class="sg-panel shadow-hard-sm rsc-fade rsc-d2">
+                <h3 class="sg-panel-title">fade delay 2</h3>
+                <p class="sg-small sg-muted">0.2s stagger.</p>
+              </div>
+              <div class="sg-panel shadow-hard-sm rsc-fade rsc-d3">
+                <h3 class="sg-panel-title">fade delay 3</h3>
+                <p class="sg-small sg-muted">0.3s stagger.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <div class="rsc-divider"></div>
+
+        <section class="sg-section white" id="copy" aria-labelledby="copy-title">
+          <div class="sg-section-inner">
+            <span class="rsc-badge sg-section-kicker">13 voice</span>
+            <h2 class="sg-section-title" id="copy-title">Copy Style Guide</h2>
+            <p class="sg-section-copy">
+              The voice is practical, terse, and command-line flavored. It should sound
+              like a tool a farmer can trust, not a glossy SaaS brochure.
+            </p>
+            <div class="sg-grid two">
+              <div class="sg-panel shadow-hard-sm">
+                <h3 class="sg-panel-title">Use</h3>
+                <ul class="sg-copy-list">
+                  <li><strong>[x]</strong><span>lowercase navigation: <code>how-it-works</code>, <code>get-started</code></span></li>
+                  <li><strong>[x]</strong><span>CLI CTAs: <code>./demo --interactive</code>, <code>cat README.md</code></span></li>
+                  <li><strong>[x]</strong><span>function headers: <code>how_it_works()</code></span></li>
+                  <li><strong>[x]</strong><span>status badges: <code>available-now</code>, <code>early-access-beta</code></span></li>
+                </ul>
+              </div>
+              <div class="sg-panel shadow-hard-sm">
+                <h3 class="sg-panel-title">Avoid</h3>
+                <ul class="sg-copy-list">
+                  <li><strong>--</strong><span>generic SaaS claims without operational context.</span></li>
+                  <li><strong>--</strong><span>rounded, soft, lifestyle-forward language.</span></li>
+                  <li><strong>--</strong><span>too many title-case headings in marketing navigation.</span></li>
+                  <li><strong>--</strong><span>CTAs that hide the action behind vague language.</span></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <div class="rsc-divider"></div>
+
+        <section class="sg-section" id="layouts" aria-labelledby="layouts-title">
+          <div class="sg-section-inner">
+            <span class="rsc-badge sg-section-kicker">14 composition</span>
+            <h2 class="sg-section-title" id="layouts-title">Layout Patterns</h2>
+            <p class="sg-section-copy">
+              The marketing site uses alternating sections and strong dividers. The app
+              uses a dense shell with a tiny sidebar and top header.
+            </p>
+            <div class="sg-grid two">
+              <div class="sg-panel shadow-hard-sm">
+                <h3 class="sg-panel-title">Marketing skeleton</h3>
+                <div class="sg-layout-marketing">
+                  <div class="sg-layout-block">Header: sticky, white, border-b-2</div>
+                  <div class="sg-layout-block hero">Hero: grid background, serif title, CLI CTAs</div>
+                  <div class="rsc-divider"></div>
+                  <div class="sg-layout-block">White showcase section</div>
+                  <div class="rsc-divider"></div>
+                  <div class="sg-layout-block">Cream content section</div>
+                  <div class="sg-layout-block dark">Dark CTA + Footer</div>
+                </div>
+              </div>
+              <div class="sg-panel shadow-hard-sm">
+                <h3 class="sg-panel-title">App shell</h3>
+                <div class="sg-layout-app">
+                  <div class="top">Header: h-10, title, controls</div>
+                  <div class="side"></div>
+                  <div class="content">
+                    <div class="sg-layout-block hero">Map / core workspace</div>
+                    <div class="sg-layout-block">Morning brief panel</div>
+                    <div class="sg-layout-block">Drawer / settings</div>
+                    <div class="sg-layout-block">Analytics card</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="sg-grid three" style="margin-top: 1rem">
+              <div class="sg-panel">
+                <h3 class="sg-panel-title">Feature showcase</h3>
+                <p class="sg-small sg-muted"><span class="sg-code">grid lg:grid-cols-2 gap-16</span></p>
+              </div>
+              <div class="sg-panel">
+                <h3 class="sg-panel-title">Card grid</h3>
+                <p class="sg-small sg-muted"><span class="sg-code">grid md:grid-cols-3 gap-6</span></p>
+              </div>
+              <div class="sg-panel">
+                <h3 class="sg-panel-title">Wide content</h3>
+                <p class="sg-small sg-muted"><span class="sg-code">max-w-7xl mx-auto px-6</span></p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <footer class="sg-footer">
+          <div class="sg-footer-inner">
+            <span>OpenPasture Olive Cobalt visual guide</span>
+            <span>standalone html / no build step / sharp edges only</span>
+          </div>
+        </footer>
+      </main>
+    </div>
+
+    <script>
+      if (window.lucide) {
+        window.lucide.createIcons({
+          attrs: {
+            "stroke-width": 2.5,
+            width: 16,
+            height: 16,
+          },
+        });
+      }
+    </script>
+  </body>
+</html>
