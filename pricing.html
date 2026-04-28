@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
   <style>
     :root {
       --olive: #4a6a2e;
@@ -508,9 +508,10 @@
 
     /* ─── Footer ─── */
     .footer {
-      background: var(--charcoal);
+      background: var(--dark);
       color: #8a9080;
       padding: 3.5rem 0 2rem;
+      border-top: 1px solid var(--charcoal);
     }
     .footer-grid {
       display: grid;
@@ -528,14 +529,14 @@
     }
     .footer-col a {
       display: block;
-      font-size: 0.8rem;
-      color: var(--terracotta-muted);
+      font-size: 0.75rem;
+      color: #8a9080;
       margin-bottom: 0.5rem;
       transition: color 0.15s;
     }
     .footer-col a:hover { color: var(--cream); }
     .footer-bottom {
-      border-top: 1px solid #3a4038;
+      border-top: 1px solid var(--charcoal);
       padding-top: 1.5rem;
       display: flex;
       justify-content: space-between;
@@ -544,7 +545,7 @@
       flex-wrap: wrap;
       gap: 0.5rem;
     }
-    .footer-bottom a { color: var(--terracotta-muted); }
+    .footer-bottom a { color: #8a9080; }
     .footer-bottom a:hover { color: var(--cream); }
 
     /* ─── Responsive ─── */
@@ -616,8 +617,8 @@
         <a href="pricing.html" class="nav-active">pricing</a>
         <a href="#">thesis</a>
         <a href="#">open-source</a>
-        <a href="#" class="github-link" aria-label="GitHub"><i data-lucide="github"></i></a>
-        <a href="#" class="btn btn-olive" style="box-shadow: 2px 2px 0 var(--dark);">get-started</a>
+        <a href="https://github.com/codybmenefee/openPasture" class="github-link" aria-label="GitHub" target="_blank" rel="noopener"><i data-lucide="github"></i></a>
+        <a href="index.html#get-started" class="btn btn-olive" style="box-shadow: 2px 2px 0 var(--dark);">get-started</a>
       </nav>
     </div>
   </header>
@@ -654,9 +655,9 @@
             <li>email support</li>
           </ul>
           <div class="pricing-card-cta">
-            <a href="#" class="btn btn-olive">get-started</a>
+            <a href="index.html#get-started" class="btn btn-olive">get-started</a>
           </div>
-          <p class="pricing-card-note">free through 2025 beta</p>
+          <p class="pricing-card-note">free through 2026 beta</p>
         </div>
 
         <!-- Ranch (highlighted) -->
@@ -679,7 +680,7 @@
           <div class="pricing-card-cta">
             <a href="#" class="btn btn-olive-lg">join-waitlist</a>
           </div>
-          <p class="pricing-card-note">available at launch · Q1 2026</p>
+          <p class="pricing-card-note">available at launch · Q3 2026</p>
         </div>
 
         <!-- Enterprise -->
@@ -886,7 +887,7 @@
         </details>
         <details>
           <summary>is this really open source?</summary>
-          <div class="faq-answer">the agent core is Apache 2.0 licensed. the hosted product wraps the open core with authentication, managed infrastructure, and support. you can always self-host the core.</div>
+          <div class="faq-answer">the public agent kit is AGPL-3.0-only. the hosted product wraps the open core with authentication, managed infrastructure, and support. you can always self-host the kit.</div>
         </details>
       </div>
     </div>
@@ -900,7 +901,7 @@
       <h2>start free. scale when ready.</h2>
       <p>no credit card required. no per-head gotchas.</p>
       <div class="dark-cta-buttons">
-        <a href="#" class="btn btn-white">get-started</a>
+        <a href="index.html#get-started" class="btn btn-white">get-started</a>
       </div>
     </div>
   </section>
@@ -932,11 +933,11 @@
           <h4>Legal</h4>
           <a href="#">privacy</a>
           <a href="#">terms</a>
-          <a href="https://www.apache.org/licenses/LICENSE-2.0">apache-2.0</a>
+          <a href="https://www.gnu.org/licenses/agpl-3.0.en.html">agpl-3.0</a>
         </div>
       </div>
       <div class="footer-bottom">
-        <span>© 2025 OpenPasture. open source under <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache 2.0</a>.</span>
+        <span>© 2026 OpenPasture. Public agent kit licensed under <a href="https://www.gnu.org/licenses/agpl-3.0.en.html">AGPL-3.0-only</a>.</span>
         <span>built for the land.</span>
       </div>
     </div>

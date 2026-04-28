@@ -1,0 +1,13 @@
+{
+  "name": "openpasture-web",
+  "version": "1.0.0",
+  "description": "OpenPasture marketing site with lead capture",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.0",
+    "resend": "^4.0.0"
+  }
+}
