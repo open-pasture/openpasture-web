@@ -6,7 +6,9 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const CONTACT_EMAIL = process.env.CONTACT_EMAIL || 'hello@openpasture.com';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const resend = process.env.RESEND_API_KEY
+  ? new Resend(process.env.RESEND_API_KEY)
+  : null;
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname), {
@@ -74,6 +76,12 @@ app.post('/api/contact', async (req, res) => {
       </div>
     </div>
   `;
+
+  if (!resend) {
+    console.log('RESEND_API_KEY not set — logging lead locally');
+    console.log({ name: safeName, email: safeEmail, source: safeSource, page: safePage, message: safeMessage });
+    return res.json({ success: true });
+  }
 
   try {
     await resend.emails.send({

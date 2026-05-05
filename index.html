@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>OpenPasture — Practical AI Support for Pasture-Based Agriculture</title>
-  <meta name="description" content="Farm knowledge, field observations, and grazing tools an AI agent can use to help pasture-based operators make better calls.">
+  <title>OpenPasture — All Your Farm Data, Accessible by Any Agent</title>
+  <meta name="description" content="OpenPasture connects your farm state, grazing knowledge, and operational history to ChatGPT, Claude, or any AI agent. Hosted cloud or self-host from GitHub.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
@@ -795,14 +795,13 @@
       </div>
       <div class="header-right">
         <nav class="header-nav">
-          <a href="#platform">platform</a>
-          <a href="#mission">mission</a>
-          <a href="#vision">roadmap</a>
+          <a href="#platform">how it works</a>
           <a href="pricing.html">pricing</a>
-          <a href="https://github.com/codybmenefee/openPasture" class="github-link" target="_blank" rel="noopener"><i data-lucide="github"></i></a>
+          <a href="mission.html">mission</a>
+          <a href="https://github.com/open-pasture/openpasture-agent-kit" class="github-link" target="_blank" rel="noopener"><i data-lucide="github"></i></a>
         </nav>
         <div class="header-cta">
-          <a href="#get-started" class="btn btn-olive btn-sm">get-started</a>
+          <a href="https://cloud.openpasture.com" class="btn btn-olive btn-sm">try-the-cloud</a>
         </div>
       </div>
       <button class="mobile-toggle" onclick="document.querySelector('.mobile-menu').classList.toggle('open')" aria-label="Menu">
@@ -810,25 +809,24 @@
       </button>
     </div>
     <div class="mobile-menu">
-      <a href="#platform">platform</a>
-      <a href="#mission">mission</a>
-      <a href="#vision">roadmap</a>
+      <a href="#platform">how it works</a>
       <a href="pricing.html">pricing</a>
-      <a href="https://github.com/codybmenefee/openPasture" target="_blank" rel="noopener">github</a>
-      <a href="#get-started" class="btn btn-olive btn-sm">get-started</a>
+      <a href="mission.html">mission</a>
+      <a href="https://github.com/open-pasture/openpasture-agent-kit" target="_blank" rel="noopener">github</a>
+      <a href="https://cloud.openpasture.com" class="btn btn-olive btn-sm">try-the-cloud</a>
     </div>
   </header>
 
   <!-- ═══ HERO ═══ -->
   <section class="hero" id="hero">
     <div class="container">
-      <div class="hero-badge">the ai operating layer for pasture-based agriculture</div>
-      <h1>your farm's knowledge,<br>connected to any AI</h1>
-      <p class="hero-sub">openpasture organizes what matters about your operation — land, livestock, weather, history — into a practical system an AI agent can use to help you manage your farm.</p>
-      <div class="hero-cta-wrap">
-        <a href="#get-started" class="btn btn-white">get-started</a>
+      <h1>all your farm data,<br>accessible by any agent</h1>
+      <p class="hero-sub">connect ChatGPT, Claude, or any AI to your pastures, herds, and grazing history. hosted cloud or self-host from GitHub.</p>
+      <div class="hero-cta-wrap" style="display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap;">
+        <a href="https://cloud.openpasture.com" class="btn btn-white">try-the-cloud</a>
+        <a href="https://github.com/open-pasture/openpasture-agent-kit" class="btn btn-outline-light" target="_blank" rel="noopener">view-on-github</a>
       </div>
-      <p class="hero-note">open source agent · hosted cloud · free during beta</p>
+      <p class="hero-note">open source · cloud from $20/mo</p>
 
       <div class="hero-product">
         <div class="window-chrome">
@@ -836,53 +834,11 @@
             <span class="window-dot window-dot-red"></span>
             <span class="window-dot window-dot-yellow"></span>
             <span class="window-dot window-dot-green"></span>
-            <span class="window-title">openpasture — morning brief via claude</span>
+            <span class="window-title">openpasture cloud — farm map</span>
           </div>
-          <div class="window-body">
-            <div class="rec-badge">field recommendation · apr 27</div>
-            <div class="rec-heading">move herd to north ridge</div>
-            <p class="rec-text">your agent pulled satellite NDVI, cross-referenced the 18-day rest cycle, checked weather, and applied the grazing framework from Greg Judy's paddock recovery model.</p>
-            <div class="rec-status">
-              <span><strong>confidence:</strong> 87%</span>
-              <span><strong>data:</strong> sentinel-2 + weather api</span>
-              <span><strong>knowledge:</strong> greg judy recovery model</span>
-            </div>
-            <div class="rec-actions">
-              <a href="#" class="btn btn-olive btn-sm">approve</a>
-              <a href="#" class="btn btn-outline btn-sm">adjust</a>
-            </div>
+          <div class="window-body" style="padding: 0;">
+            <img src="assets/cloud-dashboard.png" alt="OpenPasture Cloud dashboard showing a farm map with pastures, paddocks, herds, and a context inspector panel" style="width: 100%; display: block;">
           </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <div class="section-divider"></div>
-
-  <!-- ═══ MISSION ═══ -->
-  <section class="problem-solution" id="mission" style="background: var(--cream); padding: 4rem 0;">
-    <div class="container" style="text-align: center; max-width: 800px;">
-      <div class="ps-label" style="color: var(--olive); text-align: center; margin-bottom: 1.5rem;">our mission</div>
-      <h2 style="font-family: 'Libre Baskerville', serif; font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 700; line-height: 1.3; margin-bottom: 1.5rem;">build practical AI support for the next generation of pasture-based agriculture</h2>
-      <p style="font-size: 0.9rem; color: var(--text-muted-olive); line-height: 1.8; max-width: 640px; margin: 0 auto;">factory feedlots simplify by removing decisions from the field. we're building tools that help pasture-based farms keep better records, see patterns sooner, and make stronger daily calls without sacrificing the biology that makes them better.</p>
-    </div>
-  </section>
-
-  <div class="section-divider"></div>
-
-  <!-- ═══ PROBLEM / SOLUTION ═══ -->
-  <section class="problem-solution" id="platform">
-    <div class="container">
-      <div class="ps-grid">
-        <div class="ps-block">
-          <div class="ps-label ps-label-problem">the problem</div>
-          <h2>farming data is fragmented and dumb</h2>
-          <p>satellite imagery in one place. weather in another. grazing history in a notebook. soil data in a PDF. no AI can help you if it can't access what you know — and right now, none of it talks to each other.</p>
-        </div>
-        <div class="ps-block">
-          <div class="ps-label ps-label-solution">the solution</div>
-          <h2>a practical data layer for your whole operation</h2>
-          <p>openpasture cleans, organizes, and connects your farm data into one opinionated system — then combines it with knowledge bases from leading grazing practitioners and API integrations so an AI agent can help you reason through the next job.</p>
         </div>
       </div>
     </div>
@@ -891,24 +847,24 @@
   <div class="section-divider"></div>
 
   <!-- ═══ HOW IT WORKS ═══ -->
-  <section class="how-it-works" id="how-it-works">
+  <section class="how-it-works" id="platform">
     <div class="container">
       <div class="hiw-label">how it works</div>
       <div class="hiw-grid">
         <div class="hiw-card">
           <div class="hiw-number" style="color: var(--olive);">01</div>
-          <h3>ingest</h3>
-          <p>satellite, weather, soil, photos, and vendor telemetry flow through a pipeline that cleans and organizes your farm data automatically.</p>
+          <h3>set up your farm</h3>
+          <p>sign up or self-host. describe your land, pastures, and herds. your agent learns through conversation.</p>
         </div>
         <div class="hiw-card">
           <div class="hiw-number" style="color: var(--terracotta);">02</div>
-          <h3>reason</h3>
-          <p>AI agents combine your operational data with historical knowledge from leading grazing pioneers to generate recommendations with full reasoning chains.</p>
+          <h3>connect your agent</h3>
+          <p>paste an MCP endpoint into ChatGPT or Claude. your agent gets your farm state, knowledge, and tools.</p>
         </div>
         <div class="hiw-card">
           <div class="hiw-number" style="color: var(--cobalt);">03</div>
-          <h3>act</h3>
-          <p>from daily move recommendations to rotation reminders — agents can help prepare the work, explain the tradeoffs, and keep the farmer in the loop.</p>
+          <h3>manage with confidence</h3>
+          <p>daily briefs, move-or-stay recommendations, rotation tracking — grounded in your land and trusted grazing frameworks.</p>
         </div>
       </div>
       <div class="hiw-connector">
@@ -923,11 +879,9 @@
 
   <div class="section-divider"></div>
 
-  <!-- ═══ PRODUCT DEEP DIVE ═══ -->
+  <!-- ═══ PRODUCT ═══ -->
   <section class="product-dive" id="features">
     <div class="container">
-
-      <!-- Feature 1: Data Pipeline -->
       <div class="pd-section">
         <div class="pd-window">
           <div class="window-chrome">
@@ -935,156 +889,21 @@
               <span class="window-dot window-dot-red"></span>
               <span class="window-dot window-dot-yellow"></span>
               <span class="window-dot window-dot-green"></span>
-              <span class="window-title">openpasture — data pipeline status</span>
+              <span class="window-title">openpasture cloud — dashboard</span>
             </div>
-            <div class="window-body">
-              <div style="font-size: 0.7rem; display: flex; flex-direction: column; gap: 0.6rem;">
-                <div style="display: flex; justify-content: space-between; padding: 0.5rem; background: var(--olive-light); border: 1px solid var(--border);">
-                  <span><strong style="color: var(--olive);">satellite</strong> · sentinel-2 NDVI</span>
-                  <span style="color: var(--olive); font-weight: 700;">● synced 2h ago</span>
-                </div>
-                <div style="display: flex; justify-content: space-between; padding: 0.5rem; background: var(--olive-light); border: 1px solid var(--border);">
-                  <span><strong style="color: var(--olive);">weather</strong> · NOAA forecast + history</span>
-                  <span style="color: var(--olive); font-weight: 700;">● synced 1h ago</span>
-                </div>
-                <div style="display: flex; justify-content: space-between; padding: 0.5rem; background: var(--olive-light); border: 1px solid var(--border);">
-                  <span><strong style="color: var(--olive);">soil</strong> · NRCS Web Soil Survey</span>
-                  <span style="color: var(--olive); font-weight: 700;">● synced 12h ago</span>
-                </div>
-                <div style="display: flex; justify-content: space-between; padding: 0.5rem; background: var(--olive-light); border: 1px solid var(--border);">
-                  <span><strong style="color: var(--olive);">observations</strong> · farmer photos + notes</span>
-                  <span style="color: var(--olive); font-weight: 700;">● 3 new today</span>
-                </div>
-                <div style="display: flex; justify-content: space-between; padding: 0.5rem; background: var(--cream); border: 1px solid var(--border);">
-                  <span><strong style="color: var(--text-muted-olive);">vendor telemetry</strong> · collar / tag data</span>
-                  <span style="color: var(--text-muted-olive);">○ available when connected</span>
-                </div>
-              </div>
+            <div class="window-body" style="padding: 0;">
+              <img src="assets/cloud-dashboard-bottom.png" alt="Pasture status cards, observations, and MCP endpoint" style="width: 100%; display: block;">
             </div>
           </div>
         </div>
         <div class="pd-text">
-          <div class="pd-label">intelligent data pipeline</div>
-          <h2>all your farm data, cleaned and connected</h2>
-          <p>satellite imagery, weather, soil surveys, your own observations, vendor telemetry — openpasture ingests it all, cleans it, and organizes it into a structured system that any AI can understand and act on.</p>
+          <h2>your farm, your agent, your data</h2>
+          <p>pastures, paddocks, herds, and observations on a live map. practitioner knowledge from Greg Judy, Joel Salatin, and Richard Perkins built in. works with ChatGPT, Claude, or any MCP client.</p>
           <ul class="pd-features">
-            <li>automatic ingestion from satellite, weather, and soil APIs</li>
-            <li>farmer observations via photo, voice, or text</li>
-            <li>open connectors for vendor hardware and telemetry</li>
+            <li>farm map with live state synced by your agent</li>
+            <li>curated grazing knowledge + your operational history</li>
+            <li>open source core — self-host or use the cloud</li>
           </ul>
-        </div>
-      </div>
-
-      <!-- Feature 2: Knowledge Base -->
-      <div class="pd-section reversed">
-        <div class="pd-window">
-          <div class="window-chrome">
-            <div class="window-bar">
-              <span class="window-dot window-dot-red"></span>
-              <span class="window-dot window-dot-yellow"></span>
-              <span class="window-dot window-dot-green"></span>
-              <span class="window-title">openpasture — knowledge base</span>
-            </div>
-            <div class="window-body">
-              <div style="font-size: 0.7rem; display: flex; flex-direction: column; gap: 0.6rem;">
-                <div style="padding: 0.6rem; background: var(--cream); border: 1px solid var(--border); border-left: 3px solid var(--olive);">
-                  <strong>Greg Judy</strong> — paddock recovery timing, multi-species grazing patterns, tall grass management
-                </div>
-                <div style="padding: 0.6rem; background: var(--cream); border: 1px solid var(--border); border-left: 3px solid var(--terracotta);">
-                  <strong>Joel Salatin</strong> — stacking enterprises, mob grazing density, biological farming economics
-                </div>
-                <div style="padding: 0.6rem; background: var(--cream); border: 1px solid var(--border); border-left: 3px solid var(--cobalt);">
-                  <strong>Richard Perkins</strong> — regenerative systems design, paddock layout optimization, climate resilience
-                </div>
-                <div style="padding: 0.6rem; background: var(--olive-light); border: 1px solid var(--border); text-align: center; color: var(--text-muted-olive);">
-                  + your operational history and learned preferences
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="pd-text">
-          <div class="pd-label">curated knowledge base</div>
-          <h2>the wisdom of the best graziers, built in</h2>
-          <p>openpasture encodes operational knowledge from leading regenerative grazing pioneers — not as rigid rules, but as frameworks your AI agent can reference when making decisions about your specific land and conditions.</p>
-          <ul class="pd-features">
-            <li>practitioner knowledge from Greg Judy, Joel Salatin, Richard Perkins</li>
-            <li>context-aware application — adapts to your land, not generic advice</li>
-            <li>your own decisions compound into the system over time</li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- Feature 3: Agent Portability -->
-      <div class="pd-section">
-        <div class="pd-window">
-          <div class="window-chrome">
-            <div class="window-bar">
-              <span class="window-dot window-dot-red"></span>
-              <span class="window-dot window-dot-yellow"></span>
-              <span class="window-dot window-dot-green"></span>
-              <span class="window-title">openpasture — agent connections</span>
-            </div>
-            <div class="window-body">
-              <div style="font-size: 0.7rem; display: flex; flex-direction: column; gap: 0.6rem;">
-                <div style="display: flex; align-items: center; justify-content: space-between; padding: 0.6rem; background: var(--olive-light); border: 2px solid var(--olive);">
-                  <span><strong>Claude</strong> via MCP connector</span>
-                  <span style="color: var(--olive); font-weight: 700;">connected</span>
-                </div>
-                <div style="display: flex; align-items: center; justify-content: space-between; padding: 0.6rem; background: var(--olive-light); border: 2px solid var(--olive);">
-                  <span><strong>ChatGPT</strong> via API adapter</span>
-                  <span style="color: var(--olive); font-weight: 700;">connected</span>
-                </div>
-                <div style="display: flex; align-items: center; justify-content: space-between; padding: 0.6rem; background: var(--cream); border: 1px solid var(--border);">
-                  <span><strong>Cursor / Codex</strong> via CLI</span>
-                  <span style="color: var(--text-muted-olive);">available</span>
-                </div>
-                <div style="display: flex; align-items: center; justify-content: space-between; padding: 0.6rem; background: var(--cream); border: 1px solid var(--border);">
-                  <span><strong>Custom agents</strong> via REST API</span>
-                  <span style="color: var(--text-muted-olive);">available</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="pd-text">
-          <div class="pd-label">use any AI agent</div>
-          <h2>your favorite AI, trained on your farm</h2>
-          <p>openpasture isn't locked to one AI. it's the portable knowledge layer that makes any capable agent — Claude, ChatGPT, or whatever comes next — an expert on your specific operation. use the agent you trust most.</p>
-          <ul class="pd-features">
-            <li>MCP, API, and CLI connectors for any agent surface</li>
-            <li>same farm intelligence, regardless of which AI you choose</li>
-            <li>switch agents anytime — your data and knowledge travel with you</li>
-          </ul>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <div class="section-divider"></div>
-
-  <!-- ═══ VISION / ROADMAP ═══ -->
-  <section class="how-it-works" id="vision" style="background: var(--cream);">
-    <div class="container">
-      <div class="hiw-label">where we're headed</div>
-      <h2 style="font-family: 'Libre Baskerville', serif; font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 700; line-height: 1.3; margin-bottom: 0.75rem;">today: agent-kit + cloud. tomorrow: the full stack.</h2>
-      <p style="font-size: 0.85rem; color: var(--text-muted-olive); line-height: 1.8; max-width: 620px; margin: 0 auto 2.5rem;">we're building in the open. the agent is OSS. the cloud platform handles infrastructure. and we're open to building hardware when the system earns it.</p>
-      <div class="hiw-grid">
-        <div class="hiw-card" style="border-color: var(--olive); box-shadow: 3px 3px 0 var(--olive);">
-          <div style="font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--panel); background: var(--olive); display: inline-block; padding: 0.15rem 0.5rem; margin-bottom: 1rem;">now</div>
-          <h3>open-source agent</h3>
-          <p>the public agent kit — tools, skills, knowledge bases, and data connectors. AGPL-3.0-only. run it locally or connect it to any agent surface.</p>
-        </div>
-        <div class="hiw-card" style="border-color: var(--terracotta); box-shadow: 3px 3px 0 var(--terracotta);">
-          <div style="font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--panel); background: var(--terracotta); display: inline-block; padding: 0.15rem 0.5rem; margin-bottom: 1rem;">now</div>
-          <h3>hosted cloud</h3>
-          <p>managed infrastructure, authentication, data pipelines, and the daily brief UI. the easiest way to get started without self-hosting anything.</p>
-        </div>
-        <div class="hiw-card" style="border-color: var(--cobalt); box-shadow: 3px 3px 0 var(--cobalt);">
-          <div style="font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--panel); background: var(--cobalt); display: inline-block; padding: 0.15rem 0.5rem; margin-bottom: 1rem;">future</div>
-          <h3>hardware-aware workflows</h3>
-          <p>sensor networks, gate data, and field hardware may become useful inputs over time. physical actions should wait until the data, trust, safety, and farmer approval path are proven.</p>
         </div>
       </div>
     </div>
@@ -1092,53 +911,33 @@
 
   <div class="section-divider"></div>
 
-  <!-- ═══ OPEN SOURCE ═══ -->
-  <section class="opensource" id="open-source">
-    <div class="container">
-      <div class="os-icons">
-        <i data-lucide="shield"></i>
-        <i data-lucide="code"></i>
-        <i data-lucide="users"></i>
-      </div>
-      <h2>the agent is open source.<br>your data is yours.</h2>
-      <p>the public agent kit is AGPL-3.0-only. no vendor lock-in on your farm data. no black-box recommendations. farmers should be able to see the reasoning behind a recommendation and decide what to do next.</p>
-      <a href="https://github.com/open-pasture/openpasture-agent-kit" class="btn btn-outline" target="_blank" rel="noopener">view-on-github</a>
-    </div>
-  </section>
-
-  <div class="section-divider"></div>
-
-  <!-- ═══ PRICING TEASER ═══ -->
+  <!-- ═══ PRICING ═══ -->
   <section class="pricing-teaser" id="pricing">
     <div class="container">
       <h2>simple pricing</h2>
-      <p>the agent is free and open source. the cloud platform is free during beta.</p>
+      <p>open source agent kit is free forever. cloud starts at $20/mo.</p>
       <div class="pricing-grid">
         <div class="pricing-card">
           <div class="pricing-card-name">open source</div>
           <div class="pricing-card-price">free</div>
-          <div class="pricing-card-period">forever · AGPL-3.0-only</div>
+          <div class="pricing-card-period">forever · AGPL-3.0</div>
           <ul class="pricing-card-features">
-            <li>full agent with tools, skills, and knowledge</li>
-            <li>connect to any AI via MCP, API, or CLI</li>
-            <li>local-first data storage</li>
+            <li>full agent kit with tools and knowledge</li>
+            <li>connect to any AI via MCP</li>
             <li>self-host everything</li>
-            <li>community support</li>
           </ul>
-          <a href="https://github.com/codybmenefee/openPasture" class="btn btn-outline btn-sm" target="_blank" rel="noopener">view-source</a>
+          <a href="https://github.com/open-pasture/openpasture-agent-kit" class="btn btn-outline btn-sm" target="_blank" rel="noopener">view-source</a>
         </div>
         <div class="pricing-card">
           <div class="pricing-card-name">cloud</div>
-          <div class="pricing-card-price">$0</div>
-          <div class="pricing-card-period">during beta · paid plans at launch</div>
+          <div class="pricing-card-price">$20</div>
+          <div class="pricing-card-period">per month</div>
           <ul class="pricing-card-features">
-            <li>managed data pipeline and ingestion</li>
-            <li>daily morning brief UI</li>
-            <li>automatic satellite + weather sync</li>
-            <li>hosted agent infrastructure</li>
-            <li>priority support</li>
+            <li>hosted MCP for ChatGPT + Claude</li>
+            <li>farm map dashboard</li>
+            <li>managed infrastructure</li>
           </ul>
-          <a href="#get-started" class="btn btn-olive btn-sm">get-started</a>
+          <a href="https://cloud.openpasture.com" class="btn btn-olive btn-sm">try-the-cloud</a>
         </div>
       </div>
       <a href="pricing.html" class="pricing-link">see full pricing →</a>
@@ -1150,10 +949,11 @@
   <!-- ═══ FINAL CTA ═══ -->
   <section class="final-cta" id="get-started">
     <div class="container">
-      <h2>give your AI the knowledge to run your farm</h2>
-      <p>open source. connect any agent. start in minutes.</p>
-      <a href="#get-started" class="btn btn-white">get-started</a>
-      <div class="final-cta-note">free during beta · open source agent · hosted cloud</div>
+      <h2>get your farm connected</h2>
+      <div style="display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; margin-top: 2rem;">
+        <a href="https://cloud.openpasture.com" class="btn btn-white">try-the-cloud</a>
+        <a href="https://github.com/open-pasture/openpasture-agent-kit" class="btn btn-outline-light" target="_blank" rel="noopener">self-host-from-github</a>
+      </div>
     </div>
   </section>
 
@@ -1162,34 +962,28 @@
     <div class="container">
       <div class="footer-grid">
         <div class="footer-col">
-          <h4>Platform</h4>
+          <h4>Product</h4>
           <a href="#platform">how it works</a>
-          <a href="#features">features</a>
           <a href="pricing.html">pricing</a>
-          <a href="#">docs</a>
+          <a href="mission.html">our mission</a>
         </div>
         <div class="footer-col">
-          <h4>Company</h4>
-          <a href="#mission">mission</a>
-          <a href="#vision">roadmap</a>
-          <a href="#">about</a>
-          <a href="#">contact</a>
+          <h4>Open Source</h4>
+          <a href="https://github.com/open-pasture/openpasture-agent-kit" target="_blank" rel="noopener">github</a>
+          <a href="https://www.gnu.org/licenses/agpl-3.0.en.html">agpl-3.0</a>
         </div>
         <div class="footer-col">
-          <h4>Community</h4>
-          <a href="https://github.com/codybmenefee/openPasture" target="_blank" rel="noopener">github</a>
-          <a href="#">discord</a>
-          <a href="#">research</a>
-        </div>
-        <div class="footer-col">
-          <h4>Legal</h4>
+          <h4>Cloud</h4>
+          <a href="https://cloud.openpasture.com">sign up</a>
           <a href="privacy.html">privacy</a>
-          <a href="#">terms</a>
-          <a href="#">apache-2.0</a>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <a href="mailto:hello@openpasture.com">hello@openpasture.com</a>
         </div>
       </div>
       <div class="footer-bottom">
-        © 2026 OpenPasture. See the public agent kit for source licensing.
+        © 2026 OpenPasture
       </div>
     </div>
   </footer>
