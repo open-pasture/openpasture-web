@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480" font-family="'JetBrains Mono', ui-monospace, monospace">
+  <!-- satellite ground: NDVI-style patchwork -->
+  <rect width="800" height="480" fill="#2a3520"/>
+  <g opacity="0.9">
+    <path d="M0 0 H320 V180 H0 Z" fill="#41582a"/>
+    <path d="M320 0 H560 V140 H320 Z" fill="#4d6630"/>
+    <path d="M560 0 H800 V220 H560 Z" fill="#38491f"/>
+    <path d="M0 180 H240 V340 H0 Z" fill="#546f33"/>
+    <path d="M240 140 H560 V330 H240 Z" fill="#5d7a3a"/>
+    <path d="M560 220 H800 V480 H560 Z" fill="#455c2b"/>
+    <path d="M0 340 H240 V480 H0 Z" fill="#3c5026"/>
+    <path d="M240 330 H560 V480 H240 Z" fill="#4a6230"/>
+    <!-- worn / bare patches -->
+    <ellipse cx="130" cy="120" rx="46" ry="24" fill="#6e6236" opacity="0.55"/>
+    <ellipse cx="676" cy="120" rx="38" ry="20" fill="#6e6236" opacity="0.4"/>
+    <ellipse cx="380" cy="420" rx="52" ry="22" fill="#77683a" opacity="0.45"/>
+    <!-- creek -->
+    <path d="M560 0 C540 90, 590 170, 566 260 C548 330, 600 420, 584 480" fill="none" stroke="#31502f" stroke-width="14" opacity="0.8"/>
+    <path d="M560 0 C540 90, 590 170, 566 260 C548 330, 600 420, 584 480" fill="none" stroke="#4a7a54" stroke-width="4" opacity="0.7"/>
+    <!-- tree line -->
+    <g fill="#22301a">
+      <circle cx="40" cy="30" r="16"/><circle cx="70" cy="22" r="12"/><circle cx="96" cy="34" r="14"/>
+      <circle cx="740" cy="440" r="18"/><circle cx="770" cy="424" r="12"/><circle cx="712" cy="452" r="13"/>
+      <circle cx="30" cy="452" r="14"/><circle cx="58" cy="444" r="10"/>
+    </g>
+  </g>
+
+  <!-- paddock grid: cream boundaries -->
+  <g fill="none" stroke="#f6f8f4" stroke-width="1.4" opacity="0.85">
+    <path d="M60 60 H540 V420 H60 Z"/>
+    <path d="M60 180 H540"/>
+    <path d="M60 300 H540"/>
+    <path d="M220 60 V420"/>
+    <path d="M380 60 V420"/>
+  </g>
+
+  <!-- grazed paddock (yesterday) -->
+  <path d="M220 180 H380 V300 H220 Z" fill="#77683a" opacity="0.35"/>
+  <text x="230" y="288" fill="#f6f8f4" font-size="10" opacity="0.75">p-06 &#183; grazed -1d</text>
+
+  <!-- current paddock -->
+  <path d="M380 180 H540 V300 H380 Z" fill="#5a7a38" opacity="0.5" stroke="#f6f8f4" stroke-width="2.5"/>
+  <!-- herd -->
+  <g fill="#f6f8f4">
+    <circle cx="452" cy="228" r="4"/><circle cx="470" cy="242" r="4"/><circle cx="440" cy="250" r="4"/>
+    <circle cx="486" cy="226" r="4"/><circle cx="462" cy="262" r="4"/><circle cx="500" cy="252" r="4"/>
+    <circle cx="478" cy="272" r="4"/><circle cx="444" cy="274" r="3.5"/>
+  </g>
+  <text x="390" y="288" fill="#f6f8f4" font-size="10" font-weight="700">p-07 &#183; herd 84 hd</text>
+
+  <!-- next paddock (planned) -->
+  <path d="M380 300 H540 V420 H380 Z" fill="none" stroke="#f0c948" stroke-width="2.5" stroke-dasharray="7 5"/>
+  <text x="390" y="408" fill="#f0c948" font-size="10" font-weight="700">p-08 &#183; next &#183; 06:00</text>
+  <!-- move arrow -->
+  <g stroke="#f0c948" stroke-width="2.5" fill="none">
+    <path d="M468 292 V336"/>
+    <path d="M460 326 L468 340 L476 326"/>
+  </g>
+
+  <!-- annotation panel -->
+  <g>
+    <rect x="580" y="36" width="196" height="150" fill="#1a1e18" opacity="0.92" stroke="#4a6a2e" stroke-width="1.5"/>
+    <text x="592" y="58" fill="#c0d0a8" font-size="10" font-weight="700">daily plan &#183; day 143</text>
+    <text x="592" y="80" fill="#f6f8f4" font-size="9.5">move      p-07 -&gt; p-08</text>
+    <text x="592" y="97" fill="#f6f8f4" font-size="9.5">rest p-06   38 days</text>
+    <text x="592" y="114" fill="#f6f8f4" font-size="9.5">residual  1,540 lb dm/ac</text>
+    <text x="592" y="131" fill="#f6f8f4" font-size="9.5">sward     14 in avg</text>
+    <text x="592" y="148" fill="#8a9080" font-size="9.5">sources: planet &#183; notes</text>
+    <text x="592" y="171" fill="#f0c948" font-size="9.5" font-weight="700">awaiting farmer review</text>
+  </g>
+
+  <!-- NDVI legend -->
+  <g>
+    <rect x="580" y="410" width="196" height="40" fill="#1a1e18" opacity="0.92" stroke="#4a6a2e" stroke-width="1.5"/>
+    <text x="592" y="426" fill="#c0d0a8" font-size="9" font-weight="700">forage index</text>
+    <rect x="592" y="432" width="24" height="8" fill="#77683a"/>
+    <rect x="616" y="432" width="24" height="8" fill="#41582a"/>
+    <rect x="640" y="432" width="24" height="8" fill="#4d6630"/>
+    <rect x="664" y="432" width="24" height="8" fill="#5d7a3a"/>
+    <rect x="688" y="432" width="24" height="8" fill="#6f9247"/>
+    <text x="720" y="440" fill="#8a9080" font-size="8.5">low -&gt; high</text>
+  </g>
+</svg>

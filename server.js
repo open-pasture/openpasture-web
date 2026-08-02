@@ -11,6 +11,11 @@ const resend = process.env.RESEND_API_KEY
   : null;
 
 app.use(express.json());
+
+// legacy pages -> manifesto-era equivalents
+app.get(['/mission', '/mission.html'], (req, res) => res.redirect(301, '/manifesto'));
+app.get(['/pricing', '/pricing.html'], (req, res) => res.redirect(301, '/#early-access'));
+
 app.use(express.static(path.join(__dirname), {
   extensions: ['html'],
 }));

@@ -3,783 +3,124 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>OpenPasture — All Your Farm Data, Accessible by Any Agent</title>
-  <meta name="description" content="OpenPasture connects your farm state, grazing knowledge, and operational history to ChatGPT, Claude, or any AI agent. Hosted cloud or self-host from GitHub.">
+  <title>OpenPasture — Automated Land Management, Built in the Open</title>
+  <meta name="description" content="Ruminant herds guided by open collars and an open-source decision layer that learns your land. Rotational grazing works — labor is why it doesn't scale. We're building the machinery to change that.">
+  <link rel="canonical" href="https://openpasture.dev/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="OpenPasture">
+  <meta property="og:title" content="OpenPasture — Automated Land Management, Built in the Open">
+  <meta property="og:description" content="Pasture is a perennial crop. We're building the open machinery to farm it: collars you own, software you can read, and a decision layer that learns your land.">
+  <meta property="og:url" content="https://openpasture.dev/">
+  <meta property="og:image" content="https://openpasture.dev/assets/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="OpenPasture — Automated Land Management, Built in the Open">
+  <meta name="twitter:description" content="Pasture is a perennial crop. We're building the open machinery to farm it: collars you own, software you can read, and a decision layer that learns your land.">
+  <meta name="twitter:image" content="https://openpasture.dev/assets/og.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/site.css">
   <script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
   <style>
-    :root {
-      --olive: #4a6a2e;
-      --olive-bright: #5a7a38;
-      --olive-muted: #c0d0a8;
-      --olive-light: #f2f6ee;
-      --terracotta: #a83a32;
-      --terracotta-muted: #c06a62;
-      --cobalt: #0047AB;
-      --cobalt-muted: #4a7abf;
-      --dark: #1a1e18;
-      --charcoal: #2a3028;
-      --cream: #f6f8f4;
-      --panel: #ffffff;
-      --border: #c4d0c0;
-      --text-muted-olive: #647060;
-      font-size: 13px;
-    }
-
-    @media (min-width: 1024px) { :root { font-size: 14px; } }
-    @media (min-width: 1280px) { :root { font-size: 15px; } }
-
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      font-family: 'JetBrains Mono', monospace;
-      background: var(--cream);
-      color: var(--dark);
-      line-height: 1.7;
-      font-weight: 400;
-    }
-
-    .serif { font-family: 'Libre Baskerville', serif; }
-
-    a { color: inherit; text-decoration: none; }
-
-    .container {
-      max-width: 1120px;
-      margin: 0 auto;
-      padding: 0 1.5rem;
-    }
-
-    .section-divider {
-      height: 4px;
-      background: var(--olive);
-      width: 100%;
-    }
-
-    /* ─── Buttons ─── */
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.75rem 1.5rem;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.8rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      border: 2px solid var(--dark);
-      border-radius: 0;
-      cursor: pointer;
-      transition: transform 0.15s ease, box-shadow 0.15s ease;
-    }
-
-    .btn-olive {
-      background: var(--olive);
-      color: var(--cream);
-      border-color: var(--olive);
-      box-shadow: 3px 3px 0 var(--dark);
-    }
-    .btn-olive:hover {
-      transform: translate(-2px, -2px);
-      box-shadow: 5px 5px 0 var(--dark);
-    }
-
-    .btn-outline {
-      background: transparent;
-      color: var(--dark);
-      border-color: var(--dark);
-      box-shadow: 3px 3px 0 var(--dark);
-    }
-    .btn-outline:hover {
-      transform: translate(-2px, -2px);
-      box-shadow: 5px 5px 0 var(--dark);
-    }
-
-    .btn-white {
-      background: var(--cream);
-      color: var(--dark);
-      border-color: var(--cream);
-      box-shadow: 3px 3px 0 var(--olive);
-    }
-    .btn-white:hover {
-      transform: translate(-2px, -2px);
-      box-shadow: 5px 5px 0 var(--olive);
-    }
-
-    .btn-outline-light {
-      background: transparent;
-      color: var(--cream);
-      border-color: var(--cream);
-      box-shadow: 3px 3px 0 rgba(255,255,255,0.15);
-    }
-    .btn-outline-light:hover {
-      transform: translate(-2px, -2px);
-      box-shadow: 5px 5px 0 rgba(255,255,255,0.15);
-    }
-
-    .btn-sm { padding: 0.5rem 1rem; font-size: 0.7rem; }
-
-    /* ─── Header ─── */
-    .header {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: var(--panel);
-      border-bottom: 2px solid var(--border);
-    }
-    .header .container {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 3.75rem;
-    }
-    .header-left {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-    }
-    .header-logo {
-      width: 32px;
-      height: 32px;
-      background: var(--olive);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--cream);
-    }
-    .header-logo i { width: 18px; height: 18px; }
-    .header-brand {
-      font-weight: 800;
-      font-size: 1rem;
-      letter-spacing: -0.02em;
-    }
-    .header-version {
-      font-size: 0.65rem;
-      color: var(--text-muted-olive);
-      background: var(--olive-light);
-      border: 1px solid var(--border);
-      padding: 0.1rem 0.4rem;
-      font-weight: 500;
-    }
-    .header-right {
-      display: flex;
-      align-items: center;
-      gap: 1.5rem;
-    }
-    .header-nav {
-      display: flex;
-      align-items: center;
-      gap: 1.5rem;
-    }
-    .header-nav a {
-      font-size: 0.8rem;
-      font-weight: 500;
-      color: var(--text-muted-olive);
-      transition: color 0.15s;
-    }
-    .header-nav a:hover { color: var(--dark); }
-    .header-nav .github-link {
-      display: flex;
+    /* landing-specific */
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+      gap: 3.5rem;
       align-items: center;
     }
-    .header-nav .github-link i { width: 18px; height: 18px; }
-    .header-cta .btn { padding: 0.5rem 1rem; font-size: 0.7rem; }
-
-    .mobile-toggle {
-      display: none;
-      background: none;
-      border: none;
-      cursor: pointer;
-      color: var(--dark);
-    }
-    .mobile-toggle i { width: 24px; height: 24px; }
-
-    .mobile-menu {
-      display: none;
-      background: var(--panel);
-      border-bottom: 2px solid var(--border);
-      padding: 1rem 1.5rem;
-    }
-    .mobile-menu.open { display: block; }
-    .mobile-menu a {
-      display: block;
-      padding: 0.5rem 0;
-      font-size: 0.85rem;
-      font-weight: 500;
-      color: var(--text-muted-olive);
-    }
-    .mobile-menu a:hover { color: var(--dark); }
-    .mobile-menu .btn { margin-top: 0.75rem; }
-
-    /* ─── Hero ─── */
-    .hero {
-      background: var(--dark);
-      padding: 8rem 0 4rem;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-    .hero::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background-image:
-        linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
-      background-size: 60px 60px;
-      pointer-events: none;
-    }
-    .hero .container {
-      position: relative;
-      z-index: 1;
-      max-width: 820px;
-    }
-
-    .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      padding: 0.35rem 0.85rem;
-      border: 1px solid var(--olive);
-      font-size: 0.65rem;
-      font-weight: 600;
-      color: var(--olive-muted);
-      margin-bottom: 2rem;
-      text-transform: lowercase;
-    }
-
-    .hero h1 {
-      font-family: 'Libre Baskerville', serif;
-      font-size: clamp(2.2rem, 5vw, 3.6rem);
-      line-height: 1.2;
-      font-weight: 700;
-      color: var(--cream);
-      margin-bottom: 1.25rem;
-    }
-
-    .hero-sub {
-      font-size: 0.9rem;
-      color: var(--terracotta-muted);
-      max-width: 600px;
-      margin: 0 auto 2.5rem;
-      line-height: 1.7;
-    }
-
-    .hero-cta-wrap {
-      margin-bottom: 0.75rem;
-    }
-
-    .hero-note {
-      font-size: 0.65rem;
+    .hero-figure .window-chrome { box-shadow: 6px 6px 0 rgba(0,0,0,0.5); }
+    .hero-figcaption {
+      font-size: 0.62rem;
       color: #6a7a60;
-      margin-bottom: 4rem;
-    }
-
-    /* ─── Product Window ─── */
-    .hero-product {
-      max-width: 640px;
-      margin: 0 auto;
-    }
-
-    .window-chrome {
-      border: 2px solid var(--charcoal);
-      background: var(--panel);
-      box-shadow: 4px 4px 0 rgba(0,0,0,0.4);
-      text-align: left;
-    }
-    .window-bar {
-      background: var(--charcoal);
-      padding: 0.6rem 0.75rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-    .window-dot {
-      width: 10px; height: 10px;
-      border-radius: 50%;
-    }
-    .window-dot-red { background: #d45a5a; }
-    .window-dot-yellow { background: #d4a84a; }
-    .window-dot-green { background: #5aaa5a; }
-    .window-title {
-      margin-left: 0.5rem;
-      font-size: 0.7rem;
-      color: #8a9080;
-      font-weight: 500;
-    }
-    .window-body { padding: 1.5rem; }
-
-    .rec-badge {
-      display: inline-block;
-      background: var(--olive-light);
-      border: 1px solid var(--olive-muted);
-      color: var(--olive);
-      font-size: 0.6rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      padding: 0.15rem 0.5rem;
-      margin-bottom: 0.75rem;
-    }
-    .rec-heading {
-      font-family: 'Libre Baskerville', serif;
-      font-size: 1.2rem;
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-    }
-    .rec-text {
-      font-size: 0.75rem;
-      color: var(--text-muted-olive);
+      margin-top: 0.6rem;
       line-height: 1.7;
-      margin-bottom: 1rem;
-    }
-    .rec-status {
-      display: flex;
-      gap: 1.25rem;
-      font-size: 0.65rem;
-      color: var(--text-muted-olive);
-      margin-bottom: 1rem;
-      padding: 0.6rem 0.75rem;
-      background: var(--olive-light);
-      border: 1px solid var(--border);
-      flex-wrap: wrap;
-    }
-    .rec-status strong { color: var(--dark); }
-    .rec-actions { display: flex; gap: 0.5rem; }
-    .rec-actions .btn { font-size: 0.65rem; padding: 0.4rem 1rem; }
-
-    /* ─── Trust Bar ─── */
-    .trust-bar {
-      background: var(--cream);
-      padding: 2.5rem 0;
-      text-align: center;
-      border-bottom: 1px solid var(--border);
-    }
-    .trust-bar p {
-      font-size: 0.65rem;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: var(--text-muted-olive);
-      margin-bottom: 1.25rem;
-      font-weight: 500;
-    }
-    .trust-logos {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 2.5rem;
-      flex-wrap: wrap;
-    }
-    .trust-logos span {
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: var(--olive-muted);
-      white-space: nowrap;
     }
 
-    /* ─── Problem/Solution ─── */
-    .problem-solution {
-      background: var(--panel);
-      padding: 5rem 0;
-    }
-    .ps-grid {
+    .beats { background: var(--panel); padding: 5rem 0; }
+    .beats-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 4rem;
-    }
-    .ps-label {
-      font-size: 0.65rem;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      font-weight: 700;
-      margin-bottom: 1rem;
-    }
-    .ps-label-problem { color: var(--terracotta); }
-    .ps-label-solution { color: var(--olive); }
-    .ps-block h2 {
-      font-family: 'Libre Baskerville', serif;
-      font-size: 1.6rem;
-      font-weight: 700;
-      margin-bottom: 1rem;
-      line-height: 1.3;
-    }
-    .ps-block p {
-      font-size: 0.85rem;
-      color: var(--text-muted-olive);
-      line-height: 1.8;
-    }
-
-    /* ─── How It Works ─── */
-    .how-it-works {
-      background: var(--cream);
-      padding: 5rem 0;
-      text-align: center;
-    }
-    .hiw-label {
-      font-size: 0.65rem;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      font-weight: 700;
-      color: var(--text-muted-olive);
-      margin-bottom: 2.5rem;
-    }
-    .hiw-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-columns: repeat(3, 1fr);
       gap: 1.5rem;
-      margin-bottom: 2rem;
     }
-    .hiw-card {
-      background: var(--panel);
+    .beat-card {
+      background: var(--cream);
       border: 2px solid var(--dark);
       box-shadow: 3px 3px 0 var(--dark);
-      padding: 2.5rem 1.5rem 2rem;
-      text-align: center;
-      transition: transform 0.15s ease, box-shadow 0.15s ease;
-    }
-    .hiw-card:hover {
-      transform: translate(-2px, -2px);
-      box-shadow: 5px 5px 0 var(--dark);
-    }
-    .hiw-number {
-      font-size: 2.2rem;
-      font-weight: 800;
-      line-height: 1;
-      margin-bottom: 1rem;
-    }
-    .hiw-card h3 {
-      font-size: 1rem;
-      font-weight: 700;
-      text-transform: lowercase;
-      margin-bottom: 0.75rem;
-    }
-    .hiw-card p {
-      font-size: 0.8rem;
-      color: var(--text-muted-olive);
-      line-height: 1.7;
-    }
-
-    .hiw-connector {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 0;
-      margin-bottom: 2rem;
-      padding: 0 4rem;
-    }
-    .hiw-connector-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: var(--olive);
-      flex-shrink: 0;
-    }
-    .hiw-connector-line {
-      flex: 1;
-      height: 2px;
-      background: var(--olive-muted);
-    }
-
-    /* ─── Product Deep Dive ─── */
-    .product-dive {
-      background: var(--panel);
-      padding: 5rem 0;
-    }
-    .pd-section {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 3rem;
-      align-items: center;
-    }
-    .pd-section + .pd-section { margin-top: 5rem; }
-    .pd-section.reversed .pd-text { order: -1; }
-
-    .pd-label {
-      font-size: 0.65rem;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      font-weight: 700;
-      color: var(--text-muted-olive);
-      margin-bottom: 0.75rem;
-    }
-    .pd-text h2 {
-      font-family: 'Libre Baskerville', serif;
-      font-size: 1.5rem;
-      font-weight: 700;
-      line-height: 1.3;
-      margin-bottom: 1rem;
-    }
-    .pd-text p {
-      font-size: 0.85rem;
-      color: var(--text-muted-olive);
-      line-height: 1.8;
-      margin-bottom: 1.25rem;
-    }
-    .pd-features {
-      list-style: none;
-      font-size: 0.8rem;
+      padding: 2rem 1.5rem 1.75rem;
       display: flex;
       flex-direction: column;
-      gap: 0.5rem;
     }
-    .pd-features li { color: var(--dark); font-weight: 500; }
-    .pd-features li::before {
-      content: '[x] ';
-      color: var(--olive);
+    .beat-num { font-size: 1.8rem; font-weight: 800; line-height: 1; margin-bottom: 1rem; }
+    .beat-card h3 {
+      font-size: 0.95rem;
       font-weight: 700;
-    }
-
-    .pd-window .window-body { padding: 1.25rem; }
-
-    /* NDVI Grid */
-    .ndvi-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 0.5rem;
+      text-transform: lowercase;
       margin-bottom: 0.75rem;
-    }
-    .ndvi-cell {
-      aspect-ratio: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.6rem;
-      font-weight: 700;
-      color: var(--panel);
-      border: 1px solid rgba(0,0,0,0.08);
-    }
-    .ndvi-legend {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      font-size: 0.6rem;
-      color: var(--text-muted-olive);
-    }
-    .ndvi-legend-swatch {
-      width: 10px;
-      height: 10px;
-      display: inline-block;
-      margin-right: 0.25rem;
-    }
-
-    /* ─── Social Proof ─── */
-    .social-proof {
-      background: var(--cream);
-      padding: 5rem 0;
-      text-align: center;
-    }
-    .social-proof blockquote {
-      font-family: 'Libre Baskerville', serif;
-      font-size: clamp(1.2rem, 2.5vw, 1.8rem);
-      font-weight: 400;
-      font-style: italic;
       line-height: 1.5;
-      max-width: 680px;
-      margin: 0 auto 1.5rem;
-      color: var(--dark);
     }
-    .social-proof cite {
-      font-style: normal;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.75rem;
+    .beat-card p {
+      font-size: 0.78rem;
       color: var(--text-muted-olive);
-      font-weight: 500;
-    }
-
-    /* ─── Open Source ─── */
-    .opensource {
-      background: var(--panel);
-      padding: 5rem 0;
-      text-align: center;
-    }
-    .os-icons {
-      display: flex;
-      justify-content: center;
-      gap: 1.25rem;
-      margin-bottom: 1.5rem;
-    }
-    .os-icons i {
-      width: 24px;
-      height: 24px;
-      color: var(--olive);
-    }
-    .opensource h2 {
-      font-family: 'Libre Baskerville', serif;
-      font-size: 1.6rem;
-      font-weight: 700;
-      margin-bottom: 1rem;
-      line-height: 1.3;
-    }
-    .opensource p {
-      font-size: 0.85rem;
-      color: var(--text-muted-olive);
-      max-width: 560px;
-      margin: 0 auto 2rem;
       line-height: 1.8;
+      margin-bottom: 1rem;
     }
+    .beat-stat {
+      margin-top: auto;
+      border-top: 2px solid var(--border);
+      padding-top: 0.75rem;
+      font-size: 0.68rem;
+      line-height: 1.7;
+      color: var(--text-muted-olive);
+    }
+    .beat-stat strong { font-size: 1.15rem; display: block; color: var(--dark); }
 
-    /* ─── Pricing Teaser ─── */
-    .pricing-teaser {
-      background: var(--cream);
-      padding: 5rem 0;
-      text-align: center;
+    .system-section { background: var(--cream); padding: 5rem 0; }
+    .system-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+      gap: 3.5rem;
+      align-items: start;
     }
-    .pricing-teaser > .container > h2 {
+    .system-text h2, .state-text h2, .roadmap-head h2 {
       font-family: 'Libre Baskerville', serif;
       font-size: 1.6rem;
       font-weight: 700;
-      margin-bottom: 0.5rem;
+      line-height: 1.35;
+      margin-bottom: 1rem;
     }
-    .pricing-teaser > .container > p {
-      font-size: 0.85rem;
+    .system-text p, .state-text p {
+      font-size: 0.82rem;
       color: var(--text-muted-olive);
-      margin-bottom: 2.5rem;
-    }
-    .pricing-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.5rem;
-      max-width: 700px;
-      margin: 0 auto 2rem;
-      text-align: left;
-    }
-    .pricing-card {
-      background: var(--panel);
-      border: 2px solid var(--dark);
-      box-shadow: 3px 3px 0 var(--dark);
-      padding: 2rem 1.75rem;
-      transition: transform 0.15s ease, box-shadow 0.15s ease;
-    }
-    .pricing-card:hover {
-      transform: translate(-2px, -2px);
-      box-shadow: 5px 5px 0 var(--dark);
-    }
-    .pricing-card-name {
-      font-size: 0.65rem;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      font-weight: 700;
-      color: var(--text-muted-olive);
-      margin-bottom: 0.5rem;
-    }
-    .pricing-card-price {
-      font-size: 2rem;
-      font-weight: 800;
-      margin-bottom: 0.25rem;
-    }
-    .pricing-card-period {
-      font-size: 0.7rem;
-      color: var(--text-muted-olive);
+      line-height: 1.85;
       margin-bottom: 1.25rem;
     }
-    .pricing-card-features {
-      list-style: none;
-      font-size: 0.75rem;
-      margin-bottom: 1.5rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.4rem;
-    }
-    .pricing-card-features li { color: var(--text-muted-olive); }
-    .pricing-card-features li::before {
-      content: '— ';
-      color: var(--olive);
-    }
-    .pricing-link {
+    .inline-link {
       font-size: 0.8rem;
-      font-weight: 600;
+      font-weight: 700;
       color: var(--olive);
-      transition: color 0.15s;
     }
-    .pricing-link:hover { color: var(--olive-bright); }
+    .inline-link:hover { color: var(--olive-bright); }
 
-    /* ─── Final CTA ─── */
-    .final-cta {
-      background: var(--dark);
-      color: var(--cream);
-      padding: 6rem 0;
-      text-align: center;
-    }
-    .final-cta h2 {
-      font-family: 'Libre Baskerville', serif;
-      font-size: clamp(1.6rem, 3vw, 2.2rem);
-      font-weight: 700;
-      margin-bottom: 0.75rem;
-      line-height: 1.3;
-    }
-    .final-cta p {
-      font-size: 0.85rem;
-      color: var(--terracotta-muted);
-      margin-bottom: 2.5rem;
-    }
-    .final-cta-note {
-      font-size: 0.65rem;
-      color: #6a7a60;
-      margin-top: 1rem;
-    }
-
-    /* ─── Footer ─── */
-    .footer {
-      background: var(--dark);
-      color: #8a9080;
-      padding: 3.5rem 0 2rem;
-      border-top: 1px solid var(--charcoal);
-    }
-    .footer-grid {
+    .state-section { background: var(--panel); padding: 5rem 0; }
+    .state-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 2rem;
-      margin-bottom: 2.5rem;
-    }
-    .footer-col h4 {
-      font-size: 0.7rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--cream);
-      margin-bottom: 1rem;
-    }
-    .footer-col a {
-      display: block;
-      font-size: 0.75rem;
-      color: #8a9080;
-      margin-bottom: 0.5rem;
-      transition: color 0.15s;
-    }
-    .footer-col a:hover { color: var(--cream); }
-    .footer-bottom {
-      border-top: 1px solid var(--charcoal);
-      padding-top: 1.5rem;
-      font-size: 0.7rem;
-      text-align: center;
+      grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+      gap: 3.5rem;
+      align-items: start;
     }
 
-    /* ─── Responsive ─── */
-    @media (max-width: 768px) {
-      .header-nav, .header-cta { display: none; }
-      .mobile-toggle { display: block; }
+    .roadmap-section { background: var(--cream); padding: 5rem 0; }
+    .roadmap-head { max-width: 62ch; margin-bottom: 2.5rem; }
+    .roadmap-head p {
+      font-size: 0.82rem;
+      color: var(--text-muted-olive);
+      line-height: 1.85;
+    }
 
-      .hero { padding: 5rem 0 3rem; }
-      .hero h1 { font-size: 2rem; }
-      .hero-product { margin-left: -0.5rem; margin-right: -0.5rem; }
-
-      .trust-logos { gap: 1.25rem; }
-      .trust-logos span { font-size: 0.7rem; }
-
-      .ps-grid { grid-template-columns: 1fr; gap: 2.5rem; }
-
-      .hiw-grid { grid-template-columns: 1fr; max-width: 360px; margin-left: auto; margin-right: auto; }
-      .hiw-connector { display: none; }
-
-      .pd-section { grid-template-columns: 1fr; }
-      .pd-section.reversed .pd-text { order: 0; }
-
-      .pricing-grid { grid-template-columns: 1fr; max-width: 380px; }
-
-      .footer-grid { grid-template-columns: repeat(2, 1fr); }
+    @media (max-width: 900px) {
+      .hero-grid, .system-grid, .state-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .beats-grid { grid-template-columns: 1fr; max-width: 420px; margin: 0 auto; }
     }
   </style>
 </head>
@@ -791,119 +132,59 @@
       <div class="header-left">
         <div class="header-logo"><i data-lucide="terminal"></i></div>
         <span class="header-brand">openpasture</span>
-        <span class="header-version">v0.9.2</span>
+        <span class="header-tag">building in the open</span>
       </div>
       <div class="header-right">
         <nav class="header-nav">
-          <a href="#platform">how it works</a>
-          <a href="pricing.html">pricing</a>
-          <a href="mission.html">mission</a>
+          <a href="/manifesto">manifesto</a>
+          <a href="#system">system</a>
+          <a href="#roadmap">roadmap</a>
           <a href="https://github.com/open-pasture/openpasture-agent-kit" class="github-link" target="_blank" rel="noopener"><i data-lucide="github"></i></a>
         </nav>
         <div class="header-cta">
-          <a href="https://cloud.openpasture.com" class="btn btn-olive btn-sm">try-the-cloud</a>
+          <a href="#early-access" class="btn btn-olive btn-sm">early-access</a>
         </div>
       </div>
-      <button class="mobile-toggle" onclick="document.querySelector('.mobile-menu').classList.toggle('open')" aria-label="Menu">
+      <button class="mobile-toggle" aria-label="Menu">
         <i data-lucide="menu"></i>
       </button>
     </div>
     <div class="mobile-menu">
-      <a href="#platform">how it works</a>
-      <a href="pricing.html">pricing</a>
-      <a href="mission.html">mission</a>
+      <a href="/manifesto">manifesto</a>
+      <a href="#system">system</a>
+      <a href="#roadmap">roadmap</a>
       <a href="https://github.com/open-pasture/openpasture-agent-kit" target="_blank" rel="noopener">github</a>
-      <a href="https://cloud.openpasture.com" class="btn btn-olive btn-sm">try-the-cloud</a>
+      <a href="#early-access" class="btn btn-olive btn-sm">early-access</a>
     </div>
   </header>
 
   <!-- ═══ HERO ═══ -->
   <section class="hero" id="hero">
     <div class="container">
-      <h1>all your farm data,<br>accessible by any agent</h1>
-      <p class="hero-sub">connect ChatGPT, Claude, or any AI to your pastures, herds, and grazing history. hosted cloud or self-host from GitHub.</p>
-      <div class="hero-cta-wrap" style="display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap;">
-        <a href="https://cloud.openpasture.com" class="btn btn-white">try-the-cloud</a>
-        <a href="https://github.com/open-pasture/openpasture-agent-kit" class="btn btn-outline-light" target="_blank" rel="noopener">view-on-github</a>
-      </div>
-      <p class="hero-note">open source · cloud from $20/mo</p>
-
-      <div class="hero-product">
-        <div class="window-chrome">
-          <div class="window-bar">
-            <span class="window-dot window-dot-red"></span>
-            <span class="window-dot window-dot-yellow"></span>
-            <span class="window-dot window-dot-green"></span>
-            <span class="window-title">openpasture cloud — farm map</span>
+      <div class="hero-grid">
+        <div>
+          <div class="hero-badge">open source · agpl-3.0 · nothing to buy yet — that's the point</div>
+          <h1>pasture is a perennial crop. we're building the machinery to farm it.</h1>
+          <p class="hero-sub">ruminant herds guided by radio collars, and an open decision layer that learns your land well enough to plan every day's grazing. the animals harvest and prune; the farmer teaches and steers; the fence stops being the bottleneck.</p>
+          <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+            <a href="/manifesto" class="btn btn-white">read-the-manifesto</a>
+            <a href="https://github.com/open-pasture/openpasture-agent-kit" class="btn btn-outline-light" target="_blank" rel="noopener">view-on-github</a>
           </div>
-          <div class="window-body" style="padding: 0;">
-            <img src="assets/cloud-dashboard.png" alt="OpenPasture Cloud dashboard showing a farm map with pastures, paddocks, herds, and a context inspector panel" style="width: 100%; display: block;">
-          </div>
+          <p class="hero-note">a working thesis with sources — and an honest inventory of what runs today</p>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <div class="section-divider"></div>
-
-  <!-- ═══ HOW IT WORKS ═══ -->
-  <section class="how-it-works" id="platform">
-    <div class="container">
-      <div class="hiw-label">how it works</div>
-      <div class="hiw-grid">
-        <div class="hiw-card">
-          <div class="hiw-number" style="color: var(--olive);">01</div>
-          <h3>set up your farm</h3>
-          <p>sign up or self-host. describe your land, pastures, and herds. your agent learns through conversation.</p>
-        </div>
-        <div class="hiw-card">
-          <div class="hiw-number" style="color: var(--terracotta);">02</div>
-          <h3>connect your agent</h3>
-          <p>paste an MCP endpoint into ChatGPT or Claude. your agent gets your farm state, knowledge, and tools.</p>
-        </div>
-        <div class="hiw-card">
-          <div class="hiw-number" style="color: var(--cobalt);">03</div>
-          <h3>manage with confidence</h3>
-          <p>daily briefs, move-or-stay recommendations, rotation tracking — grounded in your land and trusted grazing frameworks.</p>
-        </div>
-      </div>
-      <div class="hiw-connector">
-        <span class="hiw-connector-dot"></span>
-        <span class="hiw-connector-line"></span>
-        <span class="hiw-connector-dot" style="background: var(--terracotta);"></span>
-        <span class="hiw-connector-line"></span>
-        <span class="hiw-connector-dot" style="background: var(--cobalt);"></span>
-      </div>
-    </div>
-  </section>
-
-  <div class="section-divider"></div>
-
-  <!-- ═══ PRODUCT ═══ -->
-  <section class="product-dive" id="features">
-    <div class="container">
-      <div class="pd-section">
-        <div class="pd-window">
+        <div class="hero-figure">
           <div class="window-chrome">
             <div class="window-bar">
               <span class="window-dot window-dot-red"></span>
               <span class="window-dot window-dot-yellow"></span>
               <span class="window-dot window-dot-green"></span>
-              <span class="window-title">openpasture cloud — dashboard</span>
+              <span class="window-title">a farm as the system will see it</span>
             </div>
             <div class="window-body" style="padding: 0;">
-              <img src="assets/cloud-dashboard-bottom.png" alt="Pasture status cards, observations, and MCP endpoint" style="width: 100%; display: block;">
+              <img src="assets/farm-figure.svg" alt="Schematic satellite view: paddock grid over forage-index imagery, herd in the current paddock, dashed next paddock, daily plan panel awaiting farmer review" style="width: 100%; display: block;">
             </div>
           </div>
-        </div>
-        <div class="pd-text">
-          <h2>your farm, your agent, your data</h2>
-          <p>pastures, paddocks, herds, and observations on a live map. practitioner knowledge from Greg Judy, Joel Salatin, and Richard Perkins built in. works with ChatGPT, Claude, or any MCP client.</p>
-          <ul class="pd-features">
-            <li>farm map with live state synced by your agent</li>
-            <li>curated grazing knowledge + your operational history</li>
-            <li>open source core — self-host or use the cloud</li>
-          </ul>
+          <p class="hero-figcaption">schematic, not product — paddocks over forage-index imagery; yesterday resting, today occupied, tomorrow planned, pending the farmer's sign-off. our prototypes ingest Planet satellite imagery today.</p>
         </div>
       </div>
     </div>
@@ -911,49 +192,188 @@
 
   <div class="section-divider"></div>
 
-  <!-- ═══ PRICING ═══ -->
-  <section class="pricing-teaser" id="pricing">
+  <!-- ═══ THE ARGUMENT ═══ -->
+  <section class="beats" id="argument">
     <div class="container">
-      <h2>simple pricing</h2>
-      <p>open source agent kit is free forever. cloud starts at $20/mo.</p>
-      <div class="pricing-grid">
-        <div class="pricing-card">
-          <div class="pricing-card-name">open source</div>
-          <div class="pricing-card-price">free</div>
-          <div class="pricing-card-period">forever · AGPL-3.0</div>
-          <ul class="pricing-card-features">
-            <li>full agent kit with tools and knowledge</li>
-            <li>connect to any AI via MCP</li>
-            <li>self-host everything</li>
-          </ul>
-          <a href="https://github.com/open-pasture/openpasture-agent-kit" class="btn btn-outline btn-sm" target="_blank" rel="noopener">view-source</a>
+      <div class="section-label">the argument</div>
+      <div class="beats-grid">
+        <div class="beat-card">
+          <div class="beat-num" style="color: var(--olive);">01</div>
+          <h3>rotational grazing works. the evidence is decades deep.</h3>
+          <p>move animals to fresh ground daily and utilization climbs from a third of the grass grown to three quarters. same land, same rain — more harvest, more carrying capacity, more carbon in the soil.</p>
+          <div class="beat-stat"><strong>+44%</strong> more cow-calf pairs on the same acres, rotational vs continuous, in NDSU's long-term comparison.</div>
         </div>
-        <div class="pricing-card">
-          <div class="pricing-card-name">cloud</div>
-          <div class="pricing-card-price">$20</div>
-          <div class="pricing-card-period">per month</div>
-          <ul class="pricing-card-features">
-            <li>hosted MCP for ChatGPT + Claude</li>
-            <li>farm map dashboard</li>
-            <li>managed infrastructure</li>
-          </ul>
-          <a href="https://cloud.openpasture.com" class="btn btn-olive btn-sm">try-the-cloud</a>
+        <div class="beat-card">
+          <div class="beat-num" style="color: var(--terracotta);">02</div>
+          <h3>almost nobody does it. the bottleneck is labor.</h3>
+          <p>daily moves mean daily fence — 15 to 45 minutes per herd, every day, forever. feedlots didn't win because grass failed; they won because grass didn't scale per person.</p>
+          <div class="beat-stat"><strong>16%</strong> of US cow-calf operations practice intensive rotation, per USDA data. the extension literature names labor as the reason.</div>
+        </div>
+        <div class="beat-card">
+          <div class="beat-num" style="color: var(--cobalt);">03</div>
+          <h3>the fix exists — locked behind the wrong business model.</h3>
+          <p>virtual-fence collars already steer cattle from a phone. but every vendor sells proprietary hardware with software rented back as firmware: leased collars, closed data, per-head fees forever.</p>
+          <div class="beat-stat"><strong>our counter</strong> — collars you own and repair, an AGPL decision layer anyone can read, revenue from hosting instead of rent.</div>
         </div>
       </div>
-      <a href="pricing.html" class="pricing-link">see full pricing →</a>
+      <div style="text-align: center; margin-top: 2.5rem;">
+        <a href="/manifesto" class="inline-link">the full argument, with sources →</a>
+      </div>
     </div>
   </section>
 
   <div class="section-divider"></div>
 
-  <!-- ═══ FINAL CTA ═══ -->
-  <section class="final-cta" id="get-started">
+  <!-- ═══ THE SYSTEM ═══ -->
+  <section class="system-section" id="system">
     <div class="container">
-      <h2>get your farm connected</h2>
-      <div style="display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; margin-top: 2rem;">
-        <a href="https://cloud.openpasture.com" class="btn btn-white">try-the-cloud</a>
-        <a href="https://github.com/open-pasture/openpasture-agent-kit" class="btn btn-outline-light" target="_blank" rel="noopener">self-host-from-github</a>
+      <div class="system-grid">
+        <div class="system-text">
+          <div class="section-label">the system</div>
+          <h2>every farm data source in. one daily grazing plan out.</h2>
+          <p>satellite imagery, drone orthomosaics, pasture sensors, and the farmer's own field notes feed a living model of the land. a decision layer turns the model into each day's plan — where the herd goes, how long it stays, what residual it leaves. collars will carry the plan out, and the land's response comes back as tomorrow's data.</p>
+          <p>the farmer isn't removed from the loop — the fence is. the system proposes every move; the farmer makes the calls that matter and every correction becomes training signal. a grazier's intuition about their own ground is the most valuable dataset on the farm.</p>
+          <a href="/manifesto#the-system" class="inline-link">how the loop works →</a>
+        </div>
+        <div class="flow">
+          <div class="flow-tier">
+            <div class="flow-node">
+              <div class="fn-label">sense</div>
+              <div class="fn-title">satellite</div>
+              <div class="fn-desc">Planet imagery — prototypes ingest it today</div>
+            </div>
+            <div class="flow-node">
+              <div class="fn-label">sense</div>
+              <div class="fn-title">drone</div>
+              <div class="fn-desc">DJI orthomosaics</div>
+            </div>
+            <div class="flow-node">
+              <div class="fn-label">sense</div>
+              <div class="fn-title">ground</div>
+              <div class="fn-desc">cameras &amp; sensors</div>
+            </div>
+            <div class="flow-node">
+              <div class="fn-label">sense</div>
+              <div class="fn-title">farmer</div>
+              <div class="fn-desc">field notes &amp; photos</div>
+            </div>
+          </div>
+          <div class="flow-arrow">&darr;</div>
+          <div class="flow-tier">
+            <div class="flow-node flow-node-wide">
+              <div class="fn-label">model</div>
+              <div class="fn-title">a living model of the farm</div>
+              <div class="fn-desc">paddocks, forage, recovery, water, herds — runs on whatever data exists</div>
+            </div>
+          </div>
+          <div class="flow-arrow">&darr;</div>
+          <div class="flow-tier">
+            <div class="flow-node flow-node-wide flow-node-accent">
+              <div class="fn-label">decide</div>
+              <div class="fn-title">the daily grazing plan</div>
+              <div class="fn-desc">proposed by the system, reviewed and taught by the farmer</div>
+            </div>
+          </div>
+          <div class="flow-arrow">&darr;</div>
+          <div class="flow-tier">
+            <div class="flow-node flow-node-wide">
+              <div class="fn-label">act</div>
+              <div class="fn-title">collars move the herd</div>
+              <div class="fn-desc">the land's response returns as tomorrow's input</div>
+            </div>
+          </div>
+          <div class="flow-loop">&uarr; the loop closes — grazing response &rarr; observation &rarr; model &rarr; next plan</div>
+        </div>
       </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ═══ STATE OF THE PROJECT ═══ -->
+  <section class="state-section" id="state">
+    <div class="container">
+      <div class="state-grid">
+        <div class="state-text">
+          <div class="section-label">no fiction</div>
+          <h2>what runs today, exactly.</h2>
+          <p>this site describes a system that does not fully exist yet. we think the honest way to build it is in public, starting with the inventory. future tense on this site is a promise of intent, not a claim of capability — and this ledger stays current.</p>
+          <a href="/manifesto#what-exists" class="inline-link">the full ledger, in context →</a>
+        </div>
+        <div class="ledger">
+          <div class="ledger-head">state of the project — august 2026</div>
+          <ul>
+            <li><span class="mark mark-yes">[x]</span><span><strong>agent kit</strong> — open AGPL-3.0 repo: farm domain objects, tools, knowledge ingestion, agent connectors. scaffolding, not a product.</span></li>
+            <li><span class="mark mark-yes">[x]</span><span><strong>satellite prototypes</strong> — Planet imagery ingestion and map visualizations of real ground.</span></li>
+            <li><span class="mark mark-part">[~]</span><span><strong>hosted infrastructure</strong> — cloud scaffolding exists; not open to users yet.</span></li>
+            <li><span class="mark mark-no">[ ]</span><span><strong>no end-to-end product.</strong> no farm runs a working loop today.</span></li>
+            <li><span class="mark mark-no">[ ]</span><span><strong>no collar hardware.</strong> not designed, not prototyped.</span></li>
+            <li><span class="mark mark-no">[ ]</span><span><strong>no autonomy.</strong> nothing we've built moves an animal.</span></li>
+          </ul>
+          <div class="ledger-note">if this ledger ever describes more than the repos contain, the ledger is wrong — file an issue.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ═══ ROADMAP ═══ -->
+  <section class="roadmap-section" id="roadmap">
+    <div class="container">
+      <div class="roadmap-head">
+        <div class="section-label">the plan</div>
+        <h2>software first. telemetry second. hardware third.</h2>
+        <p>prove the decision layer with humans executing the moves, then plug in the actuators. no dates — dates on a page like this would be fiction.</p>
+      </div>
+      <div class="timeline">
+        <div class="phase">
+          <div class="phase-num phase-now">01</div>
+          <div class="phase-body">
+            <h3>the harness <span class="phase-status phase-status-now">now</span></h3>
+            <p>connect the AI agents farmers already use to farm state, grazing knowledge, and telemetry. the daily loop ships as move / stay / needs-info recommendations, executed by hand.</p>
+          </div>
+        </div>
+        <div class="phase">
+          <div class="phase-num">02</div>
+          <div class="phase-body">
+            <h3>telemetry <span class="phase-status phase-status-future">next</span></h3>
+            <p>productionize the sensing layer — Planet pipelines, DJI ingestion, pasture sensors, and existing collar integrations where vendors allow it.</p>
+          </div>
+        </div>
+        <div class="phase">
+          <div class="phase-num">03</div>
+          <div class="phase-body">
+            <h3>the open collar <span class="phase-status phase-status-future">the campaign</span></h3>
+            <p>off-the-shelf components, published designs, owner-repairable. a crowdfunded first production run, built in the open, for the farms the incumbents price out.</p>
+          </div>
+        </div>
+        <div class="phase">
+          <div class="phase-num">04</div>
+          <div class="phase-body">
+            <h3>the far end <span class="phase-status phase-status-future">later</span></h3>
+            <p>drones for on-demand imagery, deeper satellite partnerships, and eventually upstream capacity of our own.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ EARLY ACCESS ═══ -->
+  <section class="ea-section" id="early-access">
+    <div class="container">
+      <div class="section-label" style="color: var(--olive-muted);">early access</div>
+      <h2>get in before the campaign</h2>
+      <p>graziers who want to be design partners, engineers who want to build it, and anyone who wants an open alternative to the lock-in playbook. one email when the collar campaign opens — honest progress before that, nothing else.</p>
+      <form class="ea-form" novalidate>
+        <input type="text" name="name" placeholder="name (optional)" autocomplete="name">
+        <input type="email" name="email" placeholder="email" required autocomplete="email">
+        <textarea name="message" placeholder="optional: your operation, your stack, or why you're here"></textarea>
+        <div class="ea-submit-row">
+          <button type="submit" class="btn btn-olive">request-early-access</button>
+          <span class="ea-status"></span>
+        </div>
+      </form>
     </div>
   </section>
 
@@ -962,10 +382,10 @@
     <div class="container">
       <div class="footer-grid">
         <div class="footer-col">
-          <h4>Product</h4>
-          <a href="#platform">how it works</a>
-          <a href="pricing.html">pricing</a>
-          <a href="mission.html">our mission</a>
+          <h4>Project</h4>
+          <a href="/manifesto">manifesto</a>
+          <a href="#system">the system</a>
+          <a href="#roadmap">roadmap</a>
         </div>
         <div class="footer-col">
           <h4>Open Source</h4>
@@ -973,8 +393,8 @@
           <a href="https://www.gnu.org/licenses/agpl-3.0.en.html">agpl-3.0</a>
         </div>
         <div class="footer-col">
-          <h4>Cloud</h4>
-          <a href="https://cloud.openpasture.com">sign up</a>
+          <h4>Site</h4>
+          <a href="#early-access">early access</a>
           <a href="privacy.html">privacy</a>
         </div>
         <div class="footer-col">
@@ -983,13 +403,11 @@
         </div>
       </div>
       <div class="footer-bottom">
-        © 2026 OpenPasture
+        © 2026 OpenPasture — the future tense on this page is a promise of intent, not a claim of capability.
       </div>
     </div>
   </footer>
 
-  <script>
-    lucide.createIcons();
-  </script>
+  <script src="assets/site.js"></script>
 </body>
 </html>

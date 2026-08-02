@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" font-family="'JetBrains Mono', ui-monospace, Menlo, monospace">
+  <rect width="1200" height="630" fill="#1a1e18"/>
+  <g stroke="#ffffff" stroke-opacity="0.045" stroke-width="1">
+    <path d="M0 90 H1200 M0 180 H1200 M0 270 H1200 M0 360 H1200 M0 450 H1200 M0 540 H1200"/>
+    <path d="M100 0 V630 M200 0 V630 M300 0 V630 M400 0 V630 M500 0 V630 M600 0 V630 M700 0 V630 M800 0 V630 M900 0 V630 M1000 0 V630 M1100 0 V630"/>
+  </g>
+  <rect x="0" y="0" width="1200" height="8" fill="#4a6a2e"/>
+
+  <rect x="80" y="72" width="44" height="44" fill="#4a6a2e"/>
+  <text x="92" y="103" fill="#f6f8f4" font-size="26" font-weight="700">&gt;_</text>
+  <text x="140" y="103" fill="#f6f8f4" font-size="30" font-weight="800">openpasture</text>
+  <text x="368" y="103" fill="#8a9080" font-size="17">&#183; manifesto</text>
+
+  <text x="80" y="212" fill="#f6f8f4" font-size="58" font-weight="700" font-family="Georgia, 'Libre Baskerville', serif">the case for</text>
+  <text x="80" y="282" fill="#f6f8f4" font-size="58" font-weight="700" font-family="Georgia, 'Libre Baskerville', serif">automated land management</text>
+
+  <text x="80" y="348" fill="#c0d0a8" font-size="23">rotational grazing supports 44% more animals on the same land.</text>
+  <text x="80" y="384" fill="#c0d0a8" font-size="23">only 16% of operations practice it. the bottleneck is labor.</text>
+
+  <g font-size="19">
+    <rect x="80" y="440" width="1040" height="118" fill="#2a3028" stroke="#4a6a2e" stroke-width="2"/>
+    <text x="104" y="478" fill="#5aaa5a" font-weight="700">[x]</text>
+    <text x="150" y="478" fill="#f6f8f4">open agpl-3.0 decision layer &#183; planet imagery prototypes</text>
+    <text x="104" y="512" fill="#c06a62" font-weight="700">[ ]</text>
+    <text x="150" y="512" fill="#f6f8f4">collars you own and repair &#8212; the crowdfunded open build</text>
+    <text x="104" y="543" fill="#8a9080" font-size="16">future tense is a promise of intent, not a claim of capability</text>
+  </g>
+
+  <text x="80" y="602" fill="#647060" font-size="18">openpasture.dev/manifesto</text>
+  <text x="920" y="602" fill="#647060" font-size="18">open source &#183; no lock-in</text>
+</svg>

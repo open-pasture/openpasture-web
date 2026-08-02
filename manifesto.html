@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The case for automated land management — the OpenPasture manifesto</title>
+  <meta name="description" content="Rotational grazing measurably outperforms continuous grazing, yet almost nobody practices it, because the bottleneck is human labor. An argument for open collars, an open decision layer, and grazing that scales.">
+  <link rel="canonical" href="https://openpasture.dev/manifesto">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="OpenPasture">
+  <meta property="og:title" content="The case for automated land management">
+  <meta property="og:description" content="Rotational grazing supports 44% more animals on the same land. Only 16% of operations practice it. The bottleneck is labor — and labor is now solvable.">
+  <meta property="og:url" content="https://openpasture.dev/manifesto">
+  <meta property="og:image" content="https://openpasture.dev/assets/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="The case for automated land management">
+  <meta name="twitter:description" content="Rotational grazing supports 44% more animals on the same land. Only 16% of operations practice it. The bottleneck is labor — and labor is now solvable.">
+  <meta name="twitter:image" content="https://openpasture.dev/assets/og.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/site.css">
+  <script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+</head>
+<body>
+
+  <!-- ═══ HEADER ═══ -->
+  <header class="header" id="top">
+    <div class="container">
+      <div class="header-left">
+        <a href="/" style="display:flex;align-items:center;gap:0.75rem;">
+          <div class="header-logo"><i data-lucide="terminal"></i></div>
+          <span class="header-brand">openpasture</span>
+        </a>
+        <span class="header-tag">manifesto · draft 01</span>
+      </div>
+      <div class="header-right">
+        <nav class="header-nav">
+          <a href="/">home</a>
+          <a href="/#system">system</a>
+          <a href="/#roadmap">roadmap</a>
+          <a href="https://github.com/open-pasture/openpasture-agent-kit" class="github-link" target="_blank" rel="noopener"><i data-lucide="github"></i></a>
+        </nav>
+        <div class="header-cta">
+          <a href="#early-access" class="btn btn-olive btn-sm">early-access</a>
+        </div>
+      </div>
+      <button class="mobile-toggle" aria-label="Menu">
+        <i data-lucide="menu"></i>
+      </button>
+    </div>
+    <div class="mobile-menu">
+      <a href="/">home</a>
+      <a href="/#system">system</a>
+      <a href="/#roadmap">roadmap</a>
+      <a href="https://github.com/open-pasture/openpasture-agent-kit" target="_blank" rel="noopener">github</a>
+      <a href="#early-access" class="btn btn-olive btn-sm">early-access</a>
+    </div>
+  </header>
+
+  <!-- ═══ DOCUMENT ═══ -->
+  <div class="prose-wrap">
+
+    <nav class="toc" aria-label="Table of contents">
+      <div class="toc-label">contents</div>
+      <a href="#grass-is-a-crop">01 · grass is a crop</a>
+      <a href="#the-practice">02 · the practice that works</a>
+      <a href="#the-bottleneck">03 · the bottleneck is labor</a>
+      <a href="#the-machinery">04 · the machinery exists</a>
+      <a href="#the-counter-model">05 · the counter-model</a>
+      <a href="#the-system">06 · the system</a>
+      <a href="#the-animals">07 · the animals</a>
+      <a href="#what-exists">08 · what exists today</a>
+      <a href="#the-plan">09 · the plan</a>
+      <a href="#the-ask">10 · the ask</a>
+      <a href="#sources">sources</a>
+    </nav>
+
+    <article class="prose">
+      <div class="doc-kicker">openpasture manifesto · draft 01</div>
+      <h1>the case for automated land management</h1>
+      <p class="doc-meta">a working document. future tense describes intent; present tense describes what runs today. section 08 is the inventory of what actually exists, and it is short on purpose.</p>
+
+      <p>OpenPasture is an open-source project building toward automated land management: ruminant herds guided by radio collars, and a decision layer that learns a farm well enough to plan every day's grazing. This document is the argument for why that system should exist, why it must be open, and what we are building first.</p>
+
+      <h2 id="grass-is-a-crop"><span class="sec-num">01</span>grass is a crop</h2>
+
+      <p>Pastureland is a perennial crop. It plants itself, waters itself in most climates, fixes its own nitrogen when legumes are present, and photosynthesizes from the first thaw to the last frost. Roughly two-thirds of the world's agricultural land is grassland that cannot grow row crops — too steep, too rocky, too dry. Grass is the only harvest that land will ever yield.</p>
+
+      <p>The harvest machinery for that crop already exists, and it is alive. Ruminants convert cellulose humans cannot digest into protein humans can. They mow, they fertilize, and they build more harvesting capacity by reproducing. A cow is machinery that manufactures itself.</p>
+
+      <p>But the machinery does not steer itself. Left alone on a big pasture, cattle graze selectively: they bite the sweetest regrowth again and again, ignore the rank patches, and camp near water and shade. The plants they favor get hit before their roots recover; the plants they avoid go rank and choke out the sward. Unmanaged grazing slowly degrades the crop it feeds on.</p>
+
+      <p>The difference between degradation and cultivation is not the animal. It is placement and timing — which mouths, on which ground, for how long, and how long that ground rests afterward. Managed this way, grazing is pruning: each defoliation triggers regrowth, root exudation, and litter deposition that rebuild the sward denser than before.</p>
+
+      <p class="pull">a cow is harvest machinery that builds more of itself. the missing component has always been the steering.</p>
+
+      <h2 id="the-practice"><span class="sec-num">02</span>the practice that works</h2>
+
+      <p>The steering discipline has a name — rotational, adaptive multi-paddock, management-intensive grazing — and it is one of the best-documented practices in agriculture. Move the herd to fresh ground daily or near-daily, size each allocation to the forage actually standing on it, and give every grazed paddock weeks of recovery before animals return.</p>
+
+      <p>The numbers are not subtle. On continuously grazed pasture, animals actually consume 30&ndash;40% of the forage grown; the rest is trampled, fouled, or goes rank. Shorten the grazing period and the number climbs: 40&ndash;55% on a slow rotation, 55&ndash;70% on a fast one, and 60&ndash;75% when animals move daily.<a class="fnref" href="#fn1">[1]</a><a class="fnref" href="#fn2">[2]</a> A long-term North Dakota State University comparison of two 320-acre pastures found the rotationally grazed pasture produced the same forage as the continuous one but supported <strong>44% more cow-calf pairs</strong> and 17.8 more pounds of beef per acre.<a class="fnref" href="#fn3">[3]</a></p>
+
+      <div class="stat-row">
+        <div class="stat-card">
+          <div class="stat-value" style="color: var(--olive);">60&ndash;75%</div>
+          <div class="stat-desc">forage utilization with daily moves, vs 30&ndash;40% under continuous grazing (Univ. of Kentucky extension)</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" style="color: var(--olive);">+44%</div>
+          <div class="stat-desc">more cow-calf pairs on the same acres and same forage production, rotational vs continuous (NDSU long-term study)</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" style="color: var(--terracotta);">16%</div>
+          <div class="stat-desc">of US cow-calf operations that actually practice intensive rotation (USDA, via MU Extension)</div>
+        </div>
+      </div>
+
+      <p>The effects compound below ground. Richard Teague's ranch-scale work in Texas tall grass prairie found that adaptively managed multi-paddock grazing — run at <em>higher</em> stocking rates than its continuously grazed neighbors — carried more soil organic matter, better aggregate stability, higher fungal-to-bacterial ratios, and vegetation dominated by the tall, deep-rooted species that continuous grazing eliminates.<a class="fnref" href="#fn4">[4]</a> Economic modeling of the same systems shows multi-paddock management substantially increasing 30-year net present value, precisely because it sustains higher stocking rates without degrading the base.<a class="fnref" href="#fn5">[5]</a></p>
+
+      <p>More grass harvested per acre, more animals carried per acre, more carbon and water held in the soil — from the same land, the same rain, the same genetics. The practice works.</p>
+
+      <h2 id="the-bottleneck"><span class="sec-num">03</span>the bottleneck is labor</h2>
+
+      <p>So why does almost nobody do it? USDA data puts some form of rotation on about 40% of cow-calf operations — but intensive systems, the ones that produce the numbers above, on just 16%.<a class="fnref" href="#fn6">[6]</a> The best-documented practice in grazing is also among the least adopted, and the extension literature is blunt about the reason: <em>"many producers conclude that the daily labor rarely justifies the payoff."</em><a class="fnref" href="#fn6">[6]</a></p>
+
+      <p>Daily movement means daily fence. Fifteen to forty-five minutes per move for an experienced grazier, per herd, every day, in every weather, with no weekends.<a class="fnref" href="#fn6">[6]</a> Jim Gerrish — who wrote the book on management-intensive grazing and has a ranch laid out to make moves as efficient as they can physically be — still spends 25 to 45 minutes every day moving his herd.<a class="fnref" href="#fn7">[7]</a> That is the <em>best case</em>. Missouri Extension documents a producer running 350 cows in seventeen separate groups whose daily moves consumed more than twelve hours of labor.<a class="fnref" href="#fn6">[6]</a> Split the herd, add a paddock, take an off-farm job, get sick for a week — the arithmetic breaks immediately.</p>
+
+      <p>This is the same bottleneck that built the feedlot. Confinement did not win because grass failed as a biological system. It won because one worker in a feedyard can manage thousands of animals, and one worker with a reel of polywire can manage a few hundred at most. Cheap grain plus concentrated labor beat free sunlight plus scarce labor. The industry optimized for the scarce input, and the scarce input was people.</p>
+
+      <p class="pull">agriculture didn't choose confinement because grass failed. it chose confinement because grass didn't scale per person.</p>
+
+      <p>Every acre of pasture is a solar collector with a self-replicating harvester standing on it. The only reason that system loses to a feedlot is that the harvester needs a human to walk out and move it every day. Remove that constraint and the equation that built confinement agriculture runs in reverse.</p>
+
+      <h2 id="the-machinery"><span class="sec-num">04</span>the machinery exists; the business model is wrong</h2>
+
+      <p>Here is the remarkable part: the hard hardware problem is already solved. Virtual fencing shipped. Gallagher's eShepherd, Halter, Nofence, and Merck's Vence all sell GPS collars today that steer cattle with an audio cue backed by a mild electric pulse — boundaries drawn on a phone, no wire in the ground.<a class="fnref" href="#fn8">[8]</a> Ranchers use them at commercial scale, on real herds. These companies proved the actuator, and they deserve credit for it.</p>
+
+      <p>Then they all reached for the same playbook. Proprietary hardware; software rented back as firmware; a subscription between the farmer and every acre. Halter charges a per-head monthly fee on top of tower infrastructure starting at $4,500. Nofence sells collars at $289&ndash;329 each, plus a per-collar monthly subscription, forever. Vence does not sell collars at all — they are leased at $40 per collar per year against a base station that costs $10,000&ndash;12,500 installed.<a class="fnref" href="#fn8">[8]</a><a class="fnref" href="#fn9">[9]</a></p>
+
+      <p>The problem is not the price level. It is the structure. Collars from different vendors are not interoperable.<a class="fnref" href="#fn9">[9]</a> The farm's grazing data lives in the vendor's cloud. The software is inseparable from the hardware, so when the subscription stops — or the vendor pivots, or is acquired, or dies — the collar in your hand becomes a plastic brick on a cow's neck. And per-head-per-month pricing means costs scale linearly with the herd forever, which penalizes exactly the operations that would move the most animals onto grass.</p>
+
+      <p>Row-crop agriculture has spent a decade fighting this disease in tractor firmware — farmers suing for the right to repair machinery they nominally own. Grazing technology was born with the same disease already installed. A tool that is supposed to regenerate the most durable asset a farmer has — land — should not itself be a depreciating rental.</p>
+
+      <h2 id="the-counter-model"><span class="sec-num">05</span>the counter-model: open machinery</h2>
+
+      <p>Our position is that the layers must be separated, and each one opened.</p>
+
+      <p><strong>Hardware the farmer owns and repairs.</strong> We will design a collar around off-the-shelf components and publish the design. The innovation we are chasing is not a sensor nobody else has — it is a bill of materials anyone can buy, an assembly a farm shop can complete, and a repair that costs a part instead of a replacement unit. The barrier to entry, not the spec sheet, is the product.</p>
+
+      <p><strong>Software the community owns.</strong> The decision layer — the farm model, the grazing planner, the agent tooling — is open source under AGPL-3.0. That license is already on the <a href="https://github.com/open-pasture/openpasture-agent-kit" target="_blank" rel="noopener">repository</a>. Anyone can read how the system decides to move animals, and nobody can enclose an improved version behind an API.</p>
+
+      <p><strong>Revenue from hosting, not rent on hardware.</strong> We will charge for the parts that are genuinely hard to run — imagery pipelines, model hosting, sync, managed infrastructure — the way open-core infrastructure companies have made durable businesses for two decades. A farm that self-hosts everything pays us nothing and loses nothing.</p>
+
+      <p class="pull">the company should be optional. that is the design requirement that separates infrastructure from a landlord.</p>
+
+      <p>If our hosted service disappeared tomorrow, the design goal is that every collar keeps working, every farm keeps its data, and the software keeps running on a machine in the farmhouse. None of the incumbents can make that promise. It is the only promise that matters over the thirty-year horizon a pasture actually lives on.</p>
+
+      <h2 id="the-system"><span class="sec-num">06</span>the system we are building</h2>
+
+      <p>The system has four layers. Data comes in from whatever the farm has; a living model of the land absorbs it; a decision layer turns the model into a daily grazing plan; collars carry the plan out; and the land's response flows back in as tomorrow's data.</p>
+
+      <div class="figure">
+        <div class="flow">
+          <div class="flow-tier">
+            <div class="flow-node">
+              <div class="fn-label">sense</div>
+              <div class="fn-title">satellite</div>
+              <div class="fn-desc">Planet imagery — our prototypes ingest it today</div>
+            </div>
+            <div class="flow-node">
+              <div class="fn-label">sense</div>
+              <div class="fn-title">drone</div>
+              <div class="fn-desc">DJI orthomosaics, where farms fly them</div>
+            </div>
+            <div class="flow-node">
+              <div class="fn-label">sense</div>
+              <div class="fn-title">ground</div>
+              <div class="fn-desc">pasture cameras, temperature and moisture sensors</div>
+            </div>
+            <div class="flow-node">
+              <div class="fn-label">sense</div>
+              <div class="fn-title">farmer</div>
+              <div class="fn-desc">field notes — unstructured text, photos, attachments</div>
+            </div>
+          </div>
+          <div class="flow-arrow">&darr;</div>
+          <div class="flow-tier">
+            <div class="flow-node flow-node-wide">
+              <div class="fn-label">model</div>
+              <div class="fn-title">a living model of the farm</div>
+              <div class="fn-desc">paddocks, standing forage, recovery curves, water, herds, history — adaptive to whatever data sources exist; more data sharpens it, less data does not break it</div>
+            </div>
+          </div>
+          <div class="flow-arrow">&darr;</div>
+          <div class="flow-tier">
+            <div class="flow-node flow-node-wide flow-node-accent">
+              <div class="fn-label">decide</div>
+              <div class="fn-title">the daily grazing plan</div>
+              <div class="fn-desc">where the herd goes, how long it stays, what residual it leaves — proposed by the system, reviewed and corrected by the farmer, who teaches it with every override</div>
+            </div>
+          </div>
+          <div class="flow-arrow">&darr;</div>
+          <div class="flow-tier">
+            <div class="flow-node flow-node-wide">
+              <div class="fn-label">act</div>
+              <div class="fn-title">collars move the herd</div>
+              <div class="fn-desc">virtual boundaries shift on schedule; the land's response returns through the sensors as tomorrow's input</div>
+            </div>
+          </div>
+          <div class="flow-loop">&uarr; the loop closes: grazing response &rarr; imagery and observation &rarr; model &rarr; next plan</div>
+        </div>
+        <figcaption>fig. 2 — the automated land management loop. every layer is designed to run with partial data, because every real farm has partial data.</figcaption>
+      </div>
+
+      <div class="figure">
+        <div class="window-chrome">
+          <div class="window-bar">
+            <span class="window-dot window-dot-red"></span>
+            <span class="window-dot window-dot-yellow"></span>
+            <span class="window-dot window-dot-green"></span>
+            <span class="window-title">a farm as the system will see it</span>
+          </div>
+          <div class="window-body" style="padding: 0;">
+            <img src="assets/farm-figure.svg" alt="Schematic satellite view of a farm: paddock grid over forage-index imagery, current paddock with herd, dashed next paddock, and a daily plan panel awaiting farmer review" style="width: 100%; display: block;">
+          </div>
+        </div>
+        <figcaption>fig. 3 — schematic, not product. paddocks over forage-index imagery; yesterday's ground resting, today's occupied, tomorrow's planned — pending the farmer's sign-off.</figcaption>
+      </div>
+
+      <p>The farmer's role in this loop deserves precision, because it is where automation claims usually rot. The goal is not to remove the farmer from the land. It is to remove the fence from the farmer. Today a grazier's daily hour goes into physically re-wiring paddocks; under this system that hour goes into looking at animals and grass, and the looking gets encoded. The system proposes every move; the farmer makes the calls that matter instead of every call, and each correction becomes training signal. A grazier's intuition about their own ground is the most valuable dataset on the farm. The system's job is to learn it, not replace it.</p>
+
+      <h2 id="the-animals"><span class="sec-num">07</span>the animals</h2>
+
+      <p>A system whose entire function is to put animals on fresh feed every day is a welfare technology before it is anything else. Daily allocation means clean ground, no camping in mud and manure, parasite cycles broken by rest periods, and body condition that shows up in data instead of surprising you at weaning. The welfare argument for this system is not defensive. It is the point: every animal on grass, moved onto the best feed on the farm, every single day.</p>
+
+      <p>Virtual fencing earns the caricature question — "an AI that shocks cows?" — so here is the mechanism plainly. Collars cue with sound first. Animals learn the audio boundary within days and turn on the tone; the pulse behind it is mild, rare after training, and far gentler than the electric fencing, cattle prods, and dogs that conventional handling already uses.<a class="fnref" href="#fn9">[9]</a> We will publish our pulse-frequency data per herd as a first-class metric — the design goal is a number that falls toward zero as herds train, and a system that flags any animal for whom it does not.</p>
+
+      <p>One more welfare fact, easy to miss: this system puts the farmer's eyes on the herd <em>more</em>, not less. The practitioners this project draws on — the daily-move graziers who proved the practice — built their systems on constant observation of animals and grass. Automation exists to protect that attention, not to substitute for it. The hour that used to go into polywire goes into looking.</p>
+
+      <h2 id="what-exists"><span class="sec-num">08</span>what exists today</h2>
+
+      <p>This is a manifesto, not a product page, and the honest inventory is short. We are earlier than every company named in section 04. Here is exactly where things stand:</p>
+
+      <div class="figure">
+        <div class="ledger">
+          <div class="ledger-head">state of the project — august 2026</div>
+          <ul>
+            <li><span class="mark mark-yes">[x]</span><span><strong>the agent kit</strong> — an open AGPL-3.0 repository: farm domain objects, tool definitions, knowledge ingestion, and agent connector scaffolding. code exists; it is scaffolding toward the harness, not a finished product.</span></li>
+            <li><span class="mark mark-yes">[x]</span><span><strong>satellite ingestion prototypes</strong> — we pull Planet imagery today and have built prototype map visualizations of real ground from it.</span></li>
+            <li><span class="mark mark-yes">[x]</span><span><strong>this argument</strong> — the thesis, the sources, and the site you are reading.</span></li>
+            <li><span class="mark mark-part">[~]</span><span><strong>hosted infrastructure</strong> — cloud scaffolding (accounts, sync, deployment) exists in a private repo and is not yet open to users.</span></li>
+            <li><span class="mark mark-no">[ ]</span><span><strong>no end-to-end product.</strong> no farm runs a working openpasture loop today.</span></li>
+            <li><span class="mark mark-no">[ ]</span><span><strong>no collar hardware.</strong> not designed, not prototyped. section 09 explains the sequencing.</span></li>
+            <li><span class="mark mark-no">[ ]</span><span><strong>no autonomy.</strong> nothing we have built moves an animal. every capability described in future tense in this document does not exist yet.</span></li>
+          </ul>
+          <div class="ledger-note">we will keep this ledger current. if the text above ever describes more than the repos contain, the text is wrong — file an issue.</div>
+        </div>
+      </div>
+
+      <p>What we have that the incumbents do not is the architecture: open source from the first commit, hardware-agnostic by design, and a business model that does not require enclosing the farmer to survive. That is not ahead on capability. It is ahead on the axis we think decides the next thirty years.</p>
+
+      <h2 id="the-plan"><span class="sec-num">09</span>the plan</h2>
+
+      <p>The sequencing principle: prove the decision layer with humans executing the moves, then plug in the actuators. Software first, telemetry second, hardware third.</p>
+
+      <div class="figure">
+        <div class="timeline">
+          <div class="phase">
+            <div class="phase-num phase-now">01</div>
+            <div class="phase-body">
+              <h3>the harness <span class="phase-status phase-status-now">now</span></h3>
+              <p>the agent kit: connect the AI agents farmers already use to farm state, grazing knowledge, and telemetry. the daily loop ships as recommendations — move, stay, or needs-info — with the farmer executing by hand. this proves the decision layer before any hardware exists.</p>
+            </div>
+          </div>
+          <div class="phase">
+            <div class="phase-num">02</div>
+            <div class="phase-body">
+              <h3>telemetry <span class="phase-status phase-status-future">next</span></h3>
+              <p>productionize the sensing layer: Planet imagery pipelines, DJI orthomosaic ingestion, pasture sensors and cameras, and integrations with existing collar vendors wherever their systems allow it. the farm model gets its eyes.</p>
+            </div>
+          </div>
+          <div class="phase">
+            <div class="phase-num">03</div>
+            <div class="phase-body">
+              <h3>the open collar <span class="phase-status phase-status-future">the campaign</span></h3>
+              <p>design and manufacture the collar: off-the-shelf components, published designs, owner-repairable. this is where groundswell funding comes in — a crowdfunded first production run, built in the open, for the farms the incumbents price out.</p>
+            </div>
+          </div>
+          <div class="phase">
+            <div class="phase-num">04</div>
+            <div class="phase-body">
+              <h3>the far end <span class="phase-status phase-status-future">later</span></h3>
+              <p>drones for on-demand imagery. deeper satellite partnerships, and eventually upstream capacity of our own. the sensing layer becomes a utility.</p>
+            </div>
+          </div>
+        </div>
+        <figcaption>fig. 4 — no dates. dates on a page like this would be fiction, and this document has a no-fiction rule.</figcaption>
+      </div>
+
+      <h2 id="the-ask"><span class="sec-num">10</span>the ask</h2>
+
+      <p>Three kinds of people can move this forward right now.</p>
+
+      <p><strong>Graziers.</strong> If you move animals — daily or wish you could — we want you as a design partner. Your paddock maps, your field notes, your objections. The decision layer gets built against real ground or it is worthless.</p>
+
+      <p><strong>Engineers.</strong> The agent kit is AGPL and public. Geospatial pipelines, agent tooling, and eventually embedded hardware — if the argument above holds together for you, the <a href="https://github.com/open-pasture/openpasture-agent-kit" target="_blank" rel="noopener">repository</a> is where it becomes real.</p>
+
+      <p><strong>Everyone else.</strong> If you want more animals raised on grass and an open alternative to the lock-in playbook, leave your email below. When the collar campaign happens, you will hear it from us first — and nothing else will be sent to you in the meantime.</p>
+
+      <!-- ═══ SOURCES ═══ -->
+      <div class="footnotes" id="sources">
+        <h2><span class="sec-num">##</span>sources</h2>
+        <ol>
+          <li id="fn1">University of Kentucky Cooperative Extension, AGR-191, <a href="https://forages.mgcafe.uky.edu/files/using_a_grazing_stick.pdf" target="_blank" rel="noopener">"Using a Grazing Stick for Pasture Management"</a> — utilization 30&ndash;40% continuous; 40&ndash;55% slow rotation; 55&ndash;70% fast; 70&ndash;80% intensive daily systems.</li>
+          <li id="fn2">University of Kentucky Cooperative Extension, ID-143, <a href="https://publications.mgcafe.uky.edu/files/ID143.pdf" target="_blank" rel="noopener">"Rotational Grazing"</a> — utilization 60&ndash;75% at one-day grazing periods.</li>
+          <li id="fn3">South Dakota Grassland Coalition, <a href="https://sdgrass.org/range-101-efficiencies-of-rotational-grazing/" target="_blank" rel="noopener">"Range 101: Efficiencies of Rotational Grazing"</a> — NDSU long-term 320-acre comparison: +44% cow-calf pairs, +17.8 lb beef/acre, equal forage production.</li>
+          <li id="fn4">Teague et al., 2011, <a href="https://www.sciencedirect.com/science/article/abs/pii/S0167880911000934" target="_blank" rel="noopener">"Grazing management impacts on vegetation, soil biota and soil chemical, physical and hydrological properties in tall grass prairie,"</a> Agriculture, Ecosystems &amp; Environment 141.</li>
+          <li id="fn5">Wang et al., <a href="https://arefiles.ucdavis.edu/uploads/filer_public/5a/a9/5aa9c509-8b38-4b21-b5db-01628fb671da/paper-3twang.pdf" target="_blank" rel="noopener">"Evaluation of long-term economic and ecological consequences of continuous and multi-paddock grazing"</a> — MP grazing greatly increases 30-year NPV by sustaining higher stocking rates.</li>
+          <li id="fn6">University of Missouri Extension, <a href="https://extension.missouri.edu/news/why-rotational-grazing-isnt-working" target="_blank" rel="noopener">"Why rotational grazing isn't working"</a> — 15&ndash;45 min per move; 40% any rotation / 16% intensive (USDA); 350-cow, 17-group operation at 12+ hours of daily move labor.</li>
+          <li id="fn7">American Cattlemen, <a href="https://americancattlemen.com/portable-fencing-facilitates-rotational-grazing/" target="_blank" rel="noopener">"Portable Fencing Facilitates Rotational Grazing"</a> — Jim Gerrish: 500 pairs moved daily, 25&ndash;45 minutes per day.</li>
+          <li id="fn8">DTN Progressive Farmer, April 2025, <a href="https://www.dtnpf.com/agriculture/web/ag/news/article/2025/04/01/virtual-fencing-ranchers-new-best" target="_blank" rel="noopener">"Virtual Fencing: A Rancher's New Best Friend"</a> — vendor pricing: Halter, Nofence, Vence.</li>
+          <li id="fn9">Rangelands Gateway / Univ. of Arizona, October 2025, <a href="https://rangelandsgateway.org/sites/default/files/2025-10/VF-Vendor-Comparison-10-2025.pdf" target="_blank" rel="noopener">"Virtual Fence Vendors for Cattle: Basic Comparison"</a> — collars "generally not interoperable or interchangeable"; audio-cue-first operation; base station and collar economics.</li>
+        </ol>
+        <p class="mono-aside" style="margin-top: 1.5rem;">claims in this document that carry no citation are positions, not findings. the utilization and labor figures above are ranges from extension literature; conditions vary by region, forage base, and management. if you find an error, <a href="mailto:hello@openpasture.com">tell us</a> and we will correct it in place.</p>
+      </div>
+    </article>
+  </div>
+
+  <!-- ═══ EARLY ACCESS ═══ -->
+  <section class="ea-section" id="early-access">
+    <div class="container">
+      <div class="section-label" style="color: var(--olive-muted);">early access</div>
+      <h2>get in before the campaign</h2>
+      <p>design partners, contributors, and people who want to see this exist. no product to sell you yet — that is the point. one email when the collar campaign opens, and honest progress before that.</p>
+      <form class="ea-form" novalidate>
+        <input type="text" name="name" placeholder="name (optional)" autocomplete="name">
+        <input type="email" name="email" placeholder="email" required autocomplete="email">
+        <textarea name="message" placeholder="optional: your operation, your stack, or why you're here"></textarea>
+        <div class="ea-submit-row">
+          <button type="submit" class="btn btn-olive">request-early-access</button>
+          <span class="ea-status"></span>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h4>Project</h4>
+          <a href="/">home</a>
+          <a href="/manifesto">manifesto</a>
+          <a href="/#roadmap">roadmap</a>
+        </div>
+        <div class="footer-col">
+          <h4>Open Source</h4>
+          <a href="https://github.com/open-pasture/openpasture-agent-kit" target="_blank" rel="noopener">github</a>
+          <a href="https://www.gnu.org/licenses/agpl-3.0.en.html">agpl-3.0</a>
+        </div>
+        <div class="footer-col">
+          <h4>Site</h4>
+          <a href="#early-access">early access</a>
+          <a href="privacy.html">privacy</a>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <a href="mailto:hello@openpasture.com">hello@openpasture.com</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        © 2026 OpenPasture — the future tense on this page is a promise of intent, not a claim of capability.
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/site.js"></script>
+  <script>
+    // TOC scroll tracking
+    (function () {
+      var links = Array.from(document.querySelectorAll('.toc a'));
+      var map = {};
+      links.forEach(function (a) {
+        var id = a.getAttribute('href').slice(1);
+        var el = document.getElementById(id);
+        if (el) map[id] = a;
+      });
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            links.forEach(function (a) { a.classList.remove('active'); });
+            var a = map[entry.target.id];
+            if (a) a.classList.add('active');
+          }
+        });
+      }, { rootMargin: '-15% 0px -75% 0px' });
+      Object.keys(map).forEach(function (id) {
+        observer.observe(document.getElementById(id));
+      });
+    })();
+  </script>
+</body>
+</html>
