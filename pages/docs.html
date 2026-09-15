@@ -1,0 +1,25 @@
+<!--meta
+title: Docs — Open Pasture
+description: Documentation for the Open Pasture agent kit.
+nav:
+-->
+<section class="page">
+  <h1 class="title">Docs.</h1>
+</section>
+
+<section>
+  <div class="cols">
+    <h2>The agent kit.</h2>
+    <div class="prose">
+      <p>Python. Tools, skills, seed knowledge, SQLite farm state. CLI for coding agents, MCP for chat assistants. AGPL-3.0. No hosted docs site yet.</p>
+      <ul>
+        <li><a href="{{kitRepo}}" rel="noopener">Source and README</a></li>
+        <li><a href="{{kitDocs}}" rel="noopener">Docs source</a></li>
+      </ul>
+<pre>pip install -e .
+export OPENPASTURE_STORE=sqlite
+export OPENPASTURE_DATA_DIR="$HOME/.openpasture"
+openpasture tool run generate_morning_brief --json '{}'</pre>
+    </div>
+  </div>
+</section>

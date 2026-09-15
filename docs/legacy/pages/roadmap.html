@@ -1,0 +1,128 @@
+<!--meta
+title: Roadmap — Open Pasture
+description: Sheep first, then cattle, then poultry. Software first, telemetry second, hardware third. What runs today and what comes next.
+tier: 2
+nav:
+-->
+
+  <section class="wrap pagehead">
+    <p class="eyebrow">Roadmap</p>
+    <h1 class="pagehead__title" data-resolve>Sheep, then cattle, then poultry</h1>
+    <p class="pagehead__sub">
+      Two orderings run at once. One is which animal we serve. The other is how
+      far down the stack we go. We are deliberately slow on the second: every
+      layer of hardware is only worth building once the decision layer above it
+      has proven it knows what to ask for.
+    </p>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <p class="eyebrow">By species</p>
+      <h2 class="h2" data-resolve>Where the animals lead</h2>
+
+      <div class="steps">
+        <div class="step" data-tile>
+          <span class="step__when">NOW &mdash; SHEEP</span>
+          <p class="step__title">Research and first customers</p>
+          <p class="step__body">
+            Sheep move readily, tolerate dense rotation, and run through a
+            paddock cycle fast enough that we learn in weeks rather than
+            seasons. That makes them the right place to prove the grazing model
+            and the right first market. We would rather be genuinely useful to
+            sheep farmers than plausibly useful to everyone.
+          </p>
+        </div>
+
+        <div class="step" data-tile data-resolve-delay="90">
+          <span class="step__when">NEXT &mdash; CATTLE</span>
+          <p class="step__title">Where the volume is</p>
+          <p class="step__body">
+            Cattle account for the bulk of grazed land and the bulk of meat
+            eaten in the United States, so this is where the business actually
+            lives. Nothing about the model changes: same farm objects, same
+            planner, same daily question. Larger paddocks, longer recovery
+            windows, higher stakes per decision.
+          </p>
+        </div>
+
+        <div class="step" data-tile data-resolve-delay="180">
+          <span class="step__when">LATER &mdash; POULTRY</span>
+          <p class="step__title">Automated coops</p>
+          <p class="step__body">
+            Pastured poultry follows ruminants across the same ground and gets
+            the most out of what they leave behind. It is also the clearest
+            case for crossing into hardware: a coop that advances itself on the
+            schedule the planner already computes is a far smaller problem than
+            steering a herd.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <p class="eyebrow">By layer</p>
+      <h2 class="h2" data-resolve>Software first, telemetry second, hardware third</h2>
+
+      <div class="steps">
+        <div class="step" data-tile>
+          <span class="step__when">PHASE 01 &mdash; SHIPPING</span>
+          <p class="step__title">The decision layer</p>
+          <p class="step__body">
+            Connect the agents farmers already use to farm state, grazing
+            knowledge, and telemetry. The daily loop ships as a recommendation
+            &mdash; move, stay, or needs-info &mdash; executed by hand. This
+            proves the decision layer is worth trusting before anything
+            automatic depends on it.
+          </p>
+        </div>
+
+        <div class="step" data-tile data-resolve-delay="90">
+          <span class="step__when">PHASE 02</span>
+          <p class="step__title">The sensing layer</p>
+          <p class="step__body">
+            Productionize ingestion: Planet pipelines out of prototype, drone
+            and PIX4D orthomosaics, pasture sensors and cameras, and
+            integrations with existing collar vendors wherever their systems
+            allow it. The plan gets sharper without the farmer typing more.
+          </p>
+        </div>
+
+        <div class="step" data-tile data-resolve-delay="180">
+          <span class="step__when">PHASE 03</span>
+          <p class="step__title">The hardware layer</p>
+          <p class="step__body">
+            Automated coops for poultry, and open, repairable collars for
+            ruminants. Owned outright, serviceable by the farmer, and useless
+            to us as a lock-in mechanism because the software that drives them
+            is AGPL. Design work only today. Nothing to buy.
+          </p>
+        </div>
+
+        <div class="step" data-tile data-resolve-delay="270">
+          <span class="step__when">THE FAR END</span>
+          <p class="step__title">The standard, met</p>
+          <p class="step__body">
+            Fresh grass every 24 hours, at a labor cost low enough that doing it
+            right is cheaper than doing it wrong. At that point the argument
+            stops being ours to make.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <p class="eyebrow">State of the project</p>
+      <h2 class="h2" data-resolve>What runs today, exactly</h2>
+      <p class="lede">
+        Future tense means intent. Present tense is reserved for what verifiably
+        exists.
+      </p>
+
+      {{> ledger}}
+    </div>
+  </section>

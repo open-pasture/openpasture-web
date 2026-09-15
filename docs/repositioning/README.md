@@ -18,6 +18,8 @@ Read in order:
    information architecture, design direction, updates, and contribution paths.
 3. [Build handoff](build-handoff.md): implementation map, claims audit, unresolved
    details, and acceptance criteria.
+4. [Design proposal](design-proposal.md): proposed concept, palette, type,
+   components, information architecture, and page-by-page layout for the rebuild.
 
 Also read [AGENTS.md](../../AGENTS.md) before editing the site.
 

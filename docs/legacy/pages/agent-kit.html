@@ -1,0 +1,181 @@
+<!--meta
+title: Agent Kit — Open Pasture
+description: The open-source core of Open Pasture. Farm state, grazing knowledge, tools, and skills that turn a capable agent into a grazing advisor. AGPL-3.0.
+tier: 2
+nav: platform
+-->
+
+  <section class="wrap pagehead">
+    <p class="eyebrow">Agent Kit</p>
+    <h1 class="pagehead__title" data-resolve>The open-source core</h1>
+    <p class="pagehead__sub">
+      The farmer brings a conversation surface. The agent brings reasoning.
+      The kit brings the farming domain: executable tools, portable skills,
+      curated grazing knowledge, and a local-first model of the farm. It bolts
+      onto an agent you already use and turns it into a grazing advisor.
+    </p>
+    <div class="btnrow pagehead__actions">
+      <a class="btn btn--primary" href="{{docsUrl}}/quickstart">Quickstart</a>
+      <a class="btn btn--ghost" href="{{kitRepo}}" rel="noopener">View source</a>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <p class="eyebrow">Runtime modes</p>
+      <h2 class="h2" data-resolve>Three ways to run it</h2>
+      <p class="lede">
+        The kit is framework-neutral. The richest runtime is a coding agent
+        with CLI access and code execution, but the same tools and skills reach
+        any MCP-capable client.
+      </p>
+
+      <div class="grid grid--3">
+        <div class="panel" data-tile>
+          <span class="panel__num">01</span>
+          <span class="panel__title">Coding agent</span>
+          <span class="panel__body">
+            A coding agent reads the skills, runs the <code>openpasture</code>
+            CLI, inspects farm state on disk, and composes workflows directly
+            in a workspace.
+          </span>
+        </div>
+
+        <div class="panel" data-tile data-resolve-delay="90">
+          <span class="panel__num">02</span>
+          <span class="panel__title">MCP client</span>
+          <span class="panel__body">
+            ChatGPT, Claude, Cursor, and other MCP-capable clients reach the
+            same tools and skills through the MCP connector.
+          </span>
+        </div>
+
+        <div class="panel" data-tile data-resolve-delay="180">
+          <span class="panel__num">03</span>
+          <span class="panel__title">Hermes adapter</span>
+          <span class="panel__body">
+            The original Hermes plugin entry point is preserved as a supported
+            adapter.
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <p class="eyebrow">Quickstart</p>
+      <h2 class="h2" data-resolve>Running in about five minutes</h2>
+      <p class="lede">
+        SQLite by default, so there is nothing to provision. Point it at Convex
+        later if you want hosted sync.
+      </p>
+
+      <div class="code">
+        <div class="code__bar">install</div>
+        <pre><code>pip install -e .
+
+export OPENPASTURE_STORE=sqlite
+export OPENPASTURE_DATA_DIR="$HOME/.openpasture"
+export OPENPASTURE_BRIEF_TIME="06:00"</code></pre>
+      </div>
+
+      <div class="code">
+        <div class="code__bar">set up a farm and ask for the morning brief</div>
+        <pre><code>openpasture tools list
+openpasture tool run setup_initial_farm --json '{
+  "name": "Willow Creek",
+  "timezone": "America/Chicago",
+  "herd": { "id": "herd_1", "species": "sheep", "count": 120 },
+  "paddocks": [{ "id": "paddock_home", "name": "Home", "status": "grazing" }]
+}'
+openpasture tool run generate_morning_brief --json '{}'</code></pre>
+      </div>
+
+      <p class="lede">
+        The brief comes back as <code>MOVE</code>, <code>STAY</code>, or
+        <code>NEEDS_INFO</code>, with the reasoning attached. Full setup,
+        including the Convex backend and the MCP connector, is in the docs.
+      </p>
+
+      <div class="btnrow" style="margin-top: 1.6rem;">
+        <a class="btn btn--ghost" href="{{docsUrl}}/quickstart">Full quickstart</a>
+        <a class="btn btn--ghost" href="{{docsUrl}}/cli">CLI reference</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <p class="eyebrow">What is inside</p>
+      <h2 class="h2" data-resolve>The pieces</h2>
+
+      <div class="grid grid--2">
+        <div class="panel" data-tile>
+          <span class="panel__title">Domain and storage</span>
+          <span class="panel__body">
+            Farms, paddocks, herds, observations, and plans as first-class
+            objects. SQLite-backed and local-first by default, with an optional
+            Convex backend for hosted or self-hosted sync.
+          </span>
+        </div>
+
+        <div class="panel" data-tile data-resolve-delay="70">
+          <span class="panel__title">Tools</span>
+          <span class="panel__body">
+            Dict-in, JSON-out handlers for farm setup, observations, planning,
+            knowledge, and data pipelines. Framework-neutral, so the same
+            catalog serves every connector.
+          </span>
+        </div>
+
+        <div class="panel" data-tile data-resolve-delay="140">
+          <span class="panel__title">Skills</span>
+          <span class="panel__body">
+            Portable markdown runbooks that teach an agent how to work through
+            farm operations rather than guess at them.
+          </span>
+        </div>
+
+        <div class="panel" data-tile data-resolve-delay="210">
+          <span class="panel__title">Knowledge</span>
+          <span class="panel__body">
+            Curated practitioner knowledge from trusted regenerative
+            agriculture sources, with seed loading, embeddings, retrieval, and
+            ingestion batches.
+          </span>
+        </div>
+
+        <div class="panel" data-tile data-resolve-delay="280">
+          <span class="panel__title">Ingestion</span>
+          <span class="panel__body">
+            Pipelines for external farm signals &mdash; weather, satellite,
+            photos, and vendor telemetry &mdash; set up, persisted, and
+            executed on a schedule.
+          </span>
+        </div>
+
+        <div class="panel" data-tile data-resolve-delay="350">
+          <span class="panel__title">Briefing</span>
+          <span class="panel__body">
+            Farm context assembly, the default advisor, and recurring local
+            scheduling that puts a brief in front of the farmer each morning.
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tight">
+    <div class="wrap wrap--narrow" style="text-align: center;">
+      <h2 class="h2" data-resolve>Self-host it or let us run it</h2>
+      <p class="lede" style="margin-inline: auto;">
+        The kit is AGPL-3.0 and complete on its own. The cloud exists for
+        farms that would rather not operate infrastructure.
+      </p>
+      <div class="btnrow" style="justify-content: center; margin-top: 2rem;">
+        <a class="btn btn--ghost" href="{{docsUrl}}/self-hosting">Self-hosting guide</a>
+        <a class="btn btn--primary" href="/cloud">See the cloud</a>
+      </div>
+    </div>
+  </section>

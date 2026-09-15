@@ -12,11 +12,23 @@ const resend = process.env.RESEND_API_KEY
 
 app.use(express.json());
 
-// legacy pages -> manifesto-era equivalents
-app.get(['/mission', '/mission.html'], (req, res) => res.redirect(301, '/manifesto'));
-app.get(['/pricing', '/pricing.html'], (req, res) => res.redirect(301, '/#early-access'));
+// Routes from earlier versions of the site, mapped to where that content lives now.
+const REDIRECTS = {
+  '/manifesto': '/about',
+  '/mission': '/about',
+  '/landing': '/',
+  '/roadmap': '/project',
+  '/agent-kit': '/project',
+  '/cloud': '/project',
+  '/integrations': '/project',
+  '/open-source': '/project',
+  '/contact': '/involved',
+};
+for (const [from, to] of Object.entries(REDIRECTS)) {
+  app.get([from, `${from}.html`], (req, res) => res.redirect(301, to));
+}
 
-app.use(express.static(path.join(__dirname), {
+app.use(express.static(path.join(__dirname, 'dist'), {
   extensions: ['html'],
 }));
 
@@ -102,6 +114,10 @@ app.post('/api/contact', async (req, res) => {
     console.error('Resend error:', err);
     return res.status(500).json({ error: 'Failed to send message. Please try again.' });
   }
+});
+
+app.use((req, res) => {
+  res.status(404).sendFile(path.join(__dirname, 'dist', '404.html'));
 });
 
 app.listen(PORT, () => {

@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Open Pasture</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0B0B0C;--fg:#EEEBE4;--fg2:#B8B3A8;--line:#26262A;
+  --blaze:#FF6A2B;--live:#8FD14F;--red:#E5484D;
+  --sans:'Barlow',system-ui,sans-serif;--mono:'IBM Plex Mono',ui-monospace,monospace;
+  --w:1200px;--gx:clamp(1.25rem,4vw,4rem);
+}
+*{box-sizing:border-box}html,body{margin:0}
+body{font-family:var(--sans);font-size:18px;line-height:1.5;background:var(--bg);color:var(--fg);-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+p{margin:0}
+h1,h2,h3{margin:0;font-weight:500;letter-spacing:-.01em}
+h1{font-size:clamp(3rem,8vw,7rem);line-height:.95;letter-spacing:-.03em}
+h2{font-size:clamp(1.75rem,3.2vw,2.75rem);line-height:1.1;letter-spacing:-.02em;max-width:24ch}
+.wrap{max-width:var(--w);margin:0 auto;padding:0 var(--gx)}
+section{padding:clamp(4rem,9vw,8rem) 0;border-top:1px solid var(--line)}
+section:first-of-type{border-top:0}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.muted{color:var(--fg2)}
+.u{border-bottom:1px solid var(--fg2)}
+.u:hover{border-color:var(--fg)}
+.btn{display:inline-block;background:var(--blaze);color:#0B0B0C;font-weight:500;padding:.7rem 1.1rem}
+.cols{display:grid;grid-template-columns:5fr 7fr;gap:clamp(2rem,5vw,5rem);align-items:start}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,5vw,5rem)}
+.prose{max-width:62ch}
+.prose p+p{margin-top:1.25rem}
+
+header{display:flex;align-items:center;justify-content:space-between;padding:1.25rem 0}
+.brand{display:flex;align-items:center;gap:.7rem;font-weight:500}
+.mark{width:22px;height:22px;display:grid;grid-template-columns:repeat(5,1fr);gap:1px}
+.mark i{background:var(--fg)}.mark i.o{background:transparent}.mark i.b{background:var(--blaze)}
+nav{display:flex;gap:2rem;color:var(--fg2)}
+nav a:hover{color:var(--fg)}
+
+.hero{padding-top:clamp(3rem,7vw,6rem)}
+.hero .cols{grid-template-columns:6fr 6fr;align-items:end}
+.hero .links{display:flex;gap:2rem;margin-top:2.5rem;font-size:1.1rem}
+.status{margin-top:3.5rem;font-family:var(--mono);font-size:.85rem;max-width:520px}
+.status .h{margin-bottom:.75rem}
+.status .r{display:flex;align-items:baseline;gap:.75rem;padding:.3rem 0}
+.status .r i{flex:1;border-bottom:1px dotted var(--line);transform:translateY(-4px)}
+.status .r em{font-style:normal;color:var(--fg2);text-align:right}
+.map{width:100%;height:auto;display:block}
+
+.frame{border:1px solid var(--line);padding:1.5rem;max-width:420px;font-size:1rem}
+.frame .big{font-family:var(--mono);font-size:2.6rem;letter-spacing:-.02em;line-height:1;margin:.25rem 0 .5rem}
+.frame .row{display:flex;gap:.5rem;margin:1rem 0 1.5rem}
+.frame .row span{border:1px solid var(--line);padding:.45rem .75rem;font-size:.9rem}
+.frame .row span:first-child{border-color:var(--red);color:var(--red)}
+.frame hr{border:0;border-top:1px solid var(--line);margin:1.25rem 0}
+.frame b{font-weight:500}
+.frame svg{width:100%;height:auto;display:block;margin:1rem 0}
+
+.plan{list-style:none;margin:0;padding:0;max-width:62ch}
+.plan li{padding:1rem 0;border-top:1px solid var(--line);display:grid;grid-template-columns:1fr auto;gap:2rem;color:var(--fg2)}
+.plan li:last-child{border-bottom:1px solid var(--line)}
+.plan li.now{color:var(--fg)}
+.plan li.now small{color:var(--blaze)}
+.plan small{font-family:var(--mono);font-size:.8rem}
+
+.notes{list-style:none;margin:0;padding:0}
+.notes li{display:grid;grid-template-columns:140px 1fr auto;gap:2rem;padding:1rem 0;border-top:1px solid var(--line);align-items:baseline}
+.notes li:last-child{border-bottom:1px solid var(--line)}
+.notes .d{font-family:var(--mono);font-size:.85rem;color:var(--fg2)}
+.notes .s{color:var(--fg2);font-size:.95rem}
+
+footer{padding:2.5rem 0 3rem;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:2rem;flex-wrap:wrap;color:var(--fg2);font-size:.95rem}
+footer div{display:flex;gap:1.5rem;flex-wrap:wrap}
+
+.spec{border-top:1px solid var(--line);padding:3rem 0 4rem;display:grid;grid-template-columns:auto 1fr;gap:3rem;align-items:center;font-size:.9rem;color:var(--fg2)}
+.sw{display:flex;gap:.5rem}
+.sw i{width:44px;height:44px;display:block;border:1px solid var(--line)}
+.sw i:nth-child(1){background:#0B0B0C}.sw i:nth-child(2){background:#26262A}.sw i:nth-child(3){background:#B8B3A8}.sw i:nth-child(4){background:#EEEBE4}.sw i:nth-child(5){background:#FF6A2B}.sw i:nth-child(6){background:#8FD14F}.sw i:nth-child(7){background:#E5484D}
+
+@media (max-width:900px){
+  .cols,.two,.hero .cols{grid-template-columns:1fr}
+  nav{display:none}
+  .notes li{grid-template-columns:1fr}
+  .spec{grid-template-columns:1fr}
+  .status .r{flex-wrap:wrap}.status .r i{min-width:40px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <a class="brand" href="#">
+    <span class="mark" aria-hidden="true">
+      <i></i><i></i><i></i><i class="o"></i><i class="o"></i>
+      <i></i><i class="o"></i><i></i><i class="o"></i><i class="o"></i>
+      <i></i><i></i><i></i><i class="o"></i><i class="o"></i>
+      <i class="o"></i><i class="o"></i><i class="o"></i><i></i><i></i>
+      <i class="o"></i><i class="o"></i><i class="o"></i><i></i><i class="b"></i>
+    </span>
+    Open Pasture
+  </a>
+  <nav><a>Project</a><a>Collar</a><a>Notes</a><a>About</a></nav>
+  <a class="btn" href="#">Get involved</a>
+</header>
+
+<section class="hero">
+  <div class="cols">
+    <div>
+      <h1>Farm like you're in the future.</h1>
+      <div class="links"><a class="u">Follow the build</a><a class="u muted">Explore the project</a></div>
+      <div class="status">
+        <div class="h">September 14, 2026</div>
+        <div class="r"><span>Collar prototype 01</span><i></i><em>components ordered</em></div>
+        <div class="r"><span>Boundary app</span><i></i><em>in design</em></div>
+        <div class="r"><span>Field test</span><i></i><em>not started</em></div>
+      </div>
+    </div>
+    <svg class="map" viewBox="0 0 640 520" fill="none" aria-label="Concept map: a live boundary and a proposed next boundary">
+      <path d="M20 400 C120 300 200 330 290 250 C380 170 480 200 620 110" stroke="#26262A"/>
+      <path d="M20 330 C120 230 200 260 290 180 S480 120 620 50" stroke="#26262A"/>
+      <path d="M20 470 C120 370 200 400 290 320 S480 260 620 190" stroke="#26262A"/>
+      <path d="M180 330 L350 250 L440 300 L400 420 L240 450 Z" stroke="#8FD14F" stroke-width="2" fill="#8FD14F" fill-opacity=".06"/>
+      <path d="M360 240 L530 160 L620 220 L580 340 L440 300 Z" stroke="#FF6A2B" stroke-width="2" stroke-dasharray="8 6"/>
+      <g fill="#8FD14F"><circle cx="270" cy="360" r="4"/><circle cx="310" cy="330" r="4"/><circle cx="350" cy="380" r="4"/><circle cx="300" cy="395" r="4"/><circle cx="380" cy="340" r="4"/></g>
+      <g font-family="IBM Plex Mono,monospace" font-size="12" fill="#B8B3A8">
+        <text x="180" y="480">Paddock 4, grazing</text>
+        <text x="360" y="140">Paddock 5, proposed</text>
+      </g>
+    </svg>
+  </div>
+</section>
+
+<section>
+  <div class="cols">
+    <h2>It started with two sheep and a slope.</h2>
+    <div class="prose">
+      <p>Cody bought two sheep to clear an overgrown hillside behind his house. There was no perimeter fence, so he tried electric netting. The incline made it hard to set, moving it took too long, and grounding never quite worked. The bottleneck was never the sheep. It was one person's ability to move them.</p>
+      <p>He wanted a collar he could buy as a tool and write software against. He couldn't find one on terms he liked, so he's building it, alongside his job and his family.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>The collar acts in the pasture. The intelligence layer decides what should happen.</h2>
+  <div class="two" style="margin-top:3rem">
+    <div class="prose">
+      <p><b>The collar</b> is a physical tool with open interfaces. Draw a boundary on a map, and the collar holds the animals inside it. Replace the battery. Assemble one from a kit. Connect software that isn't ours. That is the first thing being built, and the only thing being built right now.</p>
+    </div>
+    <div class="prose">
+      <p><b>The intelligence layer</b> comes later. It takes farm context, grazing knowledge, collar telemetry, satellite and weather data, and your field notes, runs them through a model you choose, and proposes the next move. You approve every move at first. Automation, if you want it, comes after that.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="cols">
+    <div>
+      <h2>Three questions the app should answer.</h2>
+      <div class="prose" style="margin-top:1.5rem">
+        <p>How is the farm doing. Where and when is the next move. What needs your attention. When automation is on, a planned move shows a countdown, and you can hold it, pick a preset, or redraw the boundary before it runs.</p>
+        <p class="muted" style="margin-top:1.5rem">This is a concept of the screen, not a live product. The values are made up.</p>
+      </div>
+    </div>
+    <div class="frame">
+      <p>Paddock 4 is steady. Five of five animals inside, third day of grazing, dry through tomorrow.</p>
+      <svg viewBox="0 0 360 160" fill="none"><path d="M0 120 C60 60 120 80 180 40 S300 20 360 0" stroke="#26262A"/><path d="M60 100 L150 60 L200 85 L180 140 L90 150 Z" stroke="#8FD14F" stroke-width="1.5"/><path d="M200 60 L300 25 L350 60 L330 125 L200 85 Z" stroke="#FF6A2B" stroke-width="1.5" stroke-dasharray="6 5"/><g fill="#8FD14F"><circle cx="120" cy="100" r="3"/><circle cx="150" cy="110" r="3"/><circle cx="130" cy="125" r="3"/></g></svg>
+      <p class="muted">Next move to paddock 5 in</p>
+      <div class="big">06:42:10</div>
+      <div class="row"><span>Hold</span><span>Preset</span><span>Redraw</span></div>
+      <hr>
+      <p><b>One thing needs you.</b> The plan assumes regrowth in the north corner of paddock 5. A photo or a note before the move would confirm it.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="cols">
+    <h2 id="plan">What comes next, in order.</h2>
+    <ul class="plan">
+      <li class="now"><span>A working collar and a map you can draw boundaries on</span><small>now</small></li>
+      <li><span>Software operating the collar through open interfaces</span></li>
+      <li><span>Proposed moves you approve one at a time</span></li>
+      <li><span>Scheduled moves you can hold or change before they run</span></li>
+      <li><span>A working sheep farm to test the agriculture and the economics</span></li>
+      <li><span>More frequent moves, more species, shared pasture</span></li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <div class="cols">
+    <h2>Ownership is the point.</h2>
+    <div class="prose">
+      <p>We plan to sell components, kits, assembled collars, and an optional software subscription. Bundles that make the hardware cheaper are fine. What doesn't change is that the collar stays yours. You can repair it, run other software on it, and where the hardware supports it, bring your own connectivity. If a farmer builds a hundred of them, or a shop sells them, that's the design working.</p>
+      <p>The mission is to move animal agriculture onto pasture. The way to prove it is to run a farm on this and publish what happens.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="cols">
+    <h2 id="notes">Notes from the build.</h2>
+    <ul class="notes">
+      <li><span class="d">Sep 14, 2026</span><span>Why the first collar goes on a dog</span><span class="s">Article</span></li>
+      <li><span class="d">Sep 2026</span><span>Components ordered for prototype 01</span><span class="s">LinkedIn</span></li>
+      <li><span class="d">Aug 2026</span><span>Two sheep, one slope, too much netting</span><span class="s">X</span></li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <div class="cols">
+    <h2>One person, so far.</h2>
+    <div class="prose">
+      <p>Open Pasture is Cody Menefee, in a garage, in spare time. He can lead the project and the architecture. He needs hardware and software engineers who can take on firmware, power, radio, PCB, and the map app. If that's you, <a class="u">write to him</a>. If you just want to watch it happen, follow along on <a class="u">LinkedIn</a> or <a class="u">X</a>.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div><a>Project</a><a>Collar</a><a>Notes</a><a>About</a><a>Docs</a><a>GitHub</a></div>
+  <div><a>Privacy</a><a>Terms</a></div>
+</footer>
+
+<div class="spec">
+  <div class="sw"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  <p>Barlow for everything you read. IBM Plex Mono for dates, times, and status. One accent, one live color, one red. No gradients, no glow, no badges, no eyebrows.</p>
+</div>
+
+</div>
+</body>
+</html>

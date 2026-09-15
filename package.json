@@ -4,7 +4,10 @@
   "description": "OpenPasture marketing site with lead capture",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "build": "node build.js",
+    "prestart": "node build.js",
+    "start": "node server.js",
+    "dev": "node build.js && node server.js"
   },
   "dependencies": {
     "express": "^4.21.0",

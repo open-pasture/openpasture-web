@@ -67,35 +67,34 @@ The repo had substantial uncommitted implementation work before this documentati
 handoff. Inspect git status and preserve it. Do not reset or clean the working
 tree. See the build handoff for the snapshot and migration checklist.
 
-## Existing implementation mechanics
+## Implementation mechanics
 
-These describe the local, uncommitted website implementation inspected during
-the interview, not necessarily the committed checkout. The documentation commit
-does not include that implementation. Inspect available files before using these
-commands, and verify routing/deployment configuration. The visual design is open.
+Rebuilt September 14, 2026 to the design in
+[docs/repositioning/design-proposal.md](docs/repositioning/design-proposal.md).
 
 - **There is a build step.** `build.js` composes `layouts/base.html` with
   fragments in `pages/` and partials in `partials/`, then writes `dist/`.
   `npm run build` runs on `prestart`. Express serves `dist/` only.
-- Author pages as fragments in `pages/`. Never edit `dist/` — it is generated
+- Author pages as fragments in `pages/`. Never edit `dist/`; it is generated
   and gitignored.
 - Fragment metadata sits in a leading `<!--meta ... -->` comment: `title`,
-  `description`, `tier`, `nav`. Template tokens are `{{key}}` for site
-  constants and `{{> name}}` for partials. Site-wide URLs live in the `SITE`
-  object in `build.js`.
-- **Design tiers** are set per page via `tier` and applied as `data-tier` on
-  `<body>`: 1 = full-bleed camo (`/` only), 2 = camo hero band then solid,
-  3 = no camo, for dense reading (`/docs`, `/privacy`, `/terms`). Press Start 2P
-  is display-only and gets more restricted as pages get denser.
-- **Fonts are latin-subset woff2 files vendored in `assets/fonts/`.** Block,
-  shade, and arrow characters (U+2500 and up) are NOT in them and will fall back
-  to a system font. Never put one inside a text run — especially not in the
-  motion charset, where equal advance width is what keeps the decode free of
-  layout shift. Isolated decorative glyphs are fine.
-- Motion lives in `assets/resolve.js` (text decode, scanline, tile-in) and the
-  boot pass in `assets/camo.js`. Every animated element ships its real content
-  in the HTML; the script scrambles and restores. If JS never runs the page is
-  complete. Budget is ~900ms, once per session, and
-  `prefers-reduced-motion: reduce` skips all of it.
-- `/manifesto` 301-redirects to `/mission`. Railway auto-deploys `main` to
-  openpasture.dev.
+  `description`, `nav`. Tokens are `{{key}}` for site constants and
+  `{{> name}}` for partials. Site-wide URLs and the status date live in the
+  `SITE` object in `build.js`. There are no design tiers.
+- Partials: `header`, `footer`, `status` (the dated build status list, the
+  only place present-tense progress claims live), and `map` (the concept
+  drawing used in the hero).
+- One stylesheet, `assets/op.css`. Barlow 400 and 500 for all reading text,
+  IBM Plex Mono for dates, times, and status. Six color tokens. No gradients,
+  glows, badges, eyebrow labels, subtitles under headings, numbered sequences,
+  or card grids. Section headings are plain sentences.
+- The only script is `assets/site.js`, which submits the form on `/involved`
+  to `/api/contact`. Every page is complete without it.
+- Redirects from earlier routes are the `REDIRECTS` map in `server.js`.
+  `/pricing`, `/docs`, `/privacy`, and `/terms` remain real pages.
+- `docs.openpasture.dev` and `app.openpasture.dev` did not resolve at rebuild
+  time, so the site links to the GitHub repository for docs and does not
+  offer sign-in. Restore those links only after verifying the hosts are live.
+- Superseded pages, the ledger partial, and the camo, resolve, and pixel-font
+  assets are kept in `docs/legacy/` for reference. Do not link to them.
+- Railway auto-deploys `main` to openpasture.dev.
