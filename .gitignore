@@ -1,6 +1,9 @@
-.firecrawl/
 .DS_Store
+.cursor/
 node_modules/
 dist/
-.preview/
+dist.tmp/
 .env
+.env.*
+!.env.example
+*.log

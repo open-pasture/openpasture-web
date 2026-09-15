@@ -1,6 +1,6 @@
 <!--meta
 title: Docs — Open Pasture
-description: Documentation for the Open Pasture agent kit.
+description: Documentation for the Open Pasture agent kit: Python tools, skills, SQLite farm state, CLI for coding agents, MCP for chat assistants. AGPL-3.0, alpha.
 nav:
 -->
 <section class="page">
@@ -11,15 +11,12 @@ nav:
   <div class="cols">
     <h2>The agent kit.</h2>
     <div class="prose">
-      <p>Python. Tools, skills, seed knowledge, SQLite farm state. CLI for coding agents, MCP for chat assistants. AGPL-3.0. No hosted docs site yet.</p>
+      <p>Python. Tools, skills, seed knowledge, SQLite farm state. CLI for coding agents, MCP for chat assistants. AGPL-3.0. Alpha. No hosted docs site yet.</p>
       <ul>
-        <li><a href="{{kitRepo}}" rel="noopener">Source and README</a></li>
-        <li><a href="{{kitDocs}}" rel="noopener">Docs source</a></li>
+        <li><a href="{{kitRepo}}">Source and README</a></li>
+        <li><a href="{{kitDocs}}">Docs source on GitHub</a></li>
       </ul>
-<pre>pip install -e .
-export OPENPASTURE_STORE=sqlite
-export OPENPASTURE_DATA_DIR="$HOME/.openpasture"
-openpasture tool run generate_morning_brief --json '{}'</pre>
+      <p>The <a href="{{kitRepo}}#quickstart">README quickstart</a> covers install, a data directory, first farm setup, and the first morning brief.</p>
     </div>
   </div>
 </section>

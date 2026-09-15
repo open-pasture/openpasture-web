@@ -1,7 +1,9 @@
       <div class="status">
-        <div class="h">{{statusDate}}</div>
-        <div class="r"><span>Collar prototype 01</span><i></i><em>components ordered</em></div>
-        <div class="r"><span>Boundary app</span><i></i><em>in design</em></div>
-        <div class="r"><span>Field test</span><i></i><em>not started</em></div>
-        <div class="r"><span>Agent kit</span><i></i><em class="live">public, AGPL-3.0</em></div>
+        <p class="h"><time datetime="{{statusDateIso}}">{{statusDate}}</time></p>
+        <dl>
+          <div class="r"><dt>Collar prototype 01</dt><dd>components ordered</dd></div>
+          <div class="r"><dt>Boundary app</dt><dd>planned</dd></div>
+          <div class="r"><dt>Field test</dt><dd>not started</dd></div>
+          <div class="r"><dt>Agent kit</dt><dd class="live">public, AGPL-3.0</dd></div>
+        </dl>
       </div>

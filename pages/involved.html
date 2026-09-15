@@ -1,6 +1,6 @@
 <!--meta
 title: Get involved — Open Pasture
-description: Follow the build, help build it, or support it.
+description: Follow the Open Pasture build, write if you have shipped firmware, power, radio, board design, or a map app, or support it once a real destination exists.
 nav:
 -->
 <section class="page">
@@ -11,14 +11,20 @@ nav:
   <div class="cols">
     <h2>Help build.</h2>
     <div class="prose">
-      <p>Firmware. Power. Radio. Board design. A map app. Agent tooling. If you have shipped one, write. Public repos come once there is something to contribute to.</p>
+      <p>Firmware. Power. Radio. Board design. A map app. Agent tooling. If you have shipped one, write. A public collar repo comes once there is something to contribute to. The agent kit is already <a href="{{kitRepo}}">on GitHub</a>.</p>
       <form class="ask" method="post" action="/api/contact">
-        <input type="text" name="name" placeholder="Name" autocomplete="name">
-        <input type="email" name="email" placeholder="Email" autocomplete="email" required>
-        <textarea name="message" placeholder="What you've built"></textarea>
+        <input type="hidden" name="page" value="/involved">
+        <label class="vh" for="ask-name">Name</label>
+        <input id="ask-name" type="text" name="name" placeholder="Name" autocomplete="name">
+        <label class="vh" for="ask-email">Email</label>
+        <input id="ask-email" type="email" name="email" placeholder="Email" autocomplete="email" required>
+        <label class="vh" for="ask-message">What you've built</label>
+        <textarea id="ask-message" name="message" placeholder="What you've built"></textarea>
         <button class="btn" type="submit">Send</button>
-        <output aria-live="polite"></output>
+        <output></output>
       </form>
+      <p id="sent" class="sent" hidden>Received. Cody reads these himself.</p>
+      <p id="failed" class="failed" hidden>That did not send. Try again in a moment, or use the address below.</p>
       <p class="muted">Or <a href="mailto:{{contactEmail}}">{{contactEmail}}</a>.</p>
     </div>
   </div>

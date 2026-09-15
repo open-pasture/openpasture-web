@@ -1,12 +1,6 @@
     <footer class="bottom">
-      <span class="mark mark--lg" aria-hidden="true">
-        <i></i><i></i><i></i><i class="o"></i><i class="o"></i>
-        <i></i><i class="o"></i><i></i><i class="o"></i><i class="o"></i>
-        <i></i><i></i><i></i><i class="o"></i><i class="o"></i>
-        <i class="o"></i><i class="o"></i><i class="o"></i><i></i><i></i>
-        <i class="o"></i><i class="o"></i><i class="o"></i><i></i><i class="b"></i>
-      </span>
-      <div class="row">
+      <span class="mark mark--lg" aria-hidden="true">{{> mark}}</span>
+      <nav class="row" aria-label="Footer">
         <div>
           <a href="/project">Project</a>
           <a href="/collar">Collar</a>
@@ -14,12 +8,12 @@
           <a href="/about">About</a>
           <a href="/involved">Get involved</a>
           <a href="/docs">Docs</a>
-          <a href="{{kitRepo}}" rel="noopener">GitHub</a>
+          <a href="{{kitRepo}}">GitHub</a>
         </div>
         <div>
           <a href="/pricing">Pricing</a>
           <a href="/privacy">Privacy</a>
           <a href="/terms">Terms</a>
         </div>
-      </div>
+      </nav>
     </footer>

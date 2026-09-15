@@ -1,16 +1,20 @@
 {
   "name": "openpasture-web",
-  "version": "1.0.0",
-  "description": "OpenPasture marketing site with lead capture",
-  "main": "server.js",
+  "version": "2.0.0",
+  "description": "Open Pasture website (openpasture.dev): static pages composed by build.js, served by Express with a Resend-backed contact endpoint",
+  "private": true,
+  "license": "UNLICENSED",
+  "engines": {
+    "node": ">=20.6"
+  },
   "scripts": {
     "build": "node build.js",
     "prestart": "node build.js",
     "start": "node server.js",
-    "dev": "node build.js && node server.js"
+    "dev": "node build.js && node --env-file=.env server.js",
+    "render-images": "node scripts/render-images.js"
   },
   "dependencies": {
-    "express": "^4.21.0",
-    "resend": "^4.0.0"
+    "express": "^4.21.0"
   }
 }

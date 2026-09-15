@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <!-- Source for assets/og.png. scripts/render-images.js inlines this file into a page that carries the :root block from assets/op.css, so the var() paints resolve there; opened on its own it has no palette. The mark is the same pixel pattern as partials/mark.html, assets/favicon.svg, and the rows array in scripts/render-images.js. -->
+  <rect width="1200" height="630" fill="var(--bg)"/>
+  <g fill="var(--fg)" shape-rendering="crispEdges" transform="translate(80 80) scale(6)"><rect x="0" y="0" width="3" height="1"/><rect x="0" y="1" width="1" height="1"/><rect x="2" y="1" width="1" height="1"/><rect x="0" y="2" width="3" height="1"/><rect x="3" y="3" width="2" height="1"/><rect x="3" y="4" width="1" height="1"/><rect x="4" y="4" width="1" height="1" fill="var(--blaze)"/></g>
+  <text x="80" y="330" font-family="Barlow,system-ui,sans-serif" font-size="92" font-weight="500" fill="var(--fg)" letter-spacing="-3">Farm like you're</text>
+  <text x="80" y="425" font-family="Barlow,system-ui,sans-serif" font-size="92" font-weight="500" fill="var(--fg)" letter-spacing="-3">in the future.</text>
+  <text x="80" y="540" font-family="IBM Plex Mono,monospace" font-size="24" fill="var(--fg2)">openpasture.dev</text>
+  <path d="M780 420 L920 350 L1000 395 L960 500 L820 525 Z" stroke="var(--live)" stroke-width="3" fill="var(--live)" fill-opacity=".06"/>
+  <path d="M930 340 L1080 270 L1160 330 L1120 440 L1000 395 Z" stroke="var(--blaze)" stroke-width="3" stroke-dasharray="10 8" fill="none"/>
+  <g fill="var(--live)" shape-rendering="crispEdges"><rect x="854" y="434" width="12" height="12"/><rect x="894" y="404" width="12" height="12"/><rect x="924" y="454" width="12" height="12"/><rect x="874" y="474" width="12" height="12"/></g>
+</svg>

@@ -1,16 +1,120 @@
+/* ==========================================================================
+   Static server for openpasture.dev.
+
+   Serves dist/ (written by build.js), redirects routes from earlier versions
+   of the site, and accepts the form on /involved at POST /api/contact, which
+   is relayed to CONTACT_EMAIL through Resend. Nothing else runs here.
+
+   Environment (see .env.example):
+     PORT                 injected by Railway; 3000 locally
+     NODE_ENV             production on Railway; unset locally
+     RAILWAY_ENVIRONMENT  injected by Railway; either one marks the deploy as production
+     RESEND_API_KEY       unset locally: submissions are logged, not sent;
+                          unset in production: POST /api/contact answers 503
+     CONTACT_EMAIL        inbox that receives submissions; required with the key
+     RESEND_FROM          sender on a domain verified in Resend; defaults to
+                          Resend's test sender, which only reaches the account owner
+   ========================================================================== */
+
+'use strict';
+
 const express = require('express');
-const { Resend } = require('resend');
 const path = require('path');
 
-const app = express();
 const PORT = process.env.PORT || 3000;
-const CONTACT_EMAIL = process.env.CONTACT_EMAIL || 'hello@openpasture.com';
+const DIST = path.join(__dirname, 'dist');
+const PRODUCTION =
+  process.env.NODE_ENV === 'production' || Boolean(process.env.RAILWAY_ENVIRONMENT);
 
-const resend = process.env.RESEND_API_KEY
-  ? new Resend(process.env.RESEND_API_KEY)
-  : null;
+/* --- mail configuration --------------------------------------------------- */
 
-app.use(express.json());
+const RESEND_API_KEY = process.env.RESEND_API_KEY;
+const CONTACT_EMAIL = process.env.CONTACT_EMAIL;
+const RESEND_FROM = process.env.RESEND_FROM;
+
+// Resend's shared test sender. It delivers only to the address that owns the
+// Resend account, which is enough for a one-person project; a sender on a
+// verified domain (RESEND_FROM) lifts that limit.
+const DEFAULT_FROM = 'Open Pasture <onboarding@resend.dev>';
+const FROM = RESEND_FROM || DEFAULT_FROM;
+
+const MAIL_CONFIGURED = Boolean(RESEND_API_KEY);
+if (MAIL_CONFIGURED) {
+  // The public address shown on pages lives in build.js. This one is only the
+  // delivery target, so it has no fallback: a misconfigured deploy fails here
+  // instead of quietly mailing the wrong inbox.
+  if (!CONTACT_EMAIL) {
+    console.error('CONTACT_EMAIL is required when RESEND_API_KEY is set. See .env.example.');
+    process.exit(1);
+  }
+  if (!RESEND_FROM) {
+    console.warn(`RESEND_FROM is not set: sending as ${DEFAULT_FROM}, which only delivers to the Resend account owner.`);
+  }
+} else {
+  console.warn(
+    PRODUCTION
+      ? 'RESEND_API_KEY is not set: POST /api/contact answers 503 until it is.'
+      : 'RESEND_API_KEY is not set: POST /api/contact logs submissions instead of sending.'
+  );
+}
+
+// Sending is one POST to Resend's REST API, called directly: the SDK would
+// add React and html-to-text for templating that this plain-text mail never
+// uses. A non-2xx answer or a timeout throws; the caller turns that into a 500.
+async function sendMail(mail) {
+  const res = await fetch('https://api.resend.com/emails', {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${RESEND_API_KEY}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify(mail),
+    signal: AbortSignal.timeout(10000),
+  });
+  if (!res.ok) {
+    const detail = (await res.text().catch(() => '')).slice(0, 300);
+    throw new Error(`Resend answered ${res.status}${detail ? `: ${detail}` : ''}`);
+  }
+}
+
+/* --- app ------------------------------------------------------------------ */
+
+const app = express();
+app.disable('x-powered-by');
+app.set('trust proxy', 1); // Railway's proxy, so req.ip is the visitor
+
+// Every resource is self-hosted and nothing is styled or scripted inline, so
+// the policy is strict. A style attribute or <style> block in a page would be
+// blocked; keep styling in op.css.
+const SECURITY_HEADERS = {
+  'X-Content-Type-Options': 'nosniff',
+  'Referrer-Policy': 'strict-origin-when-cross-origin',
+  'X-Frame-Options': 'DENY',
+  'Permissions-Policy': 'camera=(), microphone=(), geolocation=()',
+  'Strict-Transport-Security': 'max-age=31536000',
+  'Content-Security-Policy': [
+    "default-src 'self'",
+    "script-src 'self'",
+    "style-src 'self'",
+    "img-src 'self' data:",
+    "font-src 'self'",
+    "connect-src 'self'",
+    "form-action 'self'",
+    "frame-ancestors 'none'",
+    "base-uri 'self'",
+    "object-src 'none'",
+  ].join('; '),
+};
+app.use((req, res, next) => {
+  res.set(SECURITY_HEADERS);
+  next();
+});
+
+// One canonical host. Railway serves both openpasture.dev and www.openpasture.dev;
+// send the www form to the apex so there is a single URL for every page.
+app.use((req, res, next) => {
+  if (req.hostname === 'www.openpasture.dev') {
+    return res.redirect(301, `https://openpasture.dev${req.originalUrl}`);
+  }
+  next();
+});
 
 // Routes from earlier versions of the site, mapped to where that content lives now.
 const REDIRECTS = {
@@ -28,98 +132,192 @@ for (const [from, to] of Object.entries(REDIRECTS)) {
   app.get([from, `${from}.html`], (req, res) => res.redirect(301, to));
 }
 
-app.use(express.static(path.join(__dirname, 'dist'), {
-  extensions: ['html'],
+function notFound(req, res) {
+  if (req.path.startsWith('/api/')) {
+    return res.status(404).json({ error: 'Not found.' });
+  }
+  res.status(404).sendFile(path.join(DIST, '404.html'), {
+    headers: { 'Cache-Control': 'no-cache' },
+  });
+}
+
+// The not-found page is a file in dist/, so without this it would be served
+// as an ordinary page with status 200.
+app.get(['/404', '/404.html'], notFound);
+
+// One URL per page. express.static would also answer /<slug>.html and /index,
+// and would 404 /<slug>/; collapse those onto the canonical form instead.
+app.use((req, res, next) => {
+  if (req.method !== 'GET' && req.method !== 'HEAD') return next();
+  let clean = req.path.replace(/\/{2,}/g, '/');
+  if (/\.html$/i.test(clean)) clean = clean.replace(/(?:\/index)?\.html$/i, '') || '/';
+  if (clean === '/index') clean = '/';
+  if (clean.length > 1 && clean.endsWith('/')) clean = clean.replace(/\/+$/, '');
+  if (clean === req.path) return next();
+  res.redirect(301, clean + req.originalUrl.slice(req.path.length));
+});
+
+// The stylesheet, script, icons, and share image are linked with a content
+// hash (?v=) that build.js computes over all of assets/, and the font files
+// carry their weight in the filename, so everything under /assets can be
+// cached for a year without revalidation.
+app.use('/assets', express.static(path.join(DIST, 'assets'), {
+  index: false,
+  redirect: false,
+  maxAge: '1y',
+  immutable: true,
 }));
 
-app.post('/api/contact', async (req, res) => {
-  const { name, email, message, source, page } = req.body;
+// Pages are served at their extensionless route. HTML, robots.txt, and
+// sitemap.xml always revalidate so a deploy shows up on the next navigation.
+app.use(express.static(DIST, {
+  extensions: ['html'],
+  redirect: false,
+  setHeaders(res, file) {
+    if (/\.html$|robots\.txt$|sitemap\.xml$/.test(file)) res.setHeader('Cache-Control', 'no-cache');
+  },
+}));
 
-  if (!email || typeof email !== 'string' || !email.includes('@')) {
-    return res.status(400).json({ error: 'A valid email address is required.' });
+/* --- contact form --------------------------------------------------------- */
+
+// site.js posts JSON and reads JSON back. Without JavaScript the same form
+// posts urlencoded and expects a page, so it is sent back to /involved with a
+// fragment that reveals the matching confirmation line.
+function isFormPost(req) {
+  return Boolean(req.is('application/x-www-form-urlencoded'));
+}
+
+function reply(req, res, status, body) {
+  if (isFormPost(req)) {
+    return res.redirect(303, status < 400 ? '/involved#sent' : '/involved#failed');
+  }
+  return res.status(status).json(body);
+}
+
+// Five submissions per address per ten minutes, tracked in memory. Enough for
+// anyone writing by hand; not enough to burn the Resend quota.
+const RATE_WINDOW = 10 * 60 * 1000;
+const RATE_MAX = 5;
+const hits = new Map(); // ip -> submission times within the window
+
+// /privacy says an address is held for ten minutes, then dropped. This sweep
+// runs every minute so that stays true for an address that never posts again;
+// unref'd so it does not hold the process open on shutdown.
+setInterval(() => {
+  const now = Date.now();
+  for (const [ip, times] of hits) {
+    if (now - times[times.length - 1] >= RATE_WINDOW) hits.delete(ip);
+  }
+}, 60 * 1000).unref();
+
+function rateLimit(req, res, next) {
+  const now = Date.now();
+  const recent = (hits.get(req.ip) || []).filter((t) => now - t < RATE_WINDOW);
+  if (recent.length >= RATE_MAX) {
+    return reply(req, res, 429, { error: 'Too many messages. Try again later.' });
+  }
+  recent.push(now);
+  hits.set(req.ip, recent);
+  next();
+}
+
+// Only strings are accepted. Control characters are stripped so nothing can
+// inject a header into the subject or a fake line into the body; the message
+// keeps its newlines and tabs.
+const CONTROL = /[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/g;
+const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+function line(value, max) {
+  return (typeof value === 'string' ? value : '')
+    .replace(CONTROL, '')
+    .replace(/[\r\n]+/g, ' ')
+    .trim()
+    .slice(0, max);
+}
+
+function paragraph(value, max) {
+  return (typeof value === 'string' ? value : '')
+    .replace(CONTROL, '')
+    .replace(/\r\n?/g, '\n')
+    .trim()
+    .slice(0, max);
+}
+
+async function contact(req, res) {
+  const body = req.body || {};
+  const email = line(body.email, 254);
+  const name = line(body.name, 200);
+  const page = line(body.page, 200);
+  const message = paragraph(body.message, 5000);
+
+  if (!EMAIL.test(email)) {
+    return reply(req, res, 400, { error: 'A valid email address is required.' });
   }
 
-  const sanitize = (str) => {
-    if (!str) return '';
-    return String(str).replace(/[<>&"']/g, (c) => ({
-      '<': '&lt;', '>': '&gt;', '&': '&amp;', '"': '&quot;', "'": '&#39;'
-    }[c]));
+  const mail = {
+    from: FROM,
+    to: [CONTACT_EMAIL],
+    reply_to: email,
+    subject: `Open Pasture: message from ${email}`,
+    text:
+      `From: ${name || '(no name)'} <${email}>\n` +
+      `Page: ${page || 'unknown'}\n` +
+      `Time: ${new Date().toISOString()}\n\n` +
+      `${message || '(no message)'}\n`,
   };
 
-  const safeName = sanitize(name) || '(not provided)';
-  const safeEmail = sanitize(email);
-  const safeMessage = sanitize(message) || '(no message)';
-  const safeSource = sanitize(source) || 'unknown';
-  const safePage = sanitize(page) || 'unknown';
-  const timestamp = new Date().toISOString();
-
-  const subject = `[OpenPasture] New lead: ${safeSource} — ${safeEmail}`;
-
-  const html = `
-    <div style="font-family: 'Courier New', monospace; max-width: 560px; margin: 0 auto; color: #1a1e18;">
-      <div style="background: #2a3028; color: #f6f8f4; padding: 16px 20px; font-size: 13px;">
-        <strong>openpasture</strong> — new lead
-      </div>
-      <div style="background: #ffffff; border: 1px solid #c4d0c0; padding: 24px 20px;">
-        <div style="background: #f2f6ee; border: 1px solid #c0d0a8; padding: 6px 12px; display: inline-block; font-size: 11px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.1em; color: #4a6a2e; margin-bottom: 16px;">
-          ${safeSource}
-        </div>
-
-        <table style="width: 100%; font-size: 13px; border-collapse: collapse;">
-          <tr>
-            <td style="padding: 8px 0; color: #647060; vertical-align: top; width: 80px;">source</td>
-            <td style="padding: 8px 0;"><strong>${safeSource}</strong> from <strong>${safePage}</strong></td>
-          </tr>
-          <tr>
-            <td style="padding: 8px 0; color: #647060; vertical-align: top;">name</td>
-            <td style="padding: 8px 0;">${safeName}</td>
-          </tr>
-          <tr>
-            <td style="padding: 8px 0; color: #647060; vertical-align: top;">email</td>
-            <td style="padding: 8px 0;"><a href="mailto:${safeEmail}" style="color: #4a6a2e; font-weight: bold;">${safeEmail}</a></td>
-          </tr>
-          <tr>
-            <td style="padding: 8px 0; color: #647060; vertical-align: top;">message</td>
-            <td style="padding: 8px 0;">${safeMessage}</td>
-          </tr>
-          <tr>
-            <td style="padding: 8px 0; color: #647060; vertical-align: top;">time</td>
-            <td style="padding: 8px 0; font-size: 12px; color: #647060;">${timestamp}</td>
-          </tr>
-        </table>
-      </div>
-      <div style="background: #f6f8f4; border: 1px solid #c4d0c0; border-top: none; padding: 12px 20px; font-size: 11px; color: #647060;">
-        sent by openpasture lead capture
-      </div>
-    </div>
-  `;
-
-  if (!resend) {
-    console.log('RESEND_API_KEY not set — logging lead locally');
-    console.log({ name: safeName, email: safeEmail, source: safeSource, page: safePage, message: safeMessage });
-    return res.json({ success: true });
+  if (!MAIL_CONFIGURED) {
+    if (PRODUCTION) {
+      return reply(req, res, 503, { error: 'The form is not configured yet. Please email instead.' });
+    }
+    console.log(`RESEND_API_KEY not set; logging instead of sending.\n${mail.subject}\n${mail.text}`);
+    return reply(req, res, 200, { success: true });
   }
 
   try {
-    await resend.emails.send({
-      from: 'OpenPasture <onboarding@resend.dev>',
-      to: [CONTACT_EMAIL],
-      replyTo: email,
-      subject,
-      html,
-    });
-
-    return res.json({ success: true });
+    await sendMail(mail);
   } catch (err) {
-    console.error('Resend error:', err);
-    return res.status(500).json({ error: 'Failed to send message. Please try again.' });
+    console.error('Resend error:', err.message || err);
+    return reply(req, res, 500, { error: 'Failed to send message. Please try again.' });
   }
+  return reply(req, res, 200, { success: true });
+}
+
+app.post(
+  '/api/contact',
+  rateLimit,
+  express.json({ limit: '32kb' }),
+  express.urlencoded({ extended: false, limit: '32kb' }),
+  contact
+);
+
+/* --- fallbacks ------------------------------------------------------------ */
+
+app.use(notFound);
+
+// Body-parser rejections (malformed JSON, oversized bodies) and anything else
+// thrown on the way through end here instead of at Express's default handler,
+// which would print a stack trace with filesystem paths into the response.
+app.use((err, req, res, next) => {
+  if (res.headersSent) return next(err);
+  const status = Number(err.status || err.statusCode) || 500;
+  if (status >= 500) console.error(err);
+  const error =
+    status === 413 ? 'Message too long.'
+    : status < 500 ? 'Bad request.'
+    : 'Server error. Please try again.';
+  reply(req, res, status, { error });
 });
 
-app.use((req, res) => {
-  res.status(404).sendFile(path.join(__dirname, 'dist', '404.html'));
+/* --- start ---------------------------------------------------------------- */
+
+const server = app.listen(PORT, () => {
+  console.log(`Open Pasture site listening on port ${PORT}`);
 });
 
-app.listen(PORT, () => {
-  console.log(`openpasture server running on port ${PORT}`);
+// Railway sends SIGTERM on redeploy. Stop accepting connections, let in-flight
+// requests finish, and give up after ten seconds.
+process.on('SIGTERM', () => {
+  server.close(() => process.exit(0));
+  setTimeout(() => process.exit(0), 10000).unref();
 });

@@ -2,7 +2,10 @@
 
 Read [the founder brief](founder-and-product-brief.md) first. The following is a
 recommended design and editorial translation of the interview. Sample copy and
-page names are proposals, not final approved text.
+page names are proposals, not final approved text. The site was built from
+this brief and deployed 2026-09-15. Where a proposal here differs from
+[design-proposal.md](design-proposal.md) or [AGENTS.md](../../AGENTS.md),
+those describe what shipped and take precedence.
 
 ## Job of the new website
 
@@ -59,8 +62,8 @@ Pair with a compact, dated development update. Initial factual copy can say:
 
 > September 2026: first prototype components ordered. Garage assembly is next.
 
-Refresh status before implementation if new evidence exists. Do not imply the
-components have arrived just because time has passed.
+Refresh `partials/status.html` and `SITE.statusDate` when new evidence exists.
+Do not imply the components have arrived just because time has passed.
 
 ### 2. The problem, rooted in two sheep
 
@@ -140,7 +143,9 @@ posts or an invented publication history.
 
 ### 8. A specific invitation
 
-- **Follow:** personal LinkedIn and X profiles and recent posts.
+- **Follow:** personal LinkedIn and X profiles and recent posts, once the
+  profile URLs in the unresolved-inputs table in README.md are supplied. Until
+  then the site links none.
 - **Help build:** hardware and software implementation; link to actual tasks or
   a verified contact route.
 - **Support:** components, equipment, and development/AI costs once a real support
@@ -165,9 +170,11 @@ thin. Recommended primary navigation:
 | About | Mission, founder background, two-sheep origin, for-profit/spare-time identity |
 | Get Involved | Specific engineering help, following, contact, support when configured |
 
-Existing documentation, GitHub, application access, legal pages, and pricing
-should remain discoverable through relevant sections and the footer. Preserve
-existing URLs or map deliberate redirects; see the build handoff.
+Existing documentation, GitHub, application access once `app.openpasture.dev`
+resolves (see [AGENTS.md](../../AGENTS.md)), legal pages, and pricing should
+remain discoverable through relevant sections and the footer. Preserve
+existing URLs or map deliberate redirects; see the `REDIRECTS` map in
+`server.js` and the unresolved-inputs table in [README.md](README.md).
 
 ## Voice
 
@@ -195,13 +202,19 @@ architecture, firmware, model integration, and source documentation.
 
 ## Visual direction
 
+This section is the interview record. The September 14, 2026 rebuild retired
+the camouflage, scanning, and text-scramble effects of the earlier site; the
+live site at openpasture.dev is now the visual reference, and
+[design-proposal.md](design-proposal.md) documents it as shipped.
+
 ### Established preferences
 
 - Crisp, beautiful, well-designed, and future-facing.
 - Inspired by Omarchy, with empathy for farmers and less developer-heavy styling.
-- The current site was already moving toward that aesthetic.
-- No final palette, type system, photo selection, or attachment to the current
-  camo/pixel/pink elements was established before the interview ended.
+- The site at the time was already moving toward that aesthetic.
+- No final palette, type system, photo selection, or attachment to the
+  then-current camo/pixel/pink elements was established before the interview
+  ended.
 
 Reference: [Omarchy](https://omarchy.org/). Discovery checked its homepage text,
 which connects a strong project point of view, a visible creator, and ways to
@@ -217,8 +230,8 @@ choices; this brief is not a rendered visual audit of that site.
 - A restrained pixel detail could preserve continuity with the existing identity.
 - Real pasture, animal, workbench, or prototype imagery when available.
 - An explanatory pasture map rather than a wall of technical product cards.
-- Reduce the dominance of full-screen camouflage, scanning, and text-scrambling
-  effects if they distract from the story.
+- Reduce the dominance of the then-current full-screen camouflage, scanning,
+  and text-scrambling effects if they distract from the story.
 - Subtle motion, good contrast, accessible controls, and a strong mobile layout.
 
 Do not claim generated or stock photography depicts Cody's farm, dog, animals,
@@ -243,5 +256,6 @@ Clearly label "Read on LinkedIn" / "Read on X" when linking out. Prefer simple
 links over embedded feeds initially. Do not publish private drafts or scrape and
 republish full social content without establishing the intended source material.
 
-Visible founder credit and personal social links should appear on About and in
-the footer, with a compact presence elsewhere where useful.
+Visible founder credit appears on About and in the footer. Personal social
+links belong there too, once the profile URLs in the unresolved-inputs table
+in README.md are supplied; until then the site links none.

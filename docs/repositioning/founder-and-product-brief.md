@@ -81,7 +81,8 @@ As of this interview:
 - He intends to assemble it in his garage in his spare time.
 - No working physical collar or field-proven containment was reported.
 - Software exists in the surrounding repositories; the interview does not
-  establish which features currently work end to end.
+  establish which features currently work end to end (what works today is
+  recorded, verified, in [README.md](README.md)).
 - There is no collar available to buy and no delivery date or price was agreed.
 - A working research farm is an aspiration, not an existing project asset.
 
@@ -251,8 +252,9 @@ feature parity between hosted and self-managed offerings.
 
 No new license was selected in this interview. Hardware designs, firmware,
 application software, documentation, and brand assets may require separate
-decisions. The existing agent kit was described in repo guidance as AGPL-3.0;
-verify its actual license before publication. This web repository is closed.
+decisions. The agent kit is AGPL-3.0-only (verified 2026-09-15; see
+[AGENTS.md](../../AGENTS.md) and the Current software capability row in
+[README.md](README.md)). This web repository is closed.
 Do not relicense anything as part of the website rebuild.
 
 Apache was initially mentioned with a mistaken expectation of commercial fees
