@@ -35,7 +35,7 @@ const RESEND_FROM = process.env.RESEND_FROM;
 // Resend's shared test sender. It delivers only to the address that owns the
 // Resend account, which is enough for a one-person project; a sender on a
 // verified domain (RESEND_FROM) lifts that limit.
-const DEFAULT_FROM = 'Open Pasture <onboarding@resend.dev>';
+const DEFAULT_FROM = 'openpasture <onboarding@resend.dev>';
 const FROM = RESEND_FROM || DEFAULT_FROM;
 
 const MAIL_CONFIGURED = Boolean(RESEND_API_KEY);
@@ -258,7 +258,7 @@ async function contact(req, res) {
     from: FROM,
     to: [CONTACT_EMAIL],
     reply_to: email,
-    subject: `Open Pasture: message from ${email}`,
+    subject: `openpasture: message from ${email}`,
     text:
       `From: ${name || '(no name)'} <${email}>\n` +
       `Page: ${page || 'unknown'}\n` +
@@ -312,7 +312,7 @@ app.use((err, req, res, next) => {
 /* --- start ---------------------------------------------------------------- */
 
 const server = app.listen(PORT, () => {
-  console.log(`Open Pasture site listening on port ${PORT}`);
+  console.log(`openpasture site listening on port ${PORT}`);
 });
 
 // Railway sends SIGTERM on redeploy. Stop accepting connections, let in-flight

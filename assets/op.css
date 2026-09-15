@@ -1,4 +1,4 @@
-/* Open Pasture. One canvas, two typefaces, eight colors, one hover tint. */
+/* openpasture. One canvas, two typefaces, eight colors, one hover tint. */
 
 @font-face{font-family:'Barlow';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/barlow-latin-400.woff2') format('woff2')}
 @font-face{font-family:'Barlow';font-style:normal;font-weight:500;font-display:swap;src:url('fonts/barlow-latin-500.woff2') format('woff2')}

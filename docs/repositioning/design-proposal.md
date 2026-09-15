@@ -1,4 +1,4 @@
-# Open Pasture website design, as shipped
+# openpasture website design, as shipped
 
 Updated 2026-09-15. This describes the design deployed to openpasture.dev on
 2026-09-15 (rebuild commit `7212a56`; tidied 2026-09-15) and is the
@@ -9,7 +9,7 @@ of them.
 
 ## Concept
 
-Open Pasture is one person building a hardware and software tool with a
+openpasture is one person building a hardware and software tool with a
 mission-scale goal. The site is the place that build is documented. It reads
 like a well-kept engineering notebook made public: dark, warm, exact, and
 unhurried, with drawings and a dated status list doing the work that cards and

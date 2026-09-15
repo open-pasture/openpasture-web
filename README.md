@@ -1,4 +1,4 @@
-# Open Pasture website
+# openpasture website
 
 The closed repository for [openpasture.dev](https://openpasture.dev). The agent
 kit is a separate public repository,
@@ -45,7 +45,7 @@ comments, and doubles as the checklist for the Railway service's variables.
 | --- | --- |
 | `RESEND_API_KEY` | Resend API key for the contact endpoint. Unset: submissions are logged locally, and the form answers 503 in production. |
 | `CONTACT_EMAIL` | Inbox that receives contact submissions. Required whenever `RESEND_API_KEY` is set; the server exits at start if it is missing. |
-| `RESEND_FROM` | Sender address on a domain verified in Resend, for example `Open Pasture <hello@yourdomain>`. Optional: unset, the server sends as Resend's test sender, which only delivers to the Resend account owner. |
+| `RESEND_FROM` | Sender address on a domain verified in Resend, for example `openpasture <hello@yourdomain>`. Optional: unset, the server sends as Resend's test sender, which only delivers to the Resend account owner. |
 | `PORT` | Port for the Express server. Railway injects it; locally it defaults to 3000. |
 | `NODE_ENV` | Set to `production` on Railway. Leave unset locally. |
 | `RAILWAY_ENVIRONMENT` | Injected by Railway, never set by hand. Its presence makes the server treat the run as production. |

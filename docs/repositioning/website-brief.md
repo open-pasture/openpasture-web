@@ -9,13 +9,13 @@ those describe what shipped and take precedence.
 
 ## Job of the new website
 
-Make it easy to understand why Open Pasture exists, what is being built, how early
+Make it easy to understand why openpasture exists, what is being built, how early
 it is, and how to follow or help. Give the project a durable home as its thinking
 and implementation evolve.
 
 The first visit should answer:
 
-- What is Open Pasture trying to change?
+- What is openpasture trying to change?
 - Why start with a collar?
 - What makes ownership and integration different here?
 - What exists today and what comes next?
@@ -73,7 +73,7 @@ whole website into a personal portfolio.
 
 Candidate copy:
 
-> Open Pasture began with two sheep, an overgrown slope, and too much time spent
+> openpasture began with two sheep, an overgrown slope, and too much time spent
 > moving electric netting. Cody wanted a collar he could own and write software
 > for. Now he's building one, alongside his work and family.
 
@@ -179,7 +179,7 @@ existing URLs or map deliberate redirects; see the `REDIRECTS` map in
 ## Voice
 
 Established preference: the project has its own voice, but feels small and
-personal. Use "Open Pasture" and a natural project "we," with a clear founder
+personal. Use "openpasture" and a natural project "we," with a clear founder
 credit so readers are not misled about team size. Signed first-person notes are
 appropriate for Cody's updates.
 

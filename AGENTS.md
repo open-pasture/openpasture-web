@@ -1,6 +1,6 @@
 # AGENTS.md
 
-This repository is the closed Open Pasture website at openpasture.dev.
+This repository is the closed openpasture website at openpasture.dev.
 
 ## Required reading
 

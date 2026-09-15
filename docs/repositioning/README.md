@@ -1,4 +1,4 @@
-# Open Pasture positioning: source of record
+# openpasture positioning: source of record
 
 Updated 2026-09-15. Source: the founder's website discovery interview of
 September 14, 2026.
@@ -24,7 +24,7 @@ evidence and editorial rules and the implementation mechanics.
 
 ## The story in one paragraph
 
-Open Pasture's mission is to move animal agriculture onto pasture. It is a
+openpasture's mission is to move animal agriculture onto pasture. It is a
 founder-led, spare-time, for-profit project starting with an open, repairable
 livestock collar and a simple application for drawing virtual boundaries. The
 longer-term product is an intelligence layer that brings together farm context,

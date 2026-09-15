@@ -9,19 +9,19 @@ express intent, not shipped capability.
 **Mission: Move animal agriculture onto pasture.**
 
 The founder explicitly chose this as the outcome. Two supporting ideas explain
-how Open Pasture hopes to achieve it:
+how openpasture hopes to achieve it:
 
 - Make pasture-raised meat affordable enough to become the default.
 - Build tools that let pasture-based farms compete at any scale.
 
 The thesis is that automating animal movement can reduce the labor burden of
 grazing management, help farmers scale, and support more productive, profitable
-pasture-based operations. Open Pasture intends to test that thesis in practice.
+pasture-based operations. openpasture intends to test that thesis in practice.
 
 The founder's interest in regenerative grazing includes animal quality of life,
 land improvement, carbon storage, meat quality, carrying capacity, reproductive
 success, and parasite management. These are motivations and hoped-for benefits.
-They are not established outcomes of Open Pasture's technology, nor universal
+They are not established outcomes of openpasture's technology, nor universal
 claims to publish without relevant evidence and qualification.
 
 ## 2. Origin story
@@ -46,7 +46,7 @@ every virtual-fencing vendor lacks APIs or disables hardware on cancellation.
 
 ## 3. Who is building it
 
-Open Pasture is currently Cody Menefee alone. It should have its own project voice
+openpasture is currently Cody Menefee alone. It should have its own project voice
 while remaining visibly small and personal.
 
 Founder background, as described in the interview:
@@ -59,7 +59,7 @@ Founder background, as described in the interview:
 - Experience as a mechanic and tinkerer, bartender, electrician, and in other
   practical summer jobs.
 
-He enjoys his job at Firecrawl and intends to pursue Open Pasture alongside work,
+He enjoys his job at Firecrawl and intends to pursue openpasture alongside work,
 travel, and family. Do not frame the website as a full-time company launch, an
 active investment round, or a transition away from Firecrawl.
 
@@ -161,7 +161,7 @@ Intended inputs include:
 - Farmer field notes and photographs.
 - External information retrieved through integrations.
 
-Users should be able to bring their choice of LLM. Open Pasture does not intend
+Users should be able to bring their choice of LLM. openpasture does not intend
 to build a foundation model or its own satellites. It expects to use outside
 providers. No foundation-lab partnership is established by this interview.
 
@@ -215,7 +215,7 @@ develop and measure, not existing results.
 
 ## 8. Openness and commercial intent
 
-**Open Pasture is intended to be a for-profit endeavor.**
+**openpasture is intended to be a for-profit endeavor.**
 
 The founder is comfortable with all of these scenarios:
 
@@ -226,7 +226,7 @@ The founder is comfortable with all of these scenarios:
 
 Earlier in the interview he considered commercial restrictions, but explicitly
 accepted these scenarios later. Do not reinstate revenue thresholds or a
-requirement that every user buy hardware from Open Pasture.
+requirement that every user buy hardware from openpasture.
 
 He wants protection against misappropriation and a viable business, but accepts
 commercial competition. No license can be represented as guaranteeing that a
@@ -244,7 +244,7 @@ openly integrable with other software. The bet is to earn customers through the
 best complete solution, even when they can choose other suppliers for its parts.
 
 Owners should be able to operate the collar through their own or third-party
-software without subscribing to Open Pasture's intelligence product. That does
+software without subscribing to openpasture's intelligence product. That does
 not promise free cellular service, inference, imagery, hosting, or universal
 feature parity between hosted and self-managed offerings.
 
@@ -320,5 +320,5 @@ Potential funding could accelerate collar development and a research farm, but
 the site should not foreground an active raise or imply he is leaving Firecrawl.
 
 Updates will primarily be personal LinkedIn and X posts, with occasional
-technical write-ups. Open Pasture should provide a home for those updates and
+technical write-ups. openpasture should provide a home for those updates and
 links to his personal profiles. No publication cadence was promised.
