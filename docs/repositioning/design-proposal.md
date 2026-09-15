@@ -100,7 +100,11 @@ One container at 1200px. Sections are separated by a single hairline in
 `--line` and generous vertical space, `clamp(4rem, 9vw, 8rem)`. Most sections
 use a 5/7 split: heading left, content right. The hero uses 6/6. Nothing is
 centered. Radius is zero everywhere. Under 900px every grid collapses to one
-column and the header nav wraps onto its own row.
+column and the header nav wraps onto its own row. Under 600px the five wide
+drawings keep a 640px minimum width and scroll sideways inside a `.scroll`
+wrapper, so their labels stay at reading size, and the hero map's labels scale
+up to 24 user units. Header and footer links carry vertical padding for a
+tap area of at least 36px.
 
 ## Components
 
