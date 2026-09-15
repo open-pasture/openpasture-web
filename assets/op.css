@@ -141,12 +141,20 @@ footer.bottom div{display:flex;gap:1.5rem;flex-wrap:wrap}
 footer.bottom .row{display:flex;justify-content:space-between;gap:1.5rem 2rem;flex-wrap:wrap}
 footer.bottom a:hover{color:var(--fg)}
 
+/* Wide drawings scroll sideways on narrow screens instead of shrinking their
+   labels below reading size. The wrapper is in each fig- partial. */
+.scroll{overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:thin}
+header.top nav a,footer.bottom a{padding:.4rem 0;display:inline-block}
 @media (max-width:900px){
   .cols,.hero .cols{grid-template-columns:1fr}
   header.top nav{width:100%;order:3;gap:1.5rem}
   .rows li{grid-template-columns:1fr}
   .status .r{flex-wrap:wrap}
   .status .r dt{white-space:nowrap}
+}
+@media (max-width:600px){
+  .scroll .fig{min-width:640px}
+  svg.map text{font-size:24px}
 }
 
 /* motion: quiet, once, off when asked */
