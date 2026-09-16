@@ -51,7 +51,8 @@ breaks none of them.
 
 ## Color
 
-Eight color tokens and one hover tint, defined in `:root` in `assets/op.css`.
+Eight color tokens and one hover tint, defined in `:root` in `assets/op.css`;
+the form's field borders are the one derived tint, described under Form.
 One warm dark canvas throughout, no alternating light bands.
 
 | Token | Hex | Use |
@@ -59,10 +60,10 @@ One warm dark canvas throughout, no alternating light bands.
 | `--bg` | `#0E0D0B` | Canvas. Warm near-black. Also the text color on the blaze button. |
 | `--soot` | `#15130F` | One step up from the canvas: the concept frame. |
 | `--fg` | `#F0EBE0` | All reading text. Warm white. The current roadmap label. |
-| `--fg2` | `#B5AD9F` | Dates, secondary lines, footer links, figure captions, figure labels, later roadmap labels, placeholder text, idle header nav links, the hero's secondary link, status-list values, the notes source word, and the form's idle output line. |
-| `--line` | `#2A2620` | Hairlines, frame borders, input borders, terrain lines, the pixel-grid field behind the hero. |
+| `--fg2` | `#B5AD9F` | Dates, secondary lines, footer links, figure captions, figure labels, later roadmap labels, placeholder text, idle header nav links, the hero's secondary link, status-list values, the notes source word, the form's idle output line, the `k-lead` connectors in the drawings at 45% opacity, and the thumb of the drawings' scroll track on phones. Mixed 55% into `--bg` with `color-mix`, it is also the form's field borders, the one derived tint. |
+| `--line` | `#2A2620` | Hairlines, frame borders, terrain lines, the pixel-grid field behind the hero, the drawings' scroll track on phones, and the fallback for the form's field borders where `color-mix` is unsupported. |
 | `--blaze` | `#FF6A2B` | The one accent: the button, the current roadmap stop and its "now", the proposed boundary, the single colored pixel in the mark, focus rings, text selection. |
-| `--blaze2` | `#FF7F4D` | The button while hovered. Nothing else. |
+| `--blaze2` | `#FF7F4D` | The button while hovered or pressed. Nothing else. |
 | `--live` | `#8FD14F` | The active boundary and animal positions in every drawing. Also the "public, AGPL-3.0" row of the status list and the form's success line. |
 | `--red` | `#E5484D` | Hold in the concept frame and the form's error line. |
 
@@ -84,8 +85,18 @@ outside the drawings.
 Barlow for everything read: 400 for body, 500 for headings, bold, the brand,
 and the button. IBM Plex Mono at 400 for dates, times, the status list, the
 countdown, and figure labels. Both are self-hosted as latin-subset
-woff2 files in `assets/fonts/` and declared with `font-display: swap`; all
-three files are preloaded from `layouts/base.html`. Nothing else is loaded.
+woff2 files in `assets/fonts/` and declared with `font-display: swap`. The
+two Barlow files are preloaded from `layouts/base.html` on every page. IBM
+Plex Mono is preloaded only on pages that render it, through the
+`{{monoPreload}}` token that `build.js` sets per page: a preload link when
+the page's composed content uses `.mono`, `.status`, `.big`, `.d` or an
+inline IBM Plex Mono font-family, an empty string otherwise. Nothing else is
+loaded. Each web font has a local stand-in `@font-face` (`Barlow Fallback`,
+`Barlow Fallback Roboto`, `IBM Plex Mono Fallback`) with `size-adjust` and
+metric overrides measured against this site's copy so the swap moves nothing;
+measures are in em rather than ch for the same reason. Re-measure them when a
+font file changes. A `@media print` block at the end of `op.css` swaps the
+palette to white paper and unrolls the drawings.
 
 Body is 18px at line-height 1.5. The home headline is `clamp(3rem, 8vw, 7rem)`
 at line-height 0.95, capped at 12 characters per line. Inner page titles are
@@ -97,14 +108,57 @@ Prose measure is 62 characters; leads and captions are 56.
 ## Layout
 
 One container at 1200px. Sections are separated by a single hairline in
-`--line` and generous vertical space, `clamp(4rem, 9vw, 8rem)`. Most sections
-use a 5/7 split: heading left, content right. The hero uses 6/6. Nothing is
-centered. Radius is zero everywhere. Under 900px every grid collapses to one
-column and the header nav wraps onto its own row. Under 600px the five wide
-drawings keep a 640px minimum width and scroll sideways inside a `.scroll`
-wrapper, so their labels stay at reading size, and the hero map's labels scale
-up to 24 user units. Header and footer links carry vertical padding for a
-tap area of at least 36px.
+`--line` and vertical space of `clamp(3rem, 9vw, 8rem)`, so a phone gets
+3rem. Most sections use a 5/7 split: heading left, content right. The hero
+uses 6/6. Nothing is centered. Radius is zero everywhere. Header, footer,
+hero and notes-list links carry vertical padding (margin-compensated on the
+notes list, so the rows keep their spacing) for a hit box at least 36px tall.
+
+The phone rules live in the `max-width` media blocks near the end of
+`op.css` and change nothing above their width.
+
+- Under 1100px every grid collapses to one column and the hero map is capped
+  at 640px wide.
+- On a phone on its side (under 1100px wide and 500px tall) the map is capped
+  at 120vh instead, so it fits the screen, and its labels scale to 24 user
+  units so they do not shrink with it.
+- Under 900px the inline header links give way to a menu. It is a native
+  `details` element in `partials/header.html`: the summary reads "Menu"
+  (and "Close" while open) beside a column of three pixels from the mark's
+  grid, two in `--fg2` and one in `--blaze`, and sits between the wordmark
+  and the Get involved button. Open, a panel drops under the header, edge to
+  edge, on `--bg` with hairlines above and below: Project, Collar, Notes,
+  About in the heading face at 1.75rem, each a full-width row of about 56px,
+  and Get involved in `--blaze`. The current page's row is in `--fg2`. It
+  opens without JavaScript; `site.js` closes it on Escape, on a tap outside,
+  and after a link is chosen. There is no hamburger icon. Notes-list rows
+  (`.rows`) stack date, title and source, and their links and the footer
+  links widen their padding. Status rows may wrap their value under the
+  label.
+- Under 760px the five drawings keep a minimum width of 680px, or 96px more
+  than the wrapper when that is wider, and scroll sideways inside the
+  `.scroll` wrapper in each `fig-` partial, so their labels stay at reading
+  size and a drawing never overflows by a sliver that reads as whole. The
+  wrapper is `role="group"` with an `aria-label` naming the drawing, and
+  ships `tabindex="0"` so a keyboard can reach it; `site.js` drops the
+  tabindex while nothing overflows and restores it when the viewport narrows.
+  The wrapper extends into the right gutter (a negative right margin of
+  `--gx`, with matching padding) so the cut edge of the drawing shows and
+  invites the scroll. A 2px track in `--line` with an `--fg2` thumb appears
+  only while the drawing overflows, so nothing shows on desktop.
+- Under 600px the hero map's labels scale up to 24 user units and the
+  netting drawing's right half (`.right`) shifts 50 units left.
+- Under 360px the map labels go to 26 units and the second label moves 24
+  units left; the header tightens its gap and the button its padding.
+
+Hover styles (the underline color on links, the button tint, nav and footer
+links brightening, the notes-list underline) sit inside
+`@media (hover: hover)`, so a touch device never keeps a hover state after a
+tap. Each has an `:active` equivalent outside that query, so a press gets the
+same feedback everywhere; `site.js` registers an empty passive `touchstart`
+listener because iOS Safari paints `:active` only once a page listens for
+touch. Under `(hover: none)` the notes-list links are underlined in `--fg2`,
+so their affordance never depends on hovering.
 
 ## Components
 
@@ -117,7 +171,8 @@ identical: `assets/favicon.svg`, `partials/mark.html`, `scripts/og-source.svg`
 `scripts/render-images.js`, which draws the PNG favicons and the Apple touch
 icon. It is the pixel thread through the site: a two-pixel
 ornament (`--fg2`, a gap, `--blaze`) sits at the top-left of every section
-rule, a faint pixel-grid field in `--line` sits behind the hero's right half,
+rule, a faint pixel-grid field in `--line` sits behind the hero's right half
+on desktop and, under 1100px, behind the map's box at the bottom of the hero,
 and every drawing uses square animal markers with crisp edges.
 
 **Status list.** Mono, dotted leaders, a date on top, one line per milestone.
@@ -156,9 +211,11 @@ followed by a single caption in `--fg2`:
   small labels are never the only copy of them.
 
 Every paint in the figures, the map drawing, and the concept frame is a `k-`
-class in `assets/op.css` bound to one of the tokens above: `k-line`, `k-fg`,
-`k-fg2`, `k-blaze`, `k-live`, `k-bg`, with a `-stroke` or `-fill` suffix for a
-token's other role. The SVG carries no hex literals, so a palette change
+class in `assets/op.css` bound to one of the tokens above: `k-line`, `k-lead`,
+`k-fg`, `k-fg2`, `k-blaze`, `k-live`, `k-bg`, with a `-stroke` or `-fill`
+suffix for a token's other role. `k-lead` is `--fg2` at 45% stroke opacity,
+for connectors that carry meaning (leaders, inputs, tracks); `k-line` stays
+for contours. The SVG carries no hex literals, so a palette change
 reaches the drawings. `scripts/og-source.svg` paints with `var()` for the same
 reason; `scripts/render-images.js` inlines it with the `:root` block, so the
 share image takes the palette from `op.css` too. Hex values are repeated in
@@ -174,7 +231,10 @@ measure followed by a lead paragraph. Entry titles are the one h2 that is not
 a section heading.
 
 **Form.** On `/involved`: name, email, message, one blaze button, and a mono
-output line that turns `--live` on success and `--red` on error. It posts to
+output line that turns `--live` on success and `--red` on error. Field borders
+are `--fg2` mixed 55% into `--bg` with `color-mix`, the one derived tint, so
+the boundary clears 3:1 on the canvas once a placeholder is replaced; `--line`
+is the fallback where `color-mix` is unsupported. It posts to
 `/api/contact`. Without JavaScript the same form posts as HTML and comes back
 to `/involved#sent` or `/involved#failed`, which reveals the matching line in
 the same colors. A `mailto:` link sits beneath it as the fallback.
@@ -217,7 +277,8 @@ stay in control, ownership, where it stands, who is building it.
 
 - Hero. "Farm like you're in the future." Two underlined links (Follow the
   build, Explore the project), the status list, and the map drawing on the
-  right over the pixel-grid field.
+  right over the pixel-grid field (below the status list, still over the
+  field, in one column).
 - "Moving animals is the hard part." `fig-netting` and a caption.
 - "So, first: a collar you own." `fig-collar` and a caption linking to
   `/collar`.
@@ -257,8 +318,8 @@ reduced motion turns every bit of it off.
 :root {
   --bg: #0E0D0B; --soot: #15130F; --fg: #F0EBE0; --fg2: #B5AD9F; --line: #2A2620;
   --blaze: #FF6A2B; --blaze2: #FF7F4D; --live: #8FD14F; --red: #E5484D;
-  --sans: 'Barlow', system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --sans: 'Barlow', 'Barlow Fallback', 'Barlow Fallback Roboto', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --mono: 'IBM Plex Mono', 'IBM Plex Mono Fallback', ui-monospace, SFMono-Regular, Menlo, monospace;
   --w: 1200px; --gx: clamp(1.25rem, 4vw, 4rem); --gap: clamp(2rem, 5vw, 5rem);
 }
 ```

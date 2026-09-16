@@ -242,6 +242,17 @@ function build() {
     // Content first, so a page can use partials and tokens of its own.
     context.content = substitute(expandPartials(body), context, `pages/${file}`);
 
+    // IBM Plex Mono is only preloaded on pages whose content actually sets
+    // it: the .mono, .status, .big, and .d classes in op.css, or an inline
+    // SVG font-family. The home LCP element is a mono <text> label in the
+    // map, so it must keep the preload; the legal, docs, pricing, involved,
+    // and 404 pages never render the face before a submit and would fetch
+    // 10.8 KB ahead of their LCP paragraph for nothing. Runs for every
+    // fragment, so the 404 page resolves the token too.
+    context.monoPreload = /IBM Plex Mono|class="(?:[^"]*\s)?(?:mono|status|big|d)(?:\s[^"]*)?"/.test(context.content)
+      ? '<link rel="preload" href="/assets/fonts/ibm-plex-mono-latin-400.woff2" as="font" type="font/woff2" crossorigin>'
+      : '';
+
     let html = substitute(expandPartials(layout), context, `pages/${file}`);
     html = markActiveNav(html, context.nav);
     if (isNotFound) html = markNoindex(html);

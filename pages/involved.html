@@ -17,11 +17,11 @@ nav:
         <label class="vh" for="ask-name">Name</label>
         <input id="ask-name" type="text" name="name" placeholder="Name" autocomplete="name">
         <label class="vh" for="ask-email">Email</label>
-        <input id="ask-email" type="email" name="email" placeholder="Email" autocomplete="email" required>
+        <input id="ask-email" type="email" name="email" placeholder="Email" autocomplete="email" aria-required="true">
         <label class="vh" for="ask-message">What you've built</label>
         <textarea id="ask-message" name="message" placeholder="What you've built"></textarea>
         <button class="btn" type="submit">Send</button>
-        <output></output>
+        <output id="ask-out"></output>
       </form>
       <p id="sent" class="sent" hidden>Received. Cody reads these himself.</p>
       <p id="failed" class="failed" hidden>That did not send. Try again in a moment, or use the address below.</p>
