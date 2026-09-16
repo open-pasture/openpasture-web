@@ -19,6 +19,7 @@
 'use strict';
 
 const express = require('express');
+const compression = require('compression');
 const path = require('path');
 
 const PORT = process.env.PORT || 3000;
@@ -80,15 +81,24 @@ const app = express();
 app.disable('x-powered-by');
 app.set('trust proxy', 1); // Railway's proxy, so req.ip is the visitor
 
+// Railway's edge passes responses through uncompressed, so gzip here. The
+// default filter only touches text types (HTML, CSS, JS, SVG, JSON); the
+// woff2 fonts and PNGs are already compressed and are left alone. Mounted
+// before everything else so it wraps both static handlers and the 404 page.
+app.use(compression());
+
 // Every resource is self-hosted and nothing is styled or scripted inline, so
 // the policy is strict. A style attribute or <style> block in a page would be
-// blocked; keep styling in op.css.
+// blocked; keep styling in op.css. Trusted Types are required for scripts, so
+// site.js must keep to textContent and friends: innerHTML, insertAdjacentHTML
+// or document.write with a plain string would throw in Chrome.
 const SECURITY_HEADERS = {
   'X-Content-Type-Options': 'nosniff',
   'Referrer-Policy': 'strict-origin-when-cross-origin',
   'X-Frame-Options': 'DENY',
   'Permissions-Policy': 'camera=(), microphone=(), geolocation=()',
-  'Strict-Transport-Security': 'max-age=31536000',
+  'Cross-Origin-Opener-Policy': 'same-origin',
+  'Strict-Transport-Security': 'max-age=31536000; includeSubDomains',
   'Content-Security-Policy': [
     "default-src 'self'",
     "script-src 'self'",
@@ -100,6 +110,7 @@ const SECURITY_HEADERS = {
     "frame-ancestors 'none'",
     "base-uri 'self'",
     "object-src 'none'",
+    "require-trusted-types-for 'script'",
   ].join('; '),
 };
 app.use((req, res, next) => {

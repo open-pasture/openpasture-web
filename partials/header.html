@@ -3,11 +3,21 @@
         <span class="mark" aria-hidden="true">{{> mark}}</span>
         openpasture
       </a>
-      <nav aria-label="Primary">
+      <nav class="primary" aria-label="Primary">
         <a href="/project" data-nav="project">Project</a>
         <a href="/collar" data-nav="collar">Collar</a>
         <a href="/notes" data-nav="notes">Notes</a>
         <a href="/about" data-nav="about">About</a>
       </nav>
+      <details class="menu">
+        <summary><span class="menu-px" aria-hidden="true"></span><span class="menu-open">Menu</span><span class="menu-close">Close</span></summary>
+        <nav aria-label="Menu">
+          <a href="/project" data-nav="project">Project</a>
+          <a href="/collar" data-nav="collar">Collar</a>
+          <a href="/notes" data-nav="notes">Notes</a>
+          <a href="/about" data-nav="about">About</a>
+          <a class="menu-cta" href="/involved">Get involved</a>
+        </nav>
+      </details>
       <a class="btn" href="/involved">Get involved</a>
     </header>

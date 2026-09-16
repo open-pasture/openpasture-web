@@ -82,7 +82,15 @@ to the design in
 - **There is a build step.** `build.js` composes `layouts/base.html` with
   fragments in `pages/` and partials in `partials/`, then writes `dist/`.
   `npm run build` runs on `prestart`. Express serves `dist/` only. The build
-  fails on a missing partial or an unresolved `{{token}}`.
+  fails on a missing partial or an unresolved `{{token}}`. One token is
+  computed per page rather than read from `SITE`: `{{monoPreload}}`, which
+  `layouts/base.html` places after the two Barlow preload links. `build.js`
+  sets it to a preload link for the IBM Plex Mono file when the page's
+  composed content uses `.mono`, `.status`, `.big`, `.d` or an inline IBM
+  Plex Mono font-family, and to an empty string otherwise, so pages that
+  never paint the face (legal, docs, pricing, involved, 404) do not fetch it
+  ahead of their first paragraph. It is computed for every fragment, the 404
+  page included, so the token always resolves.
 - Author pages as fragments in `pages/`. Never edit `dist/`; it is generated
   and gitignored.
 - Fragment metadata sits in a leading `<!--meta ... -->` comment: `title`,
@@ -97,14 +105,31 @@ to the design in
   names are Barlow so they read as headings; only its "now" is mono. They
   state nothing measured. Every paint in the drawings, the map, and the
   concept frame is a `k-` class from `assets/op.css` bound to a palette
-  token; the SVG carries no hex literals.
+  token; the SVG carries no hex literals. `k-lead` (`--fg2` at 45% stroke
+  opacity) is for connectors that carry meaning, leaders, inputs and tracks;
+  `k-line` stays for contours. Each figure partial wraps its SVG in a
+  `.scroll` wrapper (`role="group"`, an `aria-label` naming the drawing,
+  `tabindex="0"`) that scrolls sideways under 760px instead of shrinking the
+  labels; the map in the hero has no wrapper because it scales.
 - One stylesheet, `assets/op.css`. Barlow 400 and 500 for all reading text,
-  IBM Plex Mono 400 for dates, times, status, and figure labels. Eight
-  color tokens in `:root`: `--bg`, `--soot`, `--fg`, `--fg2`, `--line`,
-  `--blaze`, `--live`, `--red`, plus `--blaze2`, the button's hover tint. No
-  gradients, glows, badges, eyebrow labels, subtitles under headings, numbered
-  sequences, arrow glyphs, emoji, or card grids. Section headings are plain
-  sentences. Body text is near-white.
+  IBM Plex Mono 400 for dates, times, status, and figure labels. Each web
+  font has a local stand-in `@font-face` (`Barlow Fallback`, `Barlow Fallback
+  Roboto`, `IBM Plex Mono Fallback`) with `size-adjust` and metric overrides
+  measured against this site's copy so the swap moves nothing; measures are
+  in em rather than ch for the same reason. Re-measure them when a font file
+  changes. Eight color tokens in `:root`: `--bg`, `--soot`, `--fg`, `--fg2`,
+  `--line`, `--blaze`, `--live`, `--red`, plus `--blaze2`, the button's hover
+  and press tint, and one derived tint, the form's field borders (`--fg2`
+  mixed 55% into `--bg` with `color-mix`, `--line` as the fallback). No
+  gradients, glows, badges, eyebrow labels, subtitles under headings,
+  numbered sequences, arrow glyphs, emoji, or card grids. Section headings
+  are plain sentences. Body text is near-white. Phone rules live in the
+  `max-width` media blocks near the end of the file (1100, 900, 760, 600 and
+  360px); desktop rules are unscoped. Hover styles sit inside
+  `@media (hover: hover)` and each has an `:active` equivalent outside it, so
+  never add an affordance that exists only on hover. A `@media print` block
+  at the end of `op.css` swaps the palette to white paper and unrolls the
+  drawings.
 - The palette has one source. `scripts/og-source.svg` paints with `var()`
   and is inlined by `scripts/render-images.js` together with the `:root`
   block from `op.css`. Hex values are repeated in three places, because
@@ -113,19 +138,45 @@ to the design in
   `op.css`. Each carries a comment naming the token it mirrors; change them
   when the token changes.
 - `server.js` sends a strict Content-Security-Policy (`style-src 'self'`,
-  `script-src 'self'`, `img-src 'self' data:`). No style attributes, `<style>`
+  `script-src 'self'`, `img-src 'self' data:`,
+  `require-trusted-types-for 'script'`). No style attributes, `<style>`
   blocks, or inline scripts in pages or partials; styling goes in `op.css`,
   behavior in `site.js`. The `data:` allowance exists for the hero's
-  pixel-grid background.
+  pixel-grid background. `require-trusted-types-for 'script'` means
+  `site.js`, and any future script, must build DOM with `textContent`,
+  `createElement` and `setAttribute`, never `innerHTML`,
+  `insertAdjacentHTML`, `document.write` or `DOMParser` with a plain string;
+  Chrome throws on those. `server.js` also gzips text responses (HTML, CSS,
+  JS, SVG, JSON) through the `compression` package, mounted before the static
+  handlers and the 404 page, because Railway's edge passes responses through
+  uncompressed; woff2 and PNG are already compressed and are left alone.
 - `server.js` redirects `www.openpasture.dev` to the apex so every page has
   one URL.
+- Under 900px the header's inline links are replaced by a native
+  `details` menu in `partials/header.html` (summary "Menu"/"Close" with a
+  three-pixel mark, a panel of the four page links plus Get involved). No
+  hamburger icon. It works without JavaScript; `site.js` only closes it on
+  Escape, outside taps, and link choice. The phone rules for it live in the
+  900px block of `op.css`.
 - The only script is `assets/site.js`. It submits the form on `/involved` to
   `/api/contact`, fades section content up once as it scrolls into view with
-  a timed fallback so nothing stays hidden, and pauses the drawings' looping
-  animations while they are off screen. Neither motion behavior runs under
-  `prefers-reduced-motion`. Every page is complete without the script: the
-  form also posts as a plain HTML form and lands back on `/involved#sent` or
-  `/involved#failed`.
+  a timed fallback so nothing stays hidden, pauses the drawings' looping
+  animations while they are off screen, registers an empty passive
+  `touchstart` listener so iOS Safari paints the `:active` press states that
+  `op.css` carries, and keeps `tabindex` on the drawings' `.scroll` wrappers
+  in step with overflow: each wrapper ships `tabindex="0"` in its partial,
+  the script removes it while the whole drawing fits and restores it when
+  the viewport narrows, through a `ResizeObserver` (a `resize` listener
+  where that is missing), and leaves a wrapper that currently has focus
+  alone. Neither motion behavior runs under `prefers-reduced-motion`. Every
+  page is complete without the script: the form also posts as a plain HTML
+  form and lands back on `/involved#sent` or `/involved#failed`, and a
+  drawing that overflows is still reachable by keyboard through the shipped
+  `tabindex`. Above 760px that shipped `tabindex` is inert without the
+  script: the wrapper stays focusable but paints nothing, because the track
+  and thumb under a drawing are drawn only inside the 760px block, the one
+  range where a drawing can overflow. So the cost of running without the
+  script there is an idle tab stop per drawing, never a stray track.
 - `assets/og.png` and the three icon PNGs are written by
   `scripts/render-images.js`. `og.png` is rendered from
   `scripts/og-source.svg`; the three icon PNGs are drawn from the pixel
@@ -137,7 +188,7 @@ to the design in
   `assets/`, so a re-render shows up on the next deploy without renaming
   anything. The font files are the one exception: `op.css` and the preload
   links reference them without a version, so a changed font needs a new
-  filename.
+  filename, and its stand-in `@font-face` in `op.css` re-measured.
 - Redirects from earlier routes are the `REDIRECTS` map in `server.js`.
   `/pricing`, `/docs`, `/privacy`, and `/terms` remain real pages. Unknown
   routes return `dist/404.html` with status 404.
